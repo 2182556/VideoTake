@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">VideoTake</string>
+
+    <string name="image_description">maaltijd</string>
+    <string name="meal_title_placeholder">Maaltijd titel</string>
+    <string name="meal_info_placeholder">Maaltijd info</string>
+</resources>
