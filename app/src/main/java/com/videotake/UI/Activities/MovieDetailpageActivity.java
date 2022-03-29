@@ -1,4 +1,6 @@
 package com.videotake.UI.Activities;
 
-public class MovieDetailpageActivity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MovieDetailpageActivity extends AppCompatActivity {
 }
