@@ -15,17 +15,25 @@ public class MovieViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void trial() { new MovieViewModel.TrialAsyncTask().execute();}
+    public void requestSession(String username, String password) { new MovieViewModel.TrialAsyncTask(username, password).execute();}
 
-
+    public void createList() { APIConnection.createList(); }
 
 
     private static class TrialAsyncTask extends AsyncTask<Void, Void, Void> {
-        private String TAG_NAME = MovieViewModel.TrialAsyncTask.class.getSimpleName();
+        private final String TAG_NAME = MovieViewModel.TrialAsyncTask.class.getSimpleName();
+        private final String username;
+        private final String password;
+
+        protected TrialAsyncTask(String username, String password){
+            this.username = username;
+            this.password = password;
+        }
 
         @Override
         protected Void doInBackground(Void... voids) {
-            APIConnection.trial();
+            APIConnection.requestSession(username, password);
+//            APIConnection.createList();
             return null;
         }
     }

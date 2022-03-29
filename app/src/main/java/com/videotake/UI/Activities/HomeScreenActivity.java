@@ -8,8 +8,10 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.videotake.Logic.MovieViewModel;
 import com.videotake.R;
 import com.videotake.UI.Adapters.MovieListAdapter;
 
@@ -25,10 +27,13 @@ public class HomeScreenActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
         MovieListAdapter mAdapter = new MovieListAdapter(this);
         RecyclerView mRecyclerView = findViewById(R.id.recyclerview);
         mRecyclerView.setAdapter(mAdapter);
+
+        MovieViewModel model = new ViewModelProvider(this).get(MovieViewModel.class);
+        model.requestSession("ExampleAccount", "anexample-1");
+//        model.createList();
     }
 
     @Override
