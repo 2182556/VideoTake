@@ -15,7 +15,8 @@
         android:theme="@style/Theme.VideoTake">
         <activity
             android:name=".UI.Activities.LoginActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.VideoTake.NoActionBar">
 <!--            <intent-filter>-->
 <!--                <action android:name="android.intent.action.MAIN" />-->
 
@@ -24,7 +25,8 @@
         </activity>
         <activity
             android:name=".UI.Activities.HomeScreenActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.VideoTake.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

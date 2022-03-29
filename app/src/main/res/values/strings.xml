@@ -1,7 +1,22 @@
 <resources>
     <string name="app_name">VideoTake</string>
+    <string name="action_settings">Instellingen</string>
 
     <string name="image_description">maaltijd</string>
     <string name="meal_title_placeholder">Maaltijd titel</string>
+    <string name="price">Prijs: </string>
+    <string name="price_full_string">Prijs: €%1$s</string>
+    <string name="spots_left">Plek over: </string>
+    <string name="description_placeholder">Descriptie</string>
+    <string name="date">Geserveerd op </string>
+    <string name="allergeninfo">Allergeneninfo:</string>
+    <string name="allergeninfo_full_string">Allergeneninfo: %1$s</string>
+    <string name="sign_up_button">Aanmelden!</string>
+    <string name="cook_name_placeholder">Kok naam</string>
+    <string name="city_placeholder">Stad</string>
+    <string name="vega">Vega</string>
+    <string name="vegan">Vegan</string>
     <string name="meal_info_placeholder">Maaltijd info</string>
+    <string name="euro">€</string>
+    <string name="filter">Filter</string>
 </resources>
