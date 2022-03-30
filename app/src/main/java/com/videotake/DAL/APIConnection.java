@@ -2,7 +2,11 @@ package com.videotake.DAL;
 
 import android.util.Log;
 
+import com.videotake.Domain.Movie;
+
 import org.json.JSONObject;
+
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -26,8 +30,12 @@ public class APIConnection {
     private static String session_Id;
     private static final String LIST = "list";
 
+    public APIConnection(String username, String password){
+        requestSession(username,password);
+    }
 
-    public static void requestSession(String username, String password) {
+
+    protected void requestSession(String username, String password) {
         try {
             String REQUEST_TOKEN = "";
             Request token_request = new Request.Builder()
@@ -38,7 +46,6 @@ public class APIConnection {
             Log.d(TAG_NAME, "Trying to get request token.");
             try (Response token_request_response = client.newCall(token_request).execute()) {
                 ResponseBody token_request_body = token_request_response.body();
-                Log.d(TAG_NAME, token_request_body.toString());
                 JSONObject token_request_json = new JSONObject(token_request_body.string());
                 Log.d(TAG_NAME,token_request_json.toString());
                 boolean token_request_success = token_request_json.getBoolean("success");
@@ -59,7 +66,6 @@ public class APIConnection {
 
                     try (Response validate_token_response = client.newCall(validate_token_request).execute()) {
                         ResponseBody validate_token_body = validate_token_response.body();
-                        Log.d(TAG_NAME, validate_token_body.toString());
                         JSONObject validate_token_json = new JSONObject(validate_token_body.string());
                         Log.d(TAG_NAME, validate_token_json.toString());
                         boolean validate_token_success = validate_token_json.getBoolean("success");
@@ -75,7 +81,6 @@ public class APIConnection {
                                     .build();
                             try (Response authenticate_session_response = client.newCall(authenticate_session_request).execute()) {
                                 ResponseBody authenticate_session_body = authenticate_session_response.body();
-                                Log.d(TAG_NAME, authenticate_session_body.toString());
                                 JSONObject authenticate_session_json = new JSONObject(authenticate_session_body.string());
                                 Log.d(TAG_NAME, authenticate_session_json.toString());
                                 boolean authenticate_session_success = authenticate_session_json.getBoolean("success");
@@ -92,7 +97,7 @@ public class APIConnection {
         }
     }
 
-    public static void createList(){
+    protected void createList(){
         Log.d(TAG_NAME, "Current session id: " + session_Id);
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
@@ -110,7 +115,6 @@ public class APIConnection {
             OkHttpClient client = new OkHttpClient();
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
-                Log.d(TAG_NAME, body.toString());
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 boolean success = json.getBoolean("success");
@@ -120,5 +124,17 @@ public class APIConnection {
             }
         }
 
+    }
+
+    protected void getAllLists(){
+        while (true) {
+            // if page is empty:
+            break;
+        }
+    }
+
+    public static List<Movie> getTrendingMovies(){
+
+        return null;
     }
 }

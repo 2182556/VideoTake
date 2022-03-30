@@ -17,7 +17,7 @@ public class MovieViewModel extends AndroidViewModel {
 
     public void requestSession(String username, String password) { new MovieViewModel.TrialAsyncTask(username, password).execute();}
 
-    public void createList() { APIConnection.createList(); }
+//    public void createList() { APIConnection.createList(); }
 
 
     private static class TrialAsyncTask extends AsyncTask<Void, Void, Void> {
@@ -32,7 +32,8 @@ public class MovieViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            APIConnection.requestSession(username, password);
+            APIConnection con = new APIConnection(username,password);
+//            APIConnection.requestSession(username, password);
 //            APIConnection.createList();
             return null;
         }
