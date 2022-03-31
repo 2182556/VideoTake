@@ -4,23 +4,23 @@ import java.util.Date;
 
 public class Movie {
 
-    private String MovieID;
-    private String MovieName;
-    private String Description;
-    private String GenreID;
-    private Double Rating;
-    private Date ReleaseDate;
+    private String movieID;
+    private String movieName;
+    private String description;
+    private String genreID;
+    private Double rating;
+    private Date releaseDate;
 
     public String getMovieName() {
-        return MovieName;
+        return movieName;
     }
 
     public String getMovieDescription() {
-        return Description;
+        return description;
     }
 
     public Double getRating() {
-        return Rating;
+        return rating;
     }
 
 }
