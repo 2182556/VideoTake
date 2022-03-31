@@ -1,15 +1,31 @@
 package com.videotake.Domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class Movie {
 
     private String movieID;
     private String movieName;
     private String description;
-    private String genreID;
-    private Double rating;
+    private String posterPath;
+    private String originalLanguage;
+    private List<String> genres;
     private Date releaseDate;
+    private Double rating;
+    private String moviePath;
+
+    public Movie(String movieID, String movieName, String description, String posterPath,
+                 String originalLanguage, List<String> genres, Date releaseDate, Double rating) {
+        this.movieID = movieID;
+        this.movieName = movieName;
+        this.description = description;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguage;
+        this.genres = genres;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+    }
 
     public String getMovieName() {
         return movieName;

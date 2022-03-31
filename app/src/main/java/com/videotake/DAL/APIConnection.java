@@ -4,8 +4,10 @@ import android.util.Log;
 
 import com.videotake.Domain.Movie;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -134,7 +136,29 @@ public class APIConnection {
     }
 
     public static List<Movie> getTrendingMovies(){
+        List<Movie> movies = new ArrayList<>();
+        Request request = new Request.Builder()
+                .url(BASE_URL + TRENDING + LIST + API_KEY)
+                .build();
 
+        OkHttpClient client = new OkHttpClient();
+        try (Response response = client.newCall(request).execute()) {
+            ResponseBody body = response.body();
+            JSONObject json = new JSONObject(body.string());
+            Log.d(TAG_NAME,json.toString());
+            if (json.getInt("total_results")>0){
+
+                JSONArray movieArray = json.getJSONArray("results");
+                for (int i=0; i<movieArray.length(); i++){
+                    JSONObject movie = movieArray.getJSONObject(i);
+
+                }
+            }
+            boolean success = json.getBoolean("success");
+            if (success) Log.d(TAG_NAME,"The list was added to the API");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }

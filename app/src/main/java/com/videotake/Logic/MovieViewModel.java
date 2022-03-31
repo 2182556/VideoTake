@@ -10,6 +10,7 @@ import com.videotake.DAL.APIConnection;
 
 public class MovieViewModel extends AndroidViewModel {
     private final String TAG_NAME = MovieViewModel.class.getSimpleName();
+    private APIConnection con;
 
     public MovieViewModel(@NonNull Application application) {
         super(application);
