@@ -12,7 +12,7 @@
     tools:context=".UI.Activities.LoginActivity">
 
     <EditText
-        android:id="@+id/input_username"
+        android:id="@+id/username"
         android:layout_width="213dp"
         android:layout_height="41dp"
         android:layout_marginTop="260dp"
@@ -35,7 +35,7 @@
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/input_username" />
+        app:layout_constraintTop_toBottomOf="@+id/username" />
 
     <Button
         android:id="@+id/login"
@@ -101,7 +101,7 @@
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/input_username"
+        app:layout_constraintBaseline_toBaselineOf="@+id/username"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="Username" />
 
@@ -110,9 +110,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
         android:text="continue as guest"
         app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="513dp" />
+        app:layout_constraintTop_toBottomOf="@+id/login" />
 
     <Button
         android:id="@+id/Register_button"

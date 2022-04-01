@@ -6,7 +6,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.videotake.DAL.LoggedInUser;
+import com.videotake.DAL.RepositoryCallback;
+import com.videotake.Domain.LoggedInUser;
 import com.videotake.DAL.LoginRepository;
 import com.videotake.DAL.Result;
 import com.videotake.R;
@@ -30,15 +31,19 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String username, String password) {
-        // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
-
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
+        loginRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
+            @Override
+            public void onComplete(Result<LoggedInUser> result) {
+                if (result instanceof Result.Success) {
+                    LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
+//                    loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+                    loginResult.postValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+                } else {
+//                    loginResult.setValue(new LoginResult(R.string.login_failed));
+                    loginResult.postValue(new LoginResult(R.string.login_failed));
+                }
+            }
+        });
     }
 
     public void loginDataChanged(String username, String password) {

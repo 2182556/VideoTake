@@ -21,11 +21,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.videotake.Logic.LoggedInUserView;
-import com.videotake.Logic.LoginFormState;
-import com.videotake.Logic.LoginResult;
-import com.videotake.Logic.LoginViewModel;
-import com.videotake.Logic.LoginViewModelFactory;
+import com.videotake.Logic.*;
 import com.videotake.Logic.MovieViewModel;
 import com.videotake.R;
 import com.videotake.databinding.ActivityLoginBinding;

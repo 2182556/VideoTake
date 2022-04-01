@@ -6,11 +6,11 @@ import android.os.AsyncTask;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.videotake.DAL.APIConnection;
+import com.videotake.DAL.UserDAO;
 
 public class MovieViewModel extends AndroidViewModel {
     private final String TAG_NAME = MovieViewModel.class.getSimpleName();
-    private APIConnection con;
+    private UserDAO con;
 
     public MovieViewModel(@NonNull Application application) {
         super(application);
@@ -33,7 +33,7 @@ public class MovieViewModel extends AndroidViewModel {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            APIConnection con = new APIConnection(username,password);
+//            UserDAO con = new UserDAO(username,password);
 //            APIConnection.requestSession(username, password);
 //            APIConnection.createList();
             return null;

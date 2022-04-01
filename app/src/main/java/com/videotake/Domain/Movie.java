@@ -1,11 +1,12 @@
 package com.videotake.Domain;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
 public class Movie {
 
-    private String movieID;
+    private int movieID;
     private String movieName;
     private String description;
     private String posterPath;
@@ -15,7 +16,7 @@ public class Movie {
     private Double rating;
     private String moviePath;
 
-    public Movie(String movieID, String movieName, String description, String posterPath,
+    public Movie(int movieID, String movieName, String description, String posterPath,
                  String originalLanguage, List<String> genres, Date releaseDate, Double rating) {
         this.movieID = movieID;
         this.movieName = movieName;

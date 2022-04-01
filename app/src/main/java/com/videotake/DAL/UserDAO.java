@@ -2,11 +2,13 @@ package com.videotake.DAL;
 
 import android.util.Log;
 
+import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,27 +19,39 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class APIConnection {
-    private static final String TAG_NAME = APIConnection.class.getSimpleName();
-    private static final String BASE_URL = "https://api.themoviedb.org/3/";
-    private static final String API_KEY = "?api_key=5144de6e9e1919536a34c7c1e2736453";
-    private static final String SEARCH_MOVIE = "search/movie";
-    private static final String TRENDING = "trending/all/week";
-    private static final String QUERY_PARAM = "query";
-    private static final String PAGE = "page";
-    private static final String TOKEN_REQUEST = "authentication/token/new";
-    private static final String VALIDATE_TOKEN = "authentication/token/validate_with_login";
-    private static final String AUTHENTICATE_SESSION = "authentication/session/new";
-    private static final String SESSION_ID_STRING = "session_id";
-    private static String session_Id;
-    private static final String LIST = "list";
+public class UserDAO extends DAO {
+    private static final String TAG_NAME = UserDAO.class.getSimpleName();
+    public final String TOKEN_REQUEST = "authentication/token/new";
+    public final String VALIDATE_TOKEN = "authentication/token/validate_with_login";
+    public final String AUTHENTICATE_SESSION = "authentication/session/new";
+    public final String ACCOUNT = "account";
+    public final String SESSION_ID_STRING = "session_id";
+    public String session_Id;
 
-    public APIConnection(String username, String password){
-        requestSession(username,password);
+//    public UserDAO(String username, String password){
+//        ;
+//    }
+
+    public Result<LoggedInUser> login(String username, String password) {
+        Log.d(TAG_NAME, username + " " +password);
+        try {
+            LoggedInUser user = requestSession(username,password);
+            if (user!=null){
+                return new Result.Success<>(user);
+            } else {
+                throw new IOException();
+            }
+        } catch (Exception e) {
+            return new Result.Error(new IOException("Error logging in", e));
+        }
     }
 
+    public void logout() {
+        // revoke authentication
+        // delete session
+    }
 
-    protected void requestSession(String username, String password) {
+    protected LoggedInUser requestSession(String username, String password) {
         try {
             String REQUEST_TOKEN = "";
             Request token_request = new Request.Builder()
@@ -52,8 +66,8 @@ public class APIConnection {
                 Log.d(TAG_NAME,token_request_json.toString());
                 boolean token_request_success = token_request_json.getBoolean("success");
                 if (token_request_success) {
-                    REQUEST_TOKEN = (String) token_request_json.get("request_token");
-                    Log.d(TAG_NAME,"Successfully retrieved request token");
+                    REQUEST_TOKEN = token_request_json.getString("request_token");
+                    Log.d(TAG_NAME,"Successfully retrieved request token.");
 
                     RequestBody validate_token_requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
@@ -72,8 +86,7 @@ public class APIConnection {
                         Log.d(TAG_NAME, validate_token_json.toString());
                         boolean validate_token_success = validate_token_json.getBoolean("success");
                         if (validate_token_success) {
-                            Log.d(TAG_NAME, "Successfully authenticated request token");
-
+                            Log.d(TAG_NAME, "Successfully validated request token.");
                             RequestBody authenticate_session_requestBody = new MultipartBody.Builder()
                                     .addFormDataPart("request_token", REQUEST_TOKEN)
                                     .build();
@@ -87,16 +100,45 @@ public class APIConnection {
                                 Log.d(TAG_NAME, authenticate_session_json.toString());
                                 boolean authenticate_session_success = authenticate_session_json.getBoolean("success");
                                 if (authenticate_session_success){
-                                    session_Id = (String) authenticate_session_json.get("session_id");
+                                    Log.d(TAG_NAME, "Successfully retrieved session id.");
+                                    session_Id = authenticate_session_json.getString("session_id");
+                                    JSONObject user_details = getUserDetails();
+                                    return new LoggedInUser(user_details.getInt("id"),username,password,session_Id);
+                                } else {
+                                    Log.e(TAG_NAME,"Unable to retrieve session id.");
                                 }
                             }
+                        } else {
+                            Log.e(TAG_NAME,"Unable to validate request token.");
                         }
                     }
+                } else {
+                    Log.e(TAG_NAME,"Unable to retrieve request token.");
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return null;
+    }
+
+    protected JSONObject getUserDetails(){
+        if (session_Id!=null) {
+            Request request = new Request.Builder()
+                    .url(BASE_URL + ACCOUNT + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json = new JSONObject(body.string());
+                Log.d(TAG_NAME,json.toString());
+                return json;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
     }
 
     protected void createList(){
@@ -133,32 +175,5 @@ public class APIConnection {
             // if page is empty:
             break;
         }
-    }
-
-    public static List<Movie> getTrendingMovies(){
-        List<Movie> movies = new ArrayList<>();
-        Request request = new Request.Builder()
-                .url(BASE_URL + TRENDING + LIST + API_KEY)
-                .build();
-
-        OkHttpClient client = new OkHttpClient();
-        try (Response response = client.newCall(request).execute()) {
-            ResponseBody body = response.body();
-            JSONObject json = new JSONObject(body.string());
-            Log.d(TAG_NAME,json.toString());
-            if (json.getInt("total_results")>0){
-
-                JSONArray movieArray = json.getJSONArray("results");
-                for (int i=0; i<movieArray.length(); i++){
-                    JSONObject movie = movieArray.getJSONObject(i);
-
-                }
-            }
-            boolean success = json.getBoolean("success");
-            if (success) Log.d(TAG_NAME,"The list was added to the API");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
