@@ -2,15 +2,12 @@ package com.videotake.DAL;
 
 import android.util.Log;
 
+import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.Domain.Movie;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -19,11 +16,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class UserDAO extends DAO {
-    private static final String TAG_NAME = UserDAO.class.getSimpleName();
+public class UserApiDAO extends ApiDAO {
+    private static final String TAG_NAME = UserApiDAO.class.getSimpleName();
     public final String TOKEN_REQUEST = "authentication/token/new";
     public final String VALIDATE_TOKEN = "authentication/token/validate_with_login";
     public final String AUTHENTICATE_SESSION = "authentication/session/new";
+    public final String GUEST_SESSION = "authentication/guest_session/new";
     public final String ACCOUNT = "account";
     public final String SESSION_ID_STRING = "session_id";
     public String session_Id;
@@ -36,10 +34,11 @@ public class UserDAO extends DAO {
         Log.d(TAG_NAME, username + " " +password);
         try {
             LoggedInUser user = requestSession(username,password);
-            if (user!=null){
+            Log.d(TAG_NAME, "The value of user is: " + user);
+            if (user!=null) {
                 return new Result.Success<>(user);
             } else {
-                throw new IOException();
+                return new Result.Error(new IOException("Error logging in", new NullPointerException()));
             }
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
@@ -175,5 +174,32 @@ public class UserDAO extends DAO {
             // if page is empty:
             break;
         }
+    }
+
+    public Result<GuestUser> createGuestSession(){
+        try {
+            Request guest_session_request = new Request.Builder()
+                    .url(BASE_URL + GUEST_SESSION + API_KEY)
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            try (Response authenticate_session_response = client.newCall(guest_session_request).execute()) {
+                ResponseBody authenticate_session_body = authenticate_session_response.body();
+                JSONObject authenticate_session_json = new JSONObject(authenticate_session_body.string());
+                Log.d(TAG_NAME, authenticate_session_json.toString());
+                boolean authenticate_session_success = authenticate_session_json.getBoolean("success");
+                if (authenticate_session_success){
+                    Log.d(TAG_NAME, "Successfully retrieved guest session id.");
+                    String guest_session_id = authenticate_session_json.getString("guest_session_id");
+                    GuestUser user = new GuestUser(guest_session_id);
+                    return new Result.Success<>(user);
+                } else {
+                    Log.e(TAG_NAME,"Unable to retrieve guest session id.");
+                }
+            }
+        } catch (Exception e) {
+            return new Result.Error(new IOException("Error logging in", e));
+        }
+
+        return null;
     }
 }

@@ -1,0 +1,84 @@
+package com.videotake.DAL;
+
+import android.util.Log;
+
+import com.videotake.Domain.Movie;
+import com.videotake.Domain.MovieList;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.ResponseBody;
+
+public class MovieApiDAO extends ApiDAO {
+    private static final String TAG_NAME = MovieApiDAO.class.getSimpleName();
+    private static Map<Integer,String> genres;
+
+    public static Result<MovieList> getTrendingMovies(){
+        try {
+            List<Movie> movies = new ArrayList<>();
+            Request request = new Request.Builder()
+                    .url(BASE_URL + TRENDING + API_KEY)
+                    .build();
+
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json_response = new JSONObject(body.string());
+                Log.d(TAG_NAME,json_response.toString());
+                if (json_response.getInt("total_results")>0){
+                    if (genres==null) {
+                        Request genre_request = new Request.Builder()
+                                .url(BASE_URL + MOVIE_GENRES + API_KEY)
+                                .build();
+                        try (Response genre_response = client.newCall(genre_request).execute()) {
+                            ResponseBody genre_body = genre_response.body();
+                            JSONObject json_genre_response = new JSONObject(genre_body.string());
+                            Log.d(TAG_NAME, json_genre_response.toString());
+                            JSONArray genreArray = json_genre_response.getJSONArray("genres");
+                            genres = new HashMap<>();
+                            for (int i=0; i<genreArray.length(); i++){
+                                JSONObject genre = genreArray.getJSONObject(i);
+                                genres.put(genre.getInt("id"),genre.getString("name"));
+                            }
+                        }
+                    }
+
+                    JSONArray movieArray = json_response.getJSONArray("results");
+                    for (int i=0; i<movieArray.length(); i++){
+                        JSONObject json = movieArray.getJSONObject(i);
+                        JSONArray genres_json = json.getJSONArray("genre_ids");
+                        List<String> movieGenres = new ArrayList<>();
+                        for (int j=0; j<genres_json.length(); j++){
+                            int genre = genres_json.getInt(j);
+                            movieGenres.add(genres.get(genre));
+                        }
+                        Movie movie = new Movie(json.getInt("id"),json.getString("original_title"),
+                                json.getString("overview"),json.getString("poster_path"),
+                                json.getString("original_language"), movieGenres,
+                                new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
+                                json.getDouble("vote_average"));
+                        movies.add(movie);
+                    }
+                    return new Result.Success<>(new MovieList("Trending",
+                            "Trending movies for the homescreen", movies));
+                } else {
+                    return new Result.Error(new IOException("No results found for trending", new NullPointerException()));
+                }
+            }
+        } catch (Exception e) {
+            return new Result.Error(new IOException("Error logging in", e));
+        }
+    }
+
+}

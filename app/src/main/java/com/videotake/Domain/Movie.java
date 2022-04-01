@@ -29,15 +29,17 @@ public class Movie {
     }
 
     public String getMovieName() {
-        return movieName;
+        return this.movieName;
     }
 
     public String getMovieDescription() {
-        return description;
+        return this.description;
     }
 
     public Double getRating() {
-        return rating;
+        return this.rating;
     }
+
+    public String getPosterPath() { return this.posterPath; }
 
 }

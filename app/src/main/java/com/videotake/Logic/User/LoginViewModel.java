@@ -1,4 +1,4 @@
-package com.videotake.Logic;
+package com.videotake.Logic.User;
 
 import android.util.Patterns;
 
@@ -7,8 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.videotake.DAL.RepositoryCallback;
+import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.DAL.LoginRepository;
+import com.videotake.DAL.UserRepository;
 import com.videotake.DAL.Result;
 import com.videotake.R;
 
@@ -16,10 +17,15 @@ public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
-    private LoginRepository loginRepository;
+    private MutableLiveData<GuestSessionResult> guestSessionResult = new MutableLiveData<>();
+    private UserRepository userRepository;
 
-    LoginViewModel(LoginRepository loginRepository) {
-        this.loginRepository = loginRepository;
+    LoginViewModel(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
+
+    public LoggedInUser getLoggedInUser(){
+        return this.userRepository.getLoggedInUser();
     }
 
     public LiveData<LoginFormState> getLoginFormState() {
@@ -31,15 +37,13 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void login(String username, String password) {
-        loginRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
+        userRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
             @Override
             public void onComplete(Result<LoggedInUser> result) {
                 if (result instanceof Result.Success) {
                     LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-//                    loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
                     loginResult.postValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
                 } else {
-//                    loginResult.setValue(new LoginResult(R.string.login_failed));
                     loginResult.postValue(new LoginResult(R.string.login_failed));
                 }
             }
@@ -58,18 +62,29 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder username validation check
     private boolean isUserNameValid(String username) {
-        if (username == null) {
-            return false;
-        }
-        if (username.contains("@")) {
-            return Patterns.EMAIL_ADDRESS.matcher(username).matches();
-        } else {
-            return !username.trim().isEmpty();
-        }
+        return username != null && !username.trim().isEmpty();
     }
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && password.trim().length() > 5;
+        return password != null && !password.trim().isEmpty();
+    }
+
+    public void useAsGuest(){
+        userRepository.useAsGuest(new RepositoryCallback<GuestUser>() {
+            @Override
+            public void onComplete(Result<GuestUser> result) {
+                if (result instanceof Result.Success) {
+                    GuestUser data = ((Result.Success<GuestUser>) result).getData();
+                    guestSessionResult.postValue(new GuestSessionResult());
+                } else {
+                    guestSessionResult.postValue(new GuestSessionResult(R.string.login_failed));
+                }
+            }
+        });
+    }
+
+    public LiveData<GuestSessionResult> getGuestSessionResult() {
+        return this.guestSessionResult;
     }
 }

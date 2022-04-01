@@ -18,4 +18,8 @@ public class MovieList {
         this.listDescription = listDescription;
         this.movies = movies;
     }
+
+    public List<Movie> getMovies(){
+        return this.movies;
+    }
 }

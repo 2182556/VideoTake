@@ -1,4 +1,4 @@
-package com.videotake.Logic;
+package com.videotake.Logic.User;
 
 import com.videotake.Domain.Movie;
 
@@ -16,5 +16,9 @@ public class LoggedInUserView {
 
     public String getDisplayName() {
         return displayName;
+    }
+
+    public Map<String, List<Movie>> getMovieLists() {
+        return movieLists;
     }
 }

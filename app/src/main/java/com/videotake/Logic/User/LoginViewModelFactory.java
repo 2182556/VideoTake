@@ -1,14 +1,12 @@
-package com.videotake.Logic;
+package com.videotake.Logic.User;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.videotake.DAL.LoginRepository;
-import com.videotake.DAL.UserDAO;
+import com.videotake.DAL.UserRepository;
+import com.videotake.DAL.UserApiDAO;
 import com.videotake.VideoTake;
-
-import java.util.concurrent.Executor;
 
 public class LoginViewModelFactory implements ViewModelProvider.Factory {
 
@@ -17,7 +15,7 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     @SuppressWarnings("unchecked")
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
-            return (T) new LoginViewModel(LoginRepository.getInstance(new UserDAO(), VideoTake.executorService));
+            return (T) new LoginViewModel(UserRepository.getInstance(new UserApiDAO(), VideoTake.executorService));
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }

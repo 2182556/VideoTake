@@ -1,39 +1,94 @@
 package com.videotake.UI.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+import com.videotake.Domain.Movie;
+import com.videotake.R;
+import com.videotake.UI.Activities.MovieDetailpageActivity;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class MovieListAdapter extends
         RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
+    private final String TAG_NAME = MovieListAdapter.class.getSimpleName();
+    private List<Movie> allMovies;
+    private final LayoutInflater mInflater;
 
     public MovieListAdapter(Context context) {
-
+        mInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public MovieListAdapter.MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return null;
+        View mItemView = mInflater.inflate(R.layout.movielist_item,parent,false);
+        return new MovieViewHolder(mItemView,this);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MovieListAdapter.MovieViewHolder holder, int position) {
+        Movie mCurrent = allMovies.get(position);
+        holder.titleMeal.setText(mCurrent.getMovieName());
+        holder.priceMeal.setText(String.valueOf(mCurrent.getRating()));
+        Picasso.with(mInflater.getContext())
+                .load("https://image.tmdb.org/t/p/original/" + mCurrent.getPosterPath())
+                .into(holder.imgMeal);
+    }
 
+    public void setData(List<Movie> items) {
+        Log.d(TAG_NAME,"Data updated");
+        allMovies = items;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        if (allMovies != null) {
+            return allMovies.size();
+        } else {
+            return 0;
+        }
     }
 
     static class MovieViewHolder extends RecyclerView.ViewHolder {
+        final MovieListAdapter adapter;
+        public final TextView titleMeal;
+        public final TextView priceMeal;
+        public ImageView imgMeal;
 
-        public MovieViewHolder(@NonNull View itemView) {
+        public MovieViewHolder(@NonNull View itemView, MovieListAdapter adapter) {
             super(itemView);
+            titleMeal = itemView.findViewById(R.id.rec_meal_title);
+            priceMeal = itemView.findViewById(R.id.rec_meal_info);
+            imgMeal = itemView.findViewById(R.id.rec_meal_image);
+            this.adapter = adapter;
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Context context = v.getContext();
+                    Intent intent = new Intent(context, MovieDetailpageActivity.class);
+//                    intent.putExtra("meal",allMovies.get(getLayoutPosition()));
+                    context.startActivity(intent);
+                }
+            });
         }
     }
 }
