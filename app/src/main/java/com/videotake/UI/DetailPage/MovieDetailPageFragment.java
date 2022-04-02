@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
 import com.videotake.Logic.Movie.MovieResult;
+import com.videotake.Logic.Movie.MovieViewModel;
+import com.videotake.Logic.Movie.MovieViewModelFactory;
 import com.videotake.Logic.User.LoggedInUserView;
 import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.Logic.User.LoginViewModelFactory;
@@ -38,6 +40,8 @@ import java.util.List;
 public class MovieDetailPageFragment extends Fragment {
     private final String TAG_NAME = MovieDetailPageFragment.class.getSimpleName();
     private FragmentDetailPageBinding binding;
+    private MovieViewModel movieViewModel;
+    private Movie movie;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -46,7 +50,9 @@ public class MovieDetailPageFragment extends Fragment {
         View root = binding.getRoot();
 
         int movieId = MovieDetailPageFragmentArgs.fromBundle(getArguments()).getMovieId();
-        Log.d(TAG_NAME, String.valueOf(movieId));
+
+        //resources for strings
+        Resources res = getResources();
 
         ImageView image = binding.mealImage;
         TextView title = binding.mealTitle;
@@ -59,12 +65,22 @@ public class MovieDetailPageFragment extends Fragment {
         TextView cookName = binding.cookName;
         TextView cookCity = binding.cookCity;
 
-        title.setText("Hello there");
-        description.setText("" + movieId);
+        movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
+                .get(MovieViewModel.class);
+        movieViewModel.getMovieById(movieId);
+        movieViewModel.getMovieByIdResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
+            @Override
+            public void onChanged(@Nullable MovieResult movieResult) {
+                if (movieResult == null) {
+                    return;
+                }
+//                loadingProgressBar.setVisibility(View.GONE);
+                if (movieResult.getError() == null) {
+                    movie = movieViewModel.getMovieByIdResultMovie();
+                    title.setText(movie.getMovieName());
+                    description.setText(movie.getMovieDescription());
 
-        //resources for strings
-        Resources res = getResources();
-
+                    //examples from shareameal
 //        title.setText(meal.getTitle());
 //        description.setText(meal.getDescription());
 //        price.setText(String.format(res.getString(R.string.price_full_string),meal.getFormattedPrice()));
@@ -74,6 +90,19 @@ public class MovieDetailPageFragment extends Fragment {
 //
 //        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
 //        cookCity.setText(meal.getCook().getCity());
+                    //etc
+                } else {
+                    Log.d(TAG_NAME, "An error occurred when trying to load movie with id: " + movieId);
+//                    showLoginFailed(loginResult.getError());
+                }
+//                setResult(Activity.RESULT_OK);
+            }
+        });
+        Log.d(TAG_NAME, String.valueOf(movieId));
+
+
+
+
 
         return root;
     }

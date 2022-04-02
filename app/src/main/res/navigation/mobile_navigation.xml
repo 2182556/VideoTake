@@ -27,11 +27,21 @@
             app:argType="integer" />
     </fragment>
 
-    <!--    <fragment-->
-<!--        android:id="@+id/nav_detail_page"-->
-<!--        android:name="com.videotake.UI.DetailPage.MovieDetailPageFragment"-->
-<!--        android:label="@string/menu_gallery"-->
-<!--        tools:layout="@layout/fragment_detail_page" />-->
+        <fragment
+        android:id="@+id/nav_list_overview"
+        android:name="com.videotake.UI.Lists.ListOverviewFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_list_overview" >
+            <action
+                android:id="@+id/action_nav_list_overview_to_nav_movie_list"
+                app:destination="@id/nav_movie_list" />
+        </fragment>
+
+    <fragment
+        android:id="@+id/nav_movie_list"
+        android:name="com.videotake.UI.Lists.MovieListFragment"
+        android:label="@string/menu_gallery"
+        tools:layout="@layout/fragment_movie_list" />
 
 <!--    <fragment-->
 <!--        android:id="@+id/nav_slideshow"-->

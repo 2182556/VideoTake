@@ -1,4 +1,4 @@
-package com.videotake.UI.ListOverview;
+package com.videotake.UI.Lists;
 
 import androidx.appcompat.app.AppCompatActivity;
 

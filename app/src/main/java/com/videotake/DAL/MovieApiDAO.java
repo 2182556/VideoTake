@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
+import com.videotake.Domain.Review;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -15,13 +16,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
 public class MovieApiDAO extends ApiDAO {
     private static final String TAG_NAME = MovieApiDAO.class.getSimpleName();
+    private static final String YOUTUBE_PATH = "https://www.youtube.com/watch?v=";
+    private static final String VIMEO_PATH = "https://vimeo.com/";
+    private static final String THEMOVIEDB_URL = "https://www.themoviedb.org/";
     private static Map<Integer,String> genres;
 
     public static Result<MovieList> getTrendingMovies(){
@@ -77,7 +83,65 @@ public class MovieApiDAO extends ApiDAO {
                 }
             }
         } catch (Exception e) {
-            return new Result.Error(new IOException("Error logging in", e));
+            return new Result.Error(new IOException("Could not get trending movies", e));
+        }
+    }
+
+    public static Result<Movie> getMovieById(int id){
+        Movie movie;
+        RequestBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("append_to_response", "videos,reviews")
+                .build();
+        Request request = new Request.Builder()
+                .url(BASE_URL + MOVIE + id + API_KEY + "&append_to_response=videos,reviews")
+//                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        try (Response response = client.newCall(request).execute()) {
+            ResponseBody body = response.body();
+            JSONObject json = new JSONObject(body.string());
+            Log.d(TAG_NAME, json.toString());
+            JSONArray genres_json = json.getJSONArray("genres");
+            List<String> movieGenres = new ArrayList<>();
+            for (int i=0; i<genres_json.length(); i++){
+                JSONObject genre = genres_json.getJSONObject(i);
+                movieGenres.add(genre.getString("name"));
+            }
+            movie = new Movie(json.getInt("id"),json.getString("original_title"),
+                    json.getString("overview"),json.getString("poster_path"),
+                    json.getString("original_language"), movieGenres,
+                    new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
+                    json.getDouble("vote_average"));
+            movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
+            JSONObject videos_object = json.getJSONObject("videos");
+            JSONArray videos_json = videos_object.getJSONArray("results");
+            for (int i=0; i<videos_json.length(); i++){
+                JSONObject video = videos_json.getJSONObject(i);
+                if (video.getBoolean("official") && video.getString("type").equals("Trailer")){
+                    if (video.getString("site").equals("Youtube")){
+                        movie.setVideoPath(YOUTUBE_PATH + video.getString("key"));
+                        break;
+                    } else if (video.getString("site").equals("Vimeo")) {
+                        movie.setVideoPath(VIMEO_PATH + video.getString("key"));
+                        break;
+                    }
+                }
+            }
+            JSONObject reviews_object = json.getJSONObject("reviews");
+            JSONArray reviews_json = reviews_object.getJSONArray("results");
+            List<Review> reviews = new ArrayList<>();
+            for (int i=0; i<reviews_json.length(); i++){
+                JSONObject review_json = reviews_json.getJSONObject(i);
+                Review review = new Review(review_json.optString("id"),review_json.optString("author"),
+                        review_json.optString("content"), review_json.optDouble("rating"));
+                reviews.add(review);
+            }
+            movie.setReviews(reviews);
+            return new Result.Success<>(movie);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result.Error(new IOException("Could not retrieve movie with id: " + id, e));
         }
     }
 

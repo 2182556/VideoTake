@@ -1,5 +1,6 @@
 package com.videotake.DAL;
 
+import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
 
 import java.util.concurrent.Executor;
@@ -11,6 +12,8 @@ public class MovieRepository {
     private MovieApiDAO movieDAO;
 
     private MovieList trendingMovies = null;
+
+    private Movie movieById = null;
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
@@ -43,6 +46,25 @@ public class MovieRepository {
                 Result<MovieList> result = MovieApiDAO.getTrendingMovies();
                 if (result instanceof Result.Success) {
                     setTrendingMovies(((Result.Success<MovieList>) result).getData());
+                }
+                callback.onComplete(result);
+            }
+        });
+    }
+
+    public void setMovieById(Movie movie) { this.movieById = movie; }
+
+    public Movie getMovieByIdResultMovie() {
+        return this.movieById;
+    }
+
+    public void getMovieById(int id, final RepositoryCallback<Movie> callback){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Result<Movie> result = MovieApiDAO.getMovieById(id);
+                if (result instanceof Result.Success) {
+                    setMovieById(((Result.Success<Movie>) result).getData());
                 }
                 callback.onComplete(result);
             }

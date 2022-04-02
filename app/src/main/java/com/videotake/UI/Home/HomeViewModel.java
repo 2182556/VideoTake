@@ -40,10 +40,6 @@ public class HomeViewModel extends ViewModel {
         this.movieRepository = movieRepository;
     }
 
-//    public LoggedInUser getLoggedInUser(){
-//        return this.movieRepository.getLoggedInUser();
-//    }
-
     public MovieList getTrendingMovieList(){
         return this.movieRepository.getTrendingMovieList();
     }

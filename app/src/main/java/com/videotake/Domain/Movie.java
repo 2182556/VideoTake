@@ -14,7 +14,9 @@ public class Movie {
     private List<String> genres;
     private Date releaseDate;
     private Double rating;
-    private String moviePath;
+    private String videoPath;
+    private String shareableLink;
+    private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
                  String originalLanguage, List<String> genres, Date releaseDate, Double rating) {
@@ -44,4 +46,23 @@ public class Movie {
 
     public int getMovieID() { return this.movieID; }
 
+    public void setVideoPath(String videoPath){ this.videoPath = videoPath; }
+
+    public String getVideoPath(){ return this.videoPath; }
+
+    public String getShareableLink() {
+        return shareableLink;
+    }
+
+    public void setShareableLink(String shareableLink) {
+        this.shareableLink = shareableLink;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

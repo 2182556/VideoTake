@@ -3,7 +3,7 @@ package com.videotake.Domain;
 import java.util.List;
 import java.util.Map;
 
-public class LoggedInUser {
+public class LoggedInUser implements User {
 
     private int userId;
     private String displayName;
