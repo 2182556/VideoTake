@@ -84,9 +84,10 @@ public class MovieListAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+//                    allMovies.get(getLayoutPosition()).getMovieID())
                     HomeFragmentDirections.ActionNavHomeToMovieDetailPageFragment action =
                             HomeFragmentDirections.actionNavHomeToMovieDetailPageFragment(
-                                    allMovies.get(getLayoutPosition()).getMovieID());
+                                    getLayoutPosition());
                     Navigation.findNavController(v).navigate(action);
                 }
             });

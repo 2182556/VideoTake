@@ -11,7 +11,11 @@ import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.DAL.UserRepository;
 import com.videotake.DAL.Result;
+import com.videotake.Domain.MovieList;
+import com.videotake.Logic.Movie.MovieResult;
 import com.videotake.R;
+
+import java.util.List;
 
 public class LoginViewModel extends ViewModel {
 
@@ -19,6 +23,8 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private MutableLiveData<GuestSessionResult> guestSessionResult = new MutableLiveData<>();
     private UserRepository userRepository;
+
+    private MutableLiveData<MovieResult> listsResult = new MutableLiveData<>();
 
     LoginViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -36,6 +42,8 @@ public class LoginViewModel extends ViewModel {
         return loginResult;
     }
 
+    public List<MovieList> getUserLists(){ return userRepository.getUserLists(); }
+
     public void login(String username, String password) {
         userRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
             @Override
@@ -45,6 +53,20 @@ public class LoginViewModel extends ViewModel {
                     loginResult.postValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
                 } else {
                     loginResult.postValue(new LoginResult(R.string.login_failed));
+                }
+            }
+        });
+    }
+
+    public void lists() {
+        userRepository.lists( new RepositoryCallback<List<MovieList>>() {
+            @Override
+            public void onComplete(Result<List<MovieList>> result) {
+                if (result instanceof Result.Success) {
+                    List<MovieList> data = ((Result.Success<List<MovieList>>) result).getData();
+                    listsResult.postValue(new MovieResult());
+                } else {
+                    listsResult.postValue(new MovieResult(R.string.get_lists_failed));
                 }
             }
         });

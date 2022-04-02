@@ -41,7 +41,6 @@ public class MovieApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json_response = new JSONObject(body.string());
-                Log.d(TAG_NAME,json_response.toString());
                 if (json_response.getInt("total_results")>0){
                     if (genres==null) {
                         Request genre_request = new Request.Builder()
@@ -50,7 +49,6 @@ public class MovieApiDAO extends ApiDAO {
                         try (Response genre_response = client.newCall(genre_request).execute()) {
                             ResponseBody genre_body = genre_response.body();
                             JSONObject json_genre_response = new JSONObject(genre_body.string());
-                            Log.d(TAG_NAME, json_genre_response.toString());
                             JSONArray genreArray = json_genre_response.getJSONArray("genres");
                             genres = new HashMap<>();
                             for (int i=0; i<genreArray.length(); i++){
@@ -69,13 +67,15 @@ public class MovieApiDAO extends ApiDAO {
                             int genre = genres_json.getInt(j);
                             movieGenres.add(genres.get(genre));
                         }
-                        Movie movie = new Movie(json.getInt("id"),json.getString("original_title"),
-                                json.getString("overview"),json.getString("poster_path"),
+                        Movie movie = new Movie(json.getInt("id"), json.getString("original_title"),
+                                json.getString("overview"), json.getString("poster_path"),
                                 json.getString("original_language"), movieGenres,
                                 new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
                                 json.getDouble("vote_average"));
+                        movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
                         movies.add(movie);
                     }
+                    Log.d(TAG_NAME, "Successfully retrieved movies");
                     return new Result.Success<>(new MovieList("Trending",
                             "Trending movies for the homescreen", movies));
                 } else {
@@ -88,7 +88,16 @@ public class MovieApiDAO extends ApiDAO {
     }
 
     public static Result<Movie> getMovieById(int id){
-        Movie movie;
+        Movie movie = getMovieByIdInClass(id);
+        if (movie!=null){
+            return new Result.Success<>(movie);
+        } else {
+            return new Result.Error(new IOException("Could not retrieve movie with id: " + id));
+        }
+    }
+
+    protected static Movie getMovieByIdInClass(int id){
+        Movie movie = null;
         RequestBody requestBody = new MultipartBody.Builder()
                 .addFormDataPart("append_to_response", "videos,reviews")
                 .build();
@@ -101,25 +110,24 @@ public class MovieApiDAO extends ApiDAO {
         try (Response response = client.newCall(request).execute()) {
             ResponseBody body = response.body();
             JSONObject json = new JSONObject(body.string());
-            Log.d(TAG_NAME, json.toString());
             JSONArray genres_json = json.getJSONArray("genres");
             List<String> movieGenres = new ArrayList<>();
-            for (int i=0; i<genres_json.length(); i++){
+            for (int i = 0; i < genres_json.length(); i++) {
                 JSONObject genre = genres_json.getJSONObject(i);
                 movieGenres.add(genre.getString("name"));
             }
-            movie = new Movie(json.getInt("id"),json.getString("original_title"),
-                    json.getString("overview"),json.getString("poster_path"),
+            movie = new Movie(json.getInt("id"), json.getString("original_title"),
+                    json.getString("overview"), json.getString("poster_path"),
                     json.getString("original_language"), movieGenres,
                     new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
                     json.getDouble("vote_average"));
             movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
             JSONObject videos_object = json.getJSONObject("videos");
             JSONArray videos_json = videos_object.getJSONArray("results");
-            for (int i=0; i<videos_json.length(); i++){
+            for (int i = 0; i < videos_json.length(); i++) {
                 JSONObject video = videos_json.getJSONObject(i);
-                if (video.getBoolean("official") && video.getString("type").equals("Trailer")){
-                    if (video.getString("site").equals("Youtube")){
+                if (video.getBoolean("official") && video.getString("type").equals("Trailer")) {
+                    if (video.getString("site").equals("Youtube")) {
                         movie.setVideoPath(YOUTUBE_PATH + video.getString("key"));
                         break;
                     } else if (video.getString("site").equals("Vimeo")) {
@@ -131,18 +139,17 @@ public class MovieApiDAO extends ApiDAO {
             JSONObject reviews_object = json.getJSONObject("reviews");
             JSONArray reviews_json = reviews_object.getJSONArray("results");
             List<Review> reviews = new ArrayList<>();
-            for (int i=0; i<reviews_json.length(); i++){
+            for (int i = 0; i < reviews_json.length(); i++) {
                 JSONObject review_json = reviews_json.getJSONObject(i);
-                Review review = new Review(review_json.optString("id"),review_json.optString("author"),
+                Review review = new Review(review_json.optString("id"), review_json.optString("author"),
                         review_json.optString("content"), review_json.optDouble("rating"));
                 reviews.add(review);
             }
             movie.setReviews(reviews);
-            return new Result.Success<>(movie);
         } catch (Exception e) {
             e.printStackTrace();
-            return new Result.Error(new IOException("Could not retrieve movie with id: " + id, e));
         }
+        return movie;
     }
 
 }

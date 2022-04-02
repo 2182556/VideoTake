@@ -21,6 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.videotake.Domain.Movie;
+import com.videotake.Logic.Movie.MovieResult;
+import com.videotake.Logic.Movie.MovieViewModel;
+import com.videotake.Logic.Movie.MovieViewModelFactory;
 import com.videotake.Logic.User.GuestSessionResult;
 import com.videotake.Logic.User.LoggedInUserView;
 import com.videotake.Logic.User.LoginFormState;
@@ -30,10 +34,13 @@ import com.videotake.Logic.User.LoginViewModelFactory;
 import com.videotake.R;
 import com.videotake.databinding.ActivityLoginBinding;
 
+import java.util.List;
+
 public class LoginActivity extends AppCompatActivity {
     private final String TAG_NAME = LoginActivity.class.getSimpleName();
 
     private LoginViewModel loginViewModel;
+    private MovieViewModel movieViewModel;
     private ActivityLoginBinding binding;
 
     @Override
@@ -45,6 +52,24 @@ public class LoginActivity extends AppCompatActivity {
 
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+//        movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
+//                .get(MovieViewModel.class);
+//        movieViewModel.getTrendingMovies();
+//        movieViewModel.getTrendingListResult().observe(this, new Observer<MovieResult>() {
+//            @Override
+//            public void onChanged(@Nullable MovieResult movieResult) {
+//                if (movieResult == null) {
+//                    return;
+//                }
+////                loadingProgressBar.setVisibility(View.GONE);
+//                if (movieResult.getError() == null) {
+//                } else {
+//                    Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
+//                }
+//                setResult(Activity.RESULT_OK);
+//            }
+//        });
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;

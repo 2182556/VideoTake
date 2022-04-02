@@ -49,7 +49,7 @@ public class MovieDetailPageFragment extends Fragment {
         binding = FragmentDetailPageBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        int movieId = MovieDetailPageFragmentArgs.fromBundle(getArguments()).getMovieId();
+        int moviePosition = MovieDetailPageFragmentArgs.fromBundle(getArguments()).getMovieId();
 
         //resources for strings
         Resources res = getResources();
@@ -67,18 +67,12 @@ public class MovieDetailPageFragment extends Fragment {
 
         movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
                 .get(MovieViewModel.class);
-        movieViewModel.getMovieById(movieId);
-        movieViewModel.getMovieByIdResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
-            @Override
-            public void onChanged(@Nullable MovieResult movieResult) {
-                if (movieResult == null) {
-                    return;
-                }
-//                loadingProgressBar.setVisibility(View.GONE);
-                if (movieResult.getError() == null) {
-                    movie = movieViewModel.getMovieByIdResultMovie();
-                    title.setText(movie.getMovieName());
-                    description.setText(movie.getMovieDescription());
+
+        List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
+        if (movies!=null) {
+            movie = movies.get(moviePosition);
+            title.setText(movie.getMovieName());
+            description.setText(movie.getMovieDescription());
 
                     //examples from shareameal
 //        title.setText(meal.getTitle());
@@ -90,18 +84,29 @@ public class MovieDetailPageFragment extends Fragment {
 //
 //        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
 //        cookCity.setText(meal.getCook().getCity());
-                    //etc
-                } else {
-                    Log.d(TAG_NAME, "An error occurred when trying to load movie with id: " + movieId);
-//                    showLoginFailed(loginResult.getError());
-                }
-//                setResult(Activity.RESULT_OK);
-            }
-        });
-        Log.d(TAG_NAME, String.valueOf(movieId));
+        }
 
 
-
+//        movieViewModel.getMovieById(movieId);
+//        movieViewModel.getMovieByIdResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
+//            @Override
+//            public void onChanged(@Nullable MovieResult movieResult) {
+//                if (movieResult == null) {
+//                    return;
+//                }
+////                loadingProgressBar.setVisibility(View.GONE);
+//                if (movieResult.getError() == null) {
+//                    movie = movieViewModel.getMovieByIdResultMovie();
+//                    title.setText(movie.getMovieName());
+//                    description.setText(movie.getMovieDescription());
+//
+//                } else {
+//                    Log.d(TAG_NAME, "An error occurred when trying to load movie with id: " + movieId);
+////                    showLoginFailed(loginResult.getError());
+//                }
+////                setResult(Activity.RESULT_OK);
+//            }
+//        });
 
 
         return root;

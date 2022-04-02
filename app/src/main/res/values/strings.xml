@@ -41,4 +41,5 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="getting_movie_by_id_failed">Could not retrieve movie by id</string>
+    <string name="get_lists_failed">Could not retrieve lists for this user</string>
 </resources>

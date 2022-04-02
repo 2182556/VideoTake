@@ -4,10 +4,12 @@ import android.util.Log;
 
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
+import com.videotake.Domain.MovieList;
 
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -169,11 +171,13 @@ public class UserApiDAO extends ApiDAO {
 
     }
 
-    protected void getAllLists(){
+    protected Result<List<MovieList>> lists(String session_Id){
+
         while (true) {
             // if page is empty:
             break;
         }
+        return null;
     }
 
     public Result<GuestUser> createGuestSession(){

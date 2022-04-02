@@ -2,7 +2,9 @@ package com.videotake.DAL;
 
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
+import com.videotake.Domain.MovieList;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class UserRepository {
@@ -17,6 +19,8 @@ public class UserRepository {
     // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser user = null;
     private GuestUser guestUser = null;
+
+    private List<MovieList> userLists;
 
     // private constructor : singleton access
     private UserRepository(UserApiDAO userDAO, Executor executor) {
@@ -54,6 +58,10 @@ public class UserRepository {
         return this.user;
     }
 
+    public List<MovieList> getUserLists() { return this.userLists; }
+
+    private void setUserLists(List<MovieList> userLists) { this.userLists = userLists; }
+
     public void login(String username, String password, final RepositoryCallback<LoggedInUser> callback) {
         executor.execute(new Runnable() {
             @Override
@@ -78,5 +86,20 @@ public class UserRepository {
                 callback.onComplete(result);
             }
         });
+    }
+
+    public void lists(final RepositoryCallback<List<MovieList>> callback) {
+        if (user!=null){
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Result<List<MovieList>> result = userDAO.lists(user.getSession_Id());
+                    if (result instanceof Result.Success) {
+                        setUserLists(((Result.Success<List<MovieList>>) result).getData());
+                    }
+                    callback.onComplete(result);
+                }
+            });
+        }
     }
 }
