@@ -1,6 +1,7 @@
-package com.videotake.UI.Activities;
+package com.videotake.UI.ListOverview;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class ListOverviewActivity extends AppCompatActivity {
+
 }

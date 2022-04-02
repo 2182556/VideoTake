@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".UI.MainActivity"
-    tools:showIn="@layout/activity_main"
+    tools:context=".UI.Home.HomeFragment"
+    android:id="@+id/fragment_home"
     android:layout_margin="15dp">
 
     <RelativeLayout

@@ -6,11 +6,11 @@ public class MovieResult {
     @Nullable
     private Integer error;
 
-    MovieResult(@Nullable Integer error) {
+    public MovieResult(@Nullable Integer error) {
         this.error = error;
     }
 
-    MovieResult() { }
+    public MovieResult() { }
 
 //    @Nullable
 //    public LoggedInUserView getSuccess() {

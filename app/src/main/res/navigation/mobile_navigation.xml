@@ -9,13 +9,29 @@
         android:id="@+id/nav_home"
         android:name="com.videotake.UI.Home.HomeFragment"
         android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_nav_home_to_movieDetailPageFragment"
+            app:destination="@id/movieDetailPageFragment" />
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/movieDetailPageFragment"
+        android:name="com.videotake.UI.DetailPage.MovieDetailPageFragment"
+        android:label="fragment_detail_page"
+        tools:layout="@layout/fragment_detail_page" >
+        <argument
+            android:name="movieId"
+            app:argType="integer" />
+    </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_gallery"-->
-<!--        android:name="com.example.menuexample.ui.gallery.GalleryFragment"-->
+    <!--    <fragment-->
+<!--        android:id="@+id/nav_detail_page"-->
+<!--        android:name="com.videotake.UI.DetailPage.MovieDetailPageFragment"-->
 <!--        android:label="@string/menu_gallery"-->
-<!--        tools:layout="@layout/fragment_gallery" />-->
+<!--        tools:layout="@layout/fragment_detail_page" />-->
 
 <!--    <fragment-->
 <!--        android:id="@+id/nav_slideshow"-->
