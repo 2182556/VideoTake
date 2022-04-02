@@ -1,4 +1,4 @@
-package com.videotake.UI.Activities;
+package com.videotake.UI;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -81,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
-                    Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(intent);
 
                 }
@@ -139,7 +139,7 @@ public class LoginActivity extends AppCompatActivity {
                 if (guestSessionResult.getError() != null) {
                     showLoginFailed(guestSessionResult.getError());
                 } else {
-                    Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(intent);
                 }
                 setResult(Activity.RESULT_OK);

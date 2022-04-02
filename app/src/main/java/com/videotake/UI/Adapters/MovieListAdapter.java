@@ -17,14 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
 import com.videotake.R;
-import com.videotake.UI.Activities.MovieDetailpageActivity;
+import com.videotake.UI.Activities.MovieDetailPageActivity;
 
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class MovieListAdapter extends
         RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
@@ -68,7 +63,7 @@ public class MovieListAdapter extends
         }
     }
 
-    static class MovieViewHolder extends RecyclerView.ViewHolder {
+    class MovieViewHolder extends RecyclerView.ViewHolder {
         final MovieListAdapter adapter;
         public final TextView titleMeal;
         public final TextView priceMeal;
@@ -84,8 +79,8 @@ public class MovieListAdapter extends
                 @Override
                 public void onClick(View v) {
                     Context context = v.getContext();
-                    Intent intent = new Intent(context, MovieDetailpageActivity.class);
-//                    intent.putExtra("meal",allMovies.get(getLayoutPosition()));
+                    Intent intent = new Intent(context, MovieDetailPageActivity.class);
+                    intent.putExtra("movie_id",allMovies.get(getLayoutPosition()).getMovieID());
                     context.startActivity(intent);
                 }
             });

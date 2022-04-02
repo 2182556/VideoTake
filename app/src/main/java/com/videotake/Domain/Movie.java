@@ -42,4 +42,6 @@ public class Movie {
 
     public String getPosterPath() { return this.posterPath; }
 
+    public int getMovieID() { return this.movieID; }
+
 }

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoTake">
         <activity
-            android:name=".UI.Activities.LoginActivity"
+            android:name=".UI.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.VideoTake.NoActionBar">
             <intent-filter>
@@ -24,7 +24,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Activities.HomeScreenActivity"
+            android:name=".UI.MainActivity"
             android:exported="true"
             android:theme="@style/Theme.VideoTake.NoActionBar">
 <!--            <intent-filter>-->
@@ -38,7 +38,7 @@
             android:exported="true">
         </activity>
         <activity
-            android:name=".UI.Activities.MovieDetailpageActivity"
+            android:name=".UI.Activities.MovieDetailPageActivity"
             android:exported="true">
         </activity>
         <activity
