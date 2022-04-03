@@ -41,6 +41,7 @@ public class MovieListAdapter extends
         Movie mCurrent = allMovies.get(position);
         holder.titleMeal.setText(mCurrent.getMovieName());
         holder.priceMeal.setText(String.valueOf(mCurrent.getRating()));
+        holder.releasedateMovie.setText(mCurrent.getReleaseDate());
         Picasso.with(mInflater.getContext())
                 .load("https://image.tmdb.org/t/p/original/" + mCurrent.getPosterPath())
                 .into(holder.imgMeal);
@@ -65,6 +66,7 @@ public class MovieListAdapter extends
         final MovieListAdapter adapter;
         public final TextView titleMeal;
         public final TextView priceMeal;
+        public final TextView releasedateMovie;
         public ImageView imgMeal;
 
         public MovieViewHolder(@NonNull View itemView, MovieListAdapter adapter) {
@@ -72,6 +74,7 @@ public class MovieListAdapter extends
             titleMeal = itemView.findViewById(R.id.rec_movie_title);
             priceMeal = itemView.findViewById(R.id.rec_movie_rating);
             imgMeal = itemView.findViewById(R.id.rec_movie_image);
+            releasedateMovie = itemView.findViewById(R.id.rec_movie_releasedate);
             this.adapter = adapter;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
