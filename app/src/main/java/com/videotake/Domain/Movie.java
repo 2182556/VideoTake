@@ -12,12 +12,14 @@ public class Movie {
     private String posterPath;
     private String originalLanguage;
     private List<String> genres;
-    private Date releaseDate;
+    private String releaseDate;
     private Double rating;
-    private String moviePath;
+    private String videoPath;
+    private String shareableLink;
+    private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
-                 String originalLanguage, List<String> genres, Date releaseDate, Double rating) {
+                 String originalLanguage, List<String> genres, String releaseDate, Double rating) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.description = description;
@@ -29,15 +31,42 @@ public class Movie {
     }
 
     public String getMovieName() {
-        return movieName;
+        return this.movieName;
     }
 
     public String getMovieDescription() {
-        return description;
+        return this.description;
     }
 
     public Double getRating() {
-        return rating;
+        return this.rating;
     }
 
+    public String getPosterPath() { return this.posterPath; }
+
+    public int getMovieID() { return this.movieID; }
+
+    public void setVideoPath(String videoPath){ this.videoPath = videoPath; }
+
+    public String getVideoPath(){ return this.videoPath; }
+
+    public String getShareableLink() {
+        return shareableLink;
+    }
+
+    public String getReleaseDate(){
+        return releaseDate;
+    }
+
+    public void setShareableLink(String shareableLink) {
+        this.shareableLink = shareableLink;
+    }
+
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
 }

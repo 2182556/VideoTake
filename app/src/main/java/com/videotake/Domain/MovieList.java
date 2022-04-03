@@ -18,4 +18,16 @@ public class MovieList {
         this.listDescription = listDescription;
         this.movies = movies;
     }
+
+    public List<Movie> getMovies(){
+        return this.movies;
+    }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public String getListDescription() {
+        return listDescription;
+    }
 }
