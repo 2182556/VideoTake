@@ -12,32 +12,30 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
 import com.videotake.Domain.MovieList;
 import com.videotake.R;
-import com.videotake.UI.Home.HomeFragmentDirections;
 import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 
 import java.util.List;
 
-public class MovieListListAdapter extends RecyclerView.Adapter<MovieListListAdapter.MovieListViewHolder> {
-    private final String TAG_NAME = MovieListListAdapter.class.getSimpleName();
+public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOverviewAdapter.MovieListViewHolder> {
+    private final String TAG_NAME = MovieListOverviewAdapter.class.getSimpleName();
     private List<MovieList> allMovies;
     private final LayoutInflater mInflater;
 
-    public MovieListListAdapter(Context context) {
+    public MovieListOverviewAdapter(Context context) {
             mInflater = LayoutInflater.from(context);
             }
 
     @NonNull
     @Override
-    public MovieListListAdapter.MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieListOverviewAdapter.MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View mItemView = mInflater.inflate(R.layout.movielist_item,parent,false);
             return new MovieListViewHolder(mItemView,this);
             }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieListListAdapter.MovieListViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieListOverviewAdapter.MovieListViewHolder holder, int position) {
 //            Movie mCurrent = allMovies.get(position);
 ////            holder.titleMeal.setText(mCurrent.getMovieName());
 ////            holder.priceMeal.setText(String.valueOf(mCurrent.getRating()));
@@ -62,12 +60,12 @@ public class MovieListListAdapter extends RecyclerView.Adapter<MovieListListAdap
     }
 
     class MovieListViewHolder extends RecyclerView.ViewHolder {
-        final MovieListListAdapter adapter;
+        final MovieListOverviewAdapter adapter;
         public final TextView titleMeal;
         public final TextView priceMeal;
         public ImageView imgMeal;
 
-        public MovieListViewHolder(@NonNull View itemView, MovieListListAdapter adapter) {
+        public MovieListViewHolder(@NonNull View itemView, MovieListOverviewAdapter adapter) {
             super(itemView);
             titleMeal = itemView.findViewById(R.id.rec_meal_title);
             priceMeal = itemView.findViewById(R.id.rec_meal_info);
