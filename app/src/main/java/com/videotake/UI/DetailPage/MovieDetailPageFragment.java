@@ -36,6 +36,8 @@ import com.videotake.UI.Home.HomeViewModelFactory;
 import com.videotake.databinding.FragmentDetailPageBinding;
 import com.videotake.databinding.FragmentHomeBinding;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 public class MovieDetailPageFragment extends Fragment {
@@ -56,16 +58,14 @@ public class MovieDetailPageFragment extends Fragment {
         Resources res = getResources();
 
         //getting the xml elements
-        ImageView image = binding.mealImage;
-        TextView title = binding.mealTitle;
-        TextView description = binding.mealDescription;
-        TextView price = binding.mealPrice;
-        TextView spotsLeft = binding.mealSpotsleft;
-        TextView allergenInfo = binding.mealAllergeninfo;
-        TextView date = binding.mealDate;
-
-        TextView cookName = binding.cookName;
-        TextView cookCity = binding.cookCity;
+        ImageView image = binding.movieImage;
+        TextView title = binding.movieTitle;
+        TextView description = binding.movieDescription;
+        TextView date = binding.movieReleasedate;
+        TextView rating = binding.movieRatingint;
+        TextView genre = binding.movieGenre;
+        TextView age = binding.movieAge;
+        TextView language = binding.movieLanguage;
 
         movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
                 .get(MovieViewModel.class);
