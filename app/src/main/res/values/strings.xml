@@ -2,7 +2,7 @@
     <string name="app_name">VideoTake</string>
     <string name="action_settings">Instellingen</string>
 
-    <string name="image_description">maaltijd</string>
+    <string name="image_description">Movie</string>
     <string name="movie_title_placeholder">Movie title</string>
     <string name="price">Prijs: </string>
     <string name="price_full_string">Prijs: €%1$s</string>
@@ -53,4 +53,6 @@
     <string name="delete_button_description">Delete button</string>
     <string name="menu_icon">Menu_icon</string>
     <string name="delete">Delete</string>
+    <string name="add_movie_to_list_button">Add movie to list button</string>
+    <string name="calendar">calendar</string>
 </resources>
