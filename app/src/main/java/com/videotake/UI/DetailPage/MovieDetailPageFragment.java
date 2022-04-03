@@ -110,16 +110,6 @@ public class MovieDetailPageFragment extends Fragment {
             language.setText(movie.getOriginalLanguage());
             Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/original/" + movie.getPosterPath()).into(image);
 
-            //examples from shareameal
-//        title.setText(meal.getTitle());
-//        description.setText(meal.getDescription());
-//        price.setText(String.format(res.getString(R.string.price_full_string),meal.getFormattedPrice()));
-//        allergenInfo.setText(String.format(res.getString(R.string.allergeninfo_full_string),meal.getAllergens()));
-//        date.setText(meal.getFormattedDatetime());
-//        spotsLeft.setText(res.getString(R.string.spots_left)+meal.getSpotsLeft());
-//
-//        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
-//        cookCity.setText(meal.getCook().getCity());
         }
 
         return root;

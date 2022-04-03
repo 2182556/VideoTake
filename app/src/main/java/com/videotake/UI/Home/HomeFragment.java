@@ -53,7 +53,7 @@ public class HomeFragment extends Fragment {
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        MovieListAdapter mAdapter = new MovieListAdapter(inflater.getContext());
+        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext());
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 

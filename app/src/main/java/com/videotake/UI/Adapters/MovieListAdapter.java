@@ -16,6 +16,7 @@ import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
 import com.videotake.R;
 import com.videotake.UI.Home.HomeFragmentDirections;
+import com.videotake.UI.Lists.MovieListFragmentDirections;
 
 import java.util.List;
 
@@ -24,8 +25,10 @@ public class MovieListAdapter extends
     private final String TAG_NAME = MovieListAdapter.class.getSimpleName();
     private List<Movie> allMovies;
     private final LayoutInflater mInflater;
+    private String parentName = "";
 
-    public MovieListAdapter(Context context) {
+    public MovieListAdapter(String parentName, Context context) {
+        this.parentName = parentName;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -79,11 +82,21 @@ public class MovieListAdapter extends
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    allMovies.get(getLayoutPosition()).getMovieID())
-                    HomeFragmentDirections.ActionNavHomeToMovieDetailPageFragment action =
-                            HomeFragmentDirections.actionNavHomeToMovieDetailPageFragment(
-                                    getLayoutPosition());
-                    Navigation.findNavController(v).navigate(action);
+                    try {
+                        HomeFragmentDirections.ActionNavHomeToMovieDetailPageFragment action =
+                                HomeFragmentDirections.actionNavHomeToMovieDetailPageFragment(
+                                        getLayoutPosition());
+                        Navigation.findNavController(v).navigate(action);
+                    } catch (Exception e) {
+                        try {
+                            MovieListFragmentDirections.ActionNavMovieListToMovieDetailPageFragment action =
+                                    MovieListFragmentDirections.actionNavMovieListToMovieDetailPageFragment(
+                                            getLayoutPosition());
+                            Navigation.findNavController(v).navigate(action);
+                        } catch (Exception e1) {
+                            Log.d(TAG_NAME, "Unable to navigate to a detailpage");
+                        }
+                    }
                 }
             });
         }

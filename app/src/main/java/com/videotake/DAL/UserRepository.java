@@ -3,6 +3,7 @@ package com.videotake.DAL;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
+import com.videotake.Logic.User.StringResult;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -97,6 +98,18 @@ public class UserRepository {
                     if (result instanceof Result.Success) {
                         setUserLists(((Result.Success<List<MovieList>>) result).getData());
                     }
+                    callback.onComplete(result);
+                }
+            });
+        }
+    }
+
+    public void addList(String listName, String listDescription, final RepositoryCallback<String> callback){
+        if (loggedInUser!=null){
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Result<String> result = userDAO.addList(loggedInUser.getSession_Id(),listName,listDescription);
                     callback.onComplete(result);
                 }
             });

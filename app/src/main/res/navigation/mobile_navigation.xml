@@ -45,11 +45,9 @@
     <argument
         android:name="movieListId"
         app:argType="integer" />
+        <action
+            android:id="@+id/action_nav_movie_list_to_movieDetailPageFragment"
+            app:destination="@id/movieDetailPageFragment" />
     </fragment>
 
-<!--    <fragment-->
-<!--        android:id="@+id/nav_slideshow"-->
-<!--        android:name="com.example.menuexample.ui.slideshow.SlideshowFragment"-->
-<!--        android:label="@string/menu_slideshow"-->
-<!--        tools:layout="@layout/fragment_slideshow" />-->
 </navigation>
