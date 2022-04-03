@@ -79,8 +79,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="releasedate"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/movie_title"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/movie_genre"

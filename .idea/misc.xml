@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bramg/AndroidStudioProjects/VideoTake/app/src/main/res/layout-land/fragment_detail_page.xml" value="0.434375" />
+        <entry key="..\:/Users/bramg/AndroidStudioProjects/VideoTake/app/src/main/res/layout/fragment_detail_page.xml" value="0.35572916666666665" />
+        <entry key="..\:/Users/bramg/AndroidStudioProjects/VideoTake/app/src/main/res/layout/movielist_item.xml" value="0.35572916666666665" />
         <entry key="..\:/Users/joyan/AndroidStudioProjects/VideoTake/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/joyan/AndroidStudioProjects/VideoTake/app/src/main/res/drawable/star.xml" value="0.1" />
         <entry key="..\:/Users/joyan/AndroidStudioProjects/VideoTake/app/src/main/res/layout-land/fragment_detail_page.xml" value="0.16936936936936936" />
