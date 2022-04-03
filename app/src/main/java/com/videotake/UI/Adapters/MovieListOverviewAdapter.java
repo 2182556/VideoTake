@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOverviewAdapter.MovieListViewHolder> {
     private final String TAG_NAME = MovieListOverviewAdapter.class.getSimpleName();
-    private List<MovieList> allMovies;
+    private List<MovieList> allLists;
     private final LayoutInflater mInflater;
 
     public MovieListOverviewAdapter(Context context) {
@@ -30,30 +30,26 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
     @NonNull
     @Override
     public MovieListOverviewAdapter.MovieListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View mItemView = mInflater.inflate(R.layout.movielist_item,parent,false);
+            View mItemView = mInflater.inflate(R.layout.listoverview_item,parent,false);
             return new MovieListViewHolder(mItemView,this);
             }
 
     @Override
     public void onBindViewHolder(@NonNull MovieListOverviewAdapter.MovieListViewHolder holder, int position) {
-//            Movie mCurrent = allMovies.get(position);
-////            holder.titleMeal.setText(mCurrent.getMovieName());
-////            holder.priceMeal.setText(String.valueOf(mCurrent.getRating()));
-////            Picasso.with(mInflater.getContext())
-////            .load("https://image.tmdb.org/t/p/original/" + mCurrent.getPosterPath())
-////            .into(holder.imgMeal);
-            }
+        MovieList mCurrent = allLists.get(position);
+        holder.titleList.setText(mCurrent.getListName());
+    }
 
     public void setData(List<MovieList> items) {
-            Log.d(TAG_NAME,"Data updated");
-            allMovies = items;
-            notifyDataSetChanged();
-            }
+        Log.d(TAG_NAME,"Data updated");
+        allLists = items;
+        notifyDataSetChanged();
+    }
 
     @Override
     public int getItemCount() {
-        if (allMovies != null) {
-            return allMovies.size();
+        if (allLists != null) {
+            return allLists.size();
         } else {
             return 0;
         }
@@ -61,20 +57,15 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
 
     class MovieListViewHolder extends RecyclerView.ViewHolder {
         final MovieListOverviewAdapter adapter;
-        public final TextView titleMeal;
-        public final TextView priceMeal;
-        public ImageView imgMeal;
+        public final TextView titleList;
 
         public MovieListViewHolder(@NonNull View itemView, MovieListOverviewAdapter adapter) {
             super(itemView);
-            titleMeal = itemView.findViewById(R.id.rec_movie_title);
-            priceMeal = itemView.findViewById(R.id.rec_movie_rating);
-            imgMeal = itemView.findViewById(R.id.rec_movie_image);
+            titleList = itemView.findViewById(R.id.rec_list_title);
             this.adapter = adapter;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-    //                    allMovies.get(getLayoutPosition()).getMovieID())
                     ListOverviewFragmentDirections.ActionNavListOverviewToNavMovieList action =
                             ListOverviewFragmentDirections.actionNavListOverviewToNavMovieList(getLayoutPosition());
                     Navigation.findNavController(v).navigate(action);

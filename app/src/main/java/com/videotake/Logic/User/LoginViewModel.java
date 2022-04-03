@@ -44,6 +44,8 @@ public class LoginViewModel extends ViewModel {
 
     public List<MovieList> getUserLists(){ return userRepository.getUserLists(); }
 
+    public LiveData<MovieResult> getListsResult(){ return this.listsResult; }
+
     public void login(String username, String password) {
         userRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
             @Override

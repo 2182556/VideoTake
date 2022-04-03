@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.LoggedInUser;
+import com.videotake.Domain.MovieList;
 import com.videotake.Logic.Movie.MovieResult;
 import com.videotake.Logic.Movie.MovieViewModel;
 import com.videotake.Logic.Movie.MovieViewModelFactory;
@@ -22,6 +23,8 @@ import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.Logic.User.LoginViewModelFactory;
 import com.videotake.UI.Adapters.MovieListOverviewAdapter;
 import com.videotake.databinding.FragmentHomeBinding;
+
+import java.util.List;
 
 public class ListOverviewFragment extends Fragment {
     private final String TAG_NAME = ListOverviewFragment.class.getSimpleName();
@@ -40,44 +43,23 @@ public class ListOverviewFragment extends Fragment {
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 
-        movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
-                .get(MovieViewModel.class);
-        movieViewModel.getTrendingMovies();
-        movieViewModel.getTrendingListResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+        loginViewModel.lists();
+        loginViewModel.getListsResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
             @Override
             public void onChanged(@Nullable MovieResult movieResult) {
                 if (movieResult == null) {
                     return;
                 }
-//                loadingProgressBar.setVisibility(View.GONE);
                 if (movieResult.getError() == null) {
-//                    List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
-//                    mAdapter.setData(movies);
+                    List<MovieList> allLists = loginViewModel.getUserLists();
+                    mAdapter.setData(allLists);
                 } else {
                     Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
-//                    showLoginFailed(loginResult.getError());
                 }
-//                setResult(Activity.RESULT_OK);
             }
         });
-
-        //checking if user got saved
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
-        try {
-            LoggedInUserView user = loginViewModel.getLoginResult().getValue().getSuccess();
-            LoggedInUser loggedInUser = loginViewModel.getLoggedInUser();
-//            loggedInUser.getLists();
-//            Toast toast = Toast.makeText(mRecyclerView.getContext(), "The user: " +
-//                    loggedInUser.getUserId() + " " + loggedInUser.getDisplayName(), Toast.LENGTH_LONG);
-//            toast.show();
-            loginViewModel.lists();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-//        final TextView textView = binding.textHome;
-//        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
