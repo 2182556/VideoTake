@@ -54,6 +54,10 @@ public class Movie {
         return shareableLink;
     }
 
+    public Date getReleaseDate(){
+        return releaseDate;
+    }
+
     public void setShareableLink(String shareableLink) {
         this.shareableLink = shareableLink;
     }
