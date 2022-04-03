@@ -3,7 +3,7 @@
     <string name="action_settings">Instellingen</string>
 
     <string name="image_description">maaltijd</string>
-    <string name="meal_title_placeholder">Maaltijd titel</string>
+    <string name="movie_title_placeholder">Movie title</string>
     <string name="price">Prijs: </string>
     <string name="price_full_string">Prijs: €%1$s</string>
     <string name="spots_left">Plek over: </string>
@@ -16,7 +16,7 @@
     <string name="city_placeholder">Stad</string>
     <string name="vega">Vega</string>
     <string name="vegan">Vegan</string>
-    <string name="meal_info_placeholder">Maaltijd info</string>
+    <string name="movie_info_placeholder">Movie information</string>
     <string name="euro">€</string>
     <string name="filter">Filter</string>
 

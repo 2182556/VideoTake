@@ -44,7 +44,7 @@
                 android:id="@+id/rec_meal_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/meal_title_placeholder"
+                android:text="@string/movie_title_placeholder"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
@@ -64,7 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:text="@string/meal_info_placeholder"
+                android:text="@string/movie_info_placeholder"
                 android:textSize="12sp" />
 
         </RelativeLayout>
