@@ -51,4 +51,5 @@
     <string name="share_button_description">share button</string>
     <string name="edit_button_description">Edit button</string>
     <string name="delete_button_description">Delete button</string>
+    <string name="menu_icon">Menu_icon</string>
 </resources>

@@ -10,47 +10,17 @@
     android:layout_margin="15dp">
 
     <RelativeLayout
-        android:id="@+id/filter"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <Button
-            android:id="@+id/filter_button"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/filter" />
-
-        <SearchView
-            android:id="@+id/searchbar"
-            android:layout_width="270dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginEnd="12dp"
-            android:layout_toStartOf="@+id/filter_button" />
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/filter"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview"
+            android:id="@+id/recyclerview_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            app:spanCount="1" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
     </RelativeLayout>
 
