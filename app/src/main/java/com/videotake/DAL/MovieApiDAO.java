@@ -68,22 +68,7 @@ public class MovieApiDAO extends ApiDAO {
                     }
 
                     JSONArray movieArray = json_response.getJSONArray("results");
-                    for (int i=0; i<movieArray.length(); i++){
-                        JSONObject json = movieArray.getJSONObject(i);
-                        JSONArray genres_json = json.getJSONArray("genre_ids");
-                        List<String> movieGenres = new ArrayList<>();
-                        for (int j=0; j<genres_json.length(); j++){
-                            int genre = genres_json.getInt(j);
-                            movieGenres.add(genres.get(genre));
-                        }
-                        Movie movie = new Movie(json.getInt("id"), json.getString("original_title"),
-                                json.getString("overview"), json.getString("poster_path"),
-                                json.getString("original_language"), movieGenres,
-                                new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
-                                json.getDouble("vote_average"));
-                        movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
-                        movies.add(movie);
-                    }
+                    movies.addAll(getListOfMoviesFromJSONArray(movieArray));
                     Log.d(TAG_NAME, "Successfully retrieved movies");
                     return new MovieList(listName,
                             listDescription, movies);
@@ -93,6 +78,30 @@ public class MovieApiDAO extends ApiDAO {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<Movie> getListOfMoviesFromJSONArray(JSONArray movieArray){
+        List<Movie> movies = new ArrayList<>();
+        try {
+            for (int i=0; i<movieArray.length(); i++){
+                JSONObject json = movieArray.getJSONObject(i);
+                JSONArray genres_json = json.getJSONArray("genre_ids");
+                List<String> movieGenres = new ArrayList<>();
+                for (int j=0; j<genres_json.length(); j++){
+                    int genre = genres_json.getInt(j);
+                    movieGenres.add(genres.get(genre));
+                }
+                Movie movie = new Movie(json.getInt("id"), json.getString("original_title"),
+                        json.getString("overview"), json.getString("poster_path"),
+                        json.getString("original_language"), movieGenres,
+                        json.getString("release_date"), json.getDouble("vote_average"));
+                movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
+                movies.add(movie);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return movies;
     }
 
     public static Result<Movie> getMovieById(int id){
@@ -123,8 +132,7 @@ public class MovieApiDAO extends ApiDAO {
             movie = new Movie(json.getInt("id"), json.getString("original_title"),
                     json.getString("overview"), json.getString("poster_path"),
                     json.getString("original_language"), movieGenres,
-                    new SimpleDateFormat("yyyy-MM-dd").parse(json.getString("release_date")),
-                    json.getDouble("vote_average"));
+                    json.getString("release_date"), json.getDouble("vote_average"));
             movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
             JSONObject videos_object = json.getJSONObject("videos");
             JSONArray videos_json = videos_object.getJSONArray("results");

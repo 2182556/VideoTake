@@ -22,4 +22,12 @@ public class MovieList {
     public List<Movie> getMovies(){
         return this.movies;
     }
+
+    public String getListName() {
+        return listName;
+    }
+
+    public String getListDescription() {
+        return listDescription;
+    }
 }

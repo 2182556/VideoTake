@@ -4,12 +4,15 @@ import android.util.Log;
 
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
+import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.sql.Array;
+import java.util.ArrayList;
 import java.util.List;
 
 import okhttp3.MultipartBody;
@@ -195,6 +198,7 @@ public class UserApiDAO extends ApiDAO {
     }
 
     protected Result<List<MovieList>> lists(String session_Id){
+        List<MovieList> allLists = new ArrayList<>();
         int page = 1;
         while (true) {
             Request request = new Request.Builder()
@@ -213,16 +217,20 @@ public class UserApiDAO extends ApiDAO {
                     Request list_request = new Request.Builder()
                             .url(BASE_URL + LIST + "/" + list.getInt("id") + API_KEY )
                             .build();
-                    try (Response list_response = client.newCall(request).execute()) {
+                    try (Response list_response = client.newCall(list_request).execute()) {
                         ResponseBody list_body = list_response.body();
                         JSONObject list_json = new JSONObject(list_body.string());
                         Log.d(TAG_NAME, list_json.toString());
                         JSONArray movies_in_list_json  = list_json.getJSONArray("items");
-
+                        List<Movie> movies = new ArrayList<>();
+                        movies.addAll(MovieApiDAO.getListOfMoviesFromJSONArray(movies_in_list_json));
+                        allLists.add(new MovieList(list_json.getString("name"),list_json.getString("description"), movies));
                     }
                 }
+                return new Result.Success<>(allLists);
             } catch (Exception e) {
                 e.printStackTrace();
+                return new Result.Error(new IOException("Could not get lists of this user",e));
             }
         }
     }

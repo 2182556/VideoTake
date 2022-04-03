@@ -12,14 +12,14 @@ public class Movie {
     private String posterPath;
     private String originalLanguage;
     private List<String> genres;
-    private Date releaseDate;
+    private String releaseDate;
     private Double rating;
     private String videoPath;
     private String shareableLink;
     private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
-                 String originalLanguage, List<String> genres, Date releaseDate, Double rating) {
+                 String originalLanguage, List<String> genres, String releaseDate, Double rating) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.description = description;
