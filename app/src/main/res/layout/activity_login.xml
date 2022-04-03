@@ -14,19 +14,21 @@
     <EditText
         android:id="@+id/username"
         android:layout_width="213dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:layout_marginTop="260dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/prompt_username"
         android:inputType="textEmailAddress"
         android:selectAllOnFocus="true"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <EditText
         android:id="@+id/password"
         android:layout_width="213dp"
-        android:layout_height="41dp"
+        android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:hint="@string/prompt_password"
@@ -34,8 +36,10 @@
         android:imeOptions="actionDone"
         android:inputType="textPassword"
         android:selectAllOnFocus="true"
+        android:textColorHint="#757575"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/username" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        tools:ignore="DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/login"
@@ -67,10 +71,10 @@
         app:layout_constraintVertical_bias="0.3" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/password_label"
         android:layout_width="141dp"
         android:layout_height="36dp"
-        android:text="Password"
+        android:text="@string/password_textview"
         android:textAlignment="center"
         android:textAllCaps="false"
         android:textSize="20sp"
@@ -79,11 +83,11 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView4"
+        android:id="@+id/welcome_label"
         android:layout_width="267dp"
         android:layout_height="58dp"
         android:layout_marginTop="108dp"
-        android:text="Welcome!"
+        android:text="@string/welcome_textview"
         android:textAlignment="center"
         android:textAllCaps="true"
         android:textSize="48sp"
@@ -97,7 +101,7 @@
         android:layout_width="141dp"
         android:layout_height="36dp"
         android:layout_marginStart="4dp"
-        android:text="TextView"
+        android:text="@string/username_textview"
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -111,7 +115,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="40dp"
-        android:text="continue as guest"
+        android:text="@string/guest_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login" />
 
@@ -120,7 +124,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
-        android:text="register"
+        android:text="@string/register_label"
         app:layout_constraintBaseline_toBaselineOf="@+id/guest_button"
         app:layout_constraintEnd_toEndOf="parent" />
 

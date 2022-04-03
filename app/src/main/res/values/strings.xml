@@ -41,4 +41,9 @@
     <string name="menu_slideshow">Slideshow</string>
     <string name="getting_movie_by_id_failed">Could not retrieve movie by id</string>
     <string name="get_lists_failed">Could not retrieve lists for this user</string>
+    <string name="password_textview">Password</string>
+    <string name="welcome_textview">Welcome!</string>
+    <string name="username_textview">Username</string>
+    <string name="register_label">register</string>
+    <string name="guest_label">Continue as guest</string>
 </resources>
