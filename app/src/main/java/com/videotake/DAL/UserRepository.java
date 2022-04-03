@@ -17,7 +17,7 @@ public class UserRepository {
 
     // If user credentials will be cached in local storage, it is recommended it be encrypted
     // @see https://developer.android.com/training/articles/keystore
-    private LoggedInUser user = null;
+    private LoggedInUser loggedInUser = null;
     private GuestUser guestUser = null;
 
     private List<MovieList> userLists;
@@ -40,12 +40,12 @@ public class UserRepository {
 //    }
 
     public void logout() {
-        user = null;
+        loggedInUser = null;
         userDAO.logout();
     }
 
     private void setLoggedInUser(LoggedInUser user) {
-        this.user = user;
+        this.loggedInUser = user;
         // If user credentials will be cached in local storage, it is recommended it be encrypted
         // @see https://developer.android.com/training/articles/keystore
     }
@@ -55,7 +55,7 @@ public class UserRepository {
     }
 
     public LoggedInUser getLoggedInUser(){
-        return this.user;
+        return this.loggedInUser;
     }
 
     public List<MovieList> getUserLists() { return this.userLists; }
@@ -89,11 +89,11 @@ public class UserRepository {
     }
 
     public void lists(final RepositoryCallback<List<MovieList>> callback) {
-        if (user!=null){
+        if (loggedInUser!=null){
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
-                    Result<List<MovieList>> result = userDAO.lists(user.getSession_Id());
+                    Result<List<MovieList>> result = userDAO.lists(loggedInUser.getSession_Id());
                     if (result instanceof Result.Success) {
                         setUserLists(((Result.Success<List<MovieList>>) result).getData());
                     }

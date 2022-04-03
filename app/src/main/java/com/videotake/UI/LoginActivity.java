@@ -53,24 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
 
-//        movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
-//                .get(MovieViewModel.class);
-//        movieViewModel.getTrendingMovies();
-//        movieViewModel.getTrendingListResult().observe(this, new Observer<MovieResult>() {
-//            @Override
-//            public void onChanged(@Nullable MovieResult movieResult) {
-//                if (movieResult == null) {
-//                    return;
-//                }
-////                loadingProgressBar.setVisibility(View.GONE);
-//                if (movieResult.getError() == null) {
-//                } else {
-//                    Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
-//                }
-//                setResult(Activity.RESULT_OK);
-//            }
-//        });
-
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
         final Button loginButton = binding.login;
