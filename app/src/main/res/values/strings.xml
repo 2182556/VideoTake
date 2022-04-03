@@ -53,4 +53,6 @@
     <string name="delete_button_description">Delete button</string>
     <string name="menu_icon">Menu_icon</string>
     <string name="delete">Delete</string>
+    <string name="add_movie_to_list_button">Add movie to list button</string>
+    <string name="calendar">calendar</string>
 </resources>
