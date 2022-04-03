@@ -82,7 +82,7 @@ public class ListOverviewFragment extends Fragment {
                     public void onClick(View view) {
                         LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(inflater.getContext().LAYOUT_INFLATER_SERVICE);
                         View popupView = popUpInflater.inflate(R.layout.popup_window_add_list, null);
-                        int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                        int width = LinearLayout.LayoutParams.MATCH_PARENT;
                         int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                         final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
                         popupWindow.setElevation(20);

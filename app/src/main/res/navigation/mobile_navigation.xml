@@ -20,7 +20,7 @@
     <fragment
         android:id="@+id/movieDetailPageFragment"
         android:name="com.videotake.UI.DetailPage.MovieDetailPageFragment"
-        android:label="fragment_detail_page"
+        android:label="{detail_page}"
         tools:layout="@layout/fragment_detail_page" >
         <argument
             android:name="movieId"
@@ -30,7 +30,7 @@
         <fragment
         android:id="@+id/nav_list_overview"
         android:name="com.videotake.UI.Lists.ListOverviewFragment"
-        android:label="@string/menu_gallery"
+        android:label="List overview"
         tools:layout="@layout/fragment_list_overview" >
             <action
                 android:id="@+id/action_nav_list_overview_to_nav_movie_list"
@@ -40,7 +40,7 @@
     <fragment
         android:id="@+id/nav_movie_list"
         android:name="com.videotake.UI.Lists.MovieListFragment"
-        android:label="@string/menu_gallery"
+        android:label="@string/movie_list_placeholder"
         tools:layout="@layout/fragment_movie_list">
     <argument
         android:name="movieListId"
