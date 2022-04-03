@@ -35,7 +35,8 @@
                 android:text="@string/movie_title_placeholder"
                 android:textSize="26sp"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constrainedWidth="true" />
 
             <TextView
                 android:id="@+id/movie_releasedate"
@@ -44,8 +45,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
-                app:layout_constraintStart_toEndOf="@id/movie_title"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintStart_toEndOf="@id/movie_image"
+                app:layout_constraintTop_toBottomOf="@id/movie_ratingicon" />
 
             <ImageView
                 android:id="@+id/movie_ratingicon"
@@ -95,6 +96,14 @@
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
+
+            <Button
+                android:id="@+id/addmovietolistbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add to list"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
 
 
