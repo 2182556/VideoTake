@@ -6,6 +6,7 @@ import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -26,7 +27,6 @@ public class UserApiDAO extends ApiDAO {
     public final String GUEST_SESSION = "authentication/guest_session/new";
     public final String ACCOUNT = "account";
     public final String SESSION_ID_STRING = "session_id";
-    public String session_Id;
 
 //    public UserDAO(String username, String password){
 //        ;
@@ -35,7 +35,10 @@ public class UserApiDAO extends ApiDAO {
     public Result<LoggedInUser> login(String username, String password) {
         Log.d(TAG_NAME, username + " " +password);
         try {
-            LoggedInUser user = requestSession(username,password);
+            String session_Id = requestSession(username,password);
+            JSONObject user_details = getUserDetails(session_Id);
+            LoggedInUser user =  new LoggedInUser(user_details.getInt("id"),username,password,session_Id);
+//            LoggedInUser user = requestSession(username,password);
             Log.d(TAG_NAME, "The value of user is: " + user);
             if (user!=null) {
                 return new Result.Success<>(user);
@@ -52,7 +55,7 @@ public class UserApiDAO extends ApiDAO {
         // delete session
     }
 
-    protected LoggedInUser requestSession(String username, String password) {
+    protected String requestSession(String username, String password) {
         try {
             String REQUEST_TOKEN = "";
             Request token_request = new Request.Builder()
@@ -102,9 +105,7 @@ public class UserApiDAO extends ApiDAO {
                                 boolean authenticate_session_success = authenticate_session_json.getBoolean("success");
                                 if (authenticate_session_success){
                                     Log.d(TAG_NAME, "Successfully retrieved session id.");
-                                    session_Id = authenticate_session_json.getString("session_id");
-                                    JSONObject user_details = getUserDetails();
-                                    return new LoggedInUser(user_details.getInt("id"),username,password,session_Id);
+                                    return authenticate_session_json.getString("session_id");
                                 } else {
                                     Log.e(TAG_NAME,"Unable to retrieve session id.");
                                 }
@@ -123,7 +124,7 @@ public class UserApiDAO extends ApiDAO {
         return null;
     }
 
-    protected JSONObject getUserDetails(){
+    protected JSONObject getUserDetails(String session_Id){
         if (session_Id!=null) {
             Request request = new Request.Builder()
                     .url(BASE_URL + ACCOUNT + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
@@ -142,8 +143,31 @@ public class UserApiDAO extends ApiDAO {
         return null;
     }
 
-    protected void createList(){
-        Log.d(TAG_NAME, "Current session id: " + session_Id);
+    public void addMovieToList(String session_Id, int list_id, int movie_id){
+        RequestBody requestBody = new MultipartBody.Builder()
+                .addFormDataPart("media_id", String.valueOf(movie_id))
+                .build();
+
+        Request request = new Request.Builder()
+                .url(BASE_URL + LIST + "/" + list_id + "/add_item" + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id)
+                .addHeader("Content-Type", "application/json;charset=utf-8")
+                .post(requestBody)
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        try (Response response = client.newCall(request).execute()) {
+            ResponseBody body = response.body();
+            JSONObject json = new JSONObject(body.string());
+            Log.d(TAG_NAME,json.toString());
+            boolean success = json.getBoolean("success");
+            if (success) Log.d(TAG_NAME,"The movie was added to the list");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    protected void createList(String session_Id){
+        Log.d(TAG_NAME, "Attempting to add list to API");
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -168,16 +192,39 @@ public class UserApiDAO extends ApiDAO {
                 e.printStackTrace();
             }
         }
-
     }
 
     protected Result<List<MovieList>> lists(String session_Id){
-
+        int page = 1;
         while (true) {
-            // if page is empty:
-            break;
+            Request request = new Request.Builder()
+                    .url(BASE_URL + ACCOUNT + "/{account_id}/" + "lists" + API_KEY + "&" +
+                            SESSION_ID_STRING + "=" + session_Id + "&" + PAGE + "=" + page )
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json = new JSONObject(body.string());
+                Log.d(TAG_NAME,json.toString());
+                int amountOfPages = json.getInt("total_pages");
+                JSONArray json_lists = json.getJSONArray("results");
+                for (int i=0; i<json_lists.length(); i++){
+                    JSONObject list = json_lists.getJSONObject(i);
+                    Request list_request = new Request.Builder()
+                            .url(BASE_URL + LIST + "/" + list.getInt("id") + API_KEY )
+                            .build();
+                    try (Response list_response = client.newCall(request).execute()) {
+                        ResponseBody list_body = list_response.body();
+                        JSONObject list_json = new JSONObject(list_body.string());
+                        Log.d(TAG_NAME, list_json.toString());
+                        JSONArray movies_in_list_json  = list_json.getJSONArray("items");
+
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-        return null;
     }
 
     public Result<GuestUser> createGuestSession(){

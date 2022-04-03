@@ -31,6 +31,15 @@ public class MovieApiDAO extends ApiDAO {
     private static Map<Integer,String> genres;
 
     public static Result<MovieList> getTrendingMovies(){
+        MovieList movies = getMovieList(BASE_URL + TRENDING + API_KEY, "Trending", "Trending movies for the homescreen");
+        if (movies!=null){
+            return new Result.Success<>(movies);
+        } else {
+            return new Result.Error(new IOException("Could not get trending movies"));
+        }
+    }
+
+    public static MovieList getMovieList(String url, String listName, String listDescription){
         try {
             List<Movie> movies = new ArrayList<>();
             Request request = new Request.Builder()
@@ -76,15 +85,14 @@ public class MovieApiDAO extends ApiDAO {
                         movies.add(movie);
                     }
                     Log.d(TAG_NAME, "Successfully retrieved movies");
-                    return new Result.Success<>(new MovieList("Trending",
-                            "Trending movies for the homescreen", movies));
-                } else {
-                    return new Result.Error(new IOException("No results found for trending", new NullPointerException()));
+                    return new MovieList(listName,
+                            listDescription, movies);
                 }
             }
         } catch (Exception e) {
-            return new Result.Error(new IOException("Could not get trending movies", e));
+            e.printStackTrace();
         }
+        return null;
     }
 
     public static Result<Movie> getMovieById(int id){
