@@ -69,9 +69,9 @@ public class MovieListListAdapter extends RecyclerView.Adapter<MovieListListAdap
 
         public MovieListViewHolder(@NonNull View itemView, MovieListListAdapter adapter) {
             super(itemView);
-            titleMeal = itemView.findViewById(R.id.rec_meal_title);
-            priceMeal = itemView.findViewById(R.id.rec_meal_info);
-            imgMeal = itemView.findViewById(R.id.rec_meal_image);
+            titleMeal = itemView.findViewById(R.id.rec_movie_title);
+            priceMeal = itemView.findViewById(R.id.rec_movie_rating);
+            imgMeal = itemView.findViewById(R.id.rec_movie_image);
             this.adapter = adapter;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
