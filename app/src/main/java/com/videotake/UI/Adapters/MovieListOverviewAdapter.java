@@ -62,7 +62,7 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
         popup.show();
     }
 
-    class PopupMenuListOnClickListener implements PopupMenu.OnMenuItemClickListener {
+    static class PopupMenuListOnClickListener implements PopupMenu.OnMenuItemClickListener {
         int position;
 
         PopupMenuListOnClickListener(int position) {

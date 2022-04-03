@@ -169,13 +169,13 @@ public class UserApiDAO extends ApiDAO {
         }
     }
 
-    protected void createList(String session_Id){
+    protected void addList(String session_Id, String name, String description){
         Log.d(TAG_NAME, "Attempting to add list to API");
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("name", "An example list :)")
-                    .addFormDataPart("description", "This is a test")
+                    .addFormDataPart("name", name)
+                    .addFormDataPart("description", description)
                     .build();
 
             Request request = new Request.Builder()
@@ -197,9 +197,30 @@ public class UserApiDAO extends ApiDAO {
         }
     }
 
+    protected void deleteList(String session_Id, int list_id){
+        Log.d(TAG_NAME, "Attempting to remove list");
+        if (session_Id!=null) {
+            Request request = new Request.Builder()
+                    .url(BASE_URL + LIST + "/" + list_id + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
+                    .delete()
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json = new JSONObject(body.string());
+                Log.d(TAG_NAME,json.toString());
+                int status_code = json.getInt("status_code");
+                if (status_code==12) Log.d(TAG_NAME,"The list has been removed");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     protected Result<List<MovieList>> lists(String session_Id){
         List<MovieList> allLists = new ArrayList<>();
         int page = 1;
+        int amountOfPages = 1;
         while (true) {
             Request request = new Request.Builder()
                     .url(BASE_URL + ACCOUNT + "/{account_id}/" + "lists" + API_KEY + "&" +
@@ -210,7 +231,7 @@ public class UserApiDAO extends ApiDAO {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
-                int amountOfPages = json.getInt("total_pages");
+                amountOfPages = json.getInt("total_pages");
                 JSONArray json_lists = json.getJSONArray("results");
                 for (int i=0; i<json_lists.length(); i++){
                     JSONObject list = json_lists.getJSONObject(i);
@@ -227,7 +248,11 @@ public class UserApiDAO extends ApiDAO {
                         allLists.add(new MovieList(list_json.getString("name"),list_json.getString("description"), movies));
                     }
                 }
-                return new Result.Success<>(allLists);
+                if (page<amountOfPages){
+                    page++;
+                } else {
+                    return new Result.Success<>(allLists);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return new Result.Error(new IOException("Could not get lists of this user",e));
