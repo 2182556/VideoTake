@@ -74,6 +74,46 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
+            <TextView
+                android:id="@+id/movie_releasedate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="releasedate"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/movie_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="genre"
+                app:layout_constraintTop_toBottomOf="@id/movie_releasedate"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/movie_age"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="age"
+                app:layout_constraintTop_toBottomOf="@id/movie_genre"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/movie_language"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="language"
+                app:layout_constraintTop_toBottomOf="@id/movie_age"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <Button
+                android:id="@+id/ratemoviebutton"
+                android:layout_width="49dp"
+                android:layout_height="30dp"
+                android:text="Rate"
+                app:layout_constraintStart_toEndOf="@id/movie_ratingint"
+                app:layout_constraintTop_toBottomOf="@id/movie_title" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
