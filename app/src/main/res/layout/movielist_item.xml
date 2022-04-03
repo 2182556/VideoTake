@@ -61,16 +61,15 @@
 
             <TextView
                 android:id="@+id/rec_meal_info"
-                android:layout_width="356dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="5dp"
-                android:layout_marginEnd="42dp"
-                android:layout_marginBottom="12dp"
                 android:layout_toEndOf="@+id/ratingstar"
                 android:text="@string/movie_info_placeholder"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/ratingstar"/>
 
             <ImageView
                 android:id="@+id/ratingstar"
@@ -79,7 +78,6 @@
                 android:layout_alignParentStart="true"
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="5dp"
-                android:layout_marginBottom="14dp"
                 app:srcCompat="@drawable/ic_rating_star" />
 
         </RelativeLayout>
