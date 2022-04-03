@@ -54,7 +54,7 @@ public class Movie {
         return shareableLink;
     }
 
-    public Date getReleaseDate(){
+    public String getReleaseDate(){
         return releaseDate;
     }
 
