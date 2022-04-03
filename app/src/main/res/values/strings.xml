@@ -48,4 +48,7 @@
     <string name="guest_label">Continue as guest</string>
     <string name="star_desc">Star</string>
     <string name="menu_lists">List overview</string>
+    <string name="share_button_description">share button</string>
+    <string name="edit_button_description">Edit button</string>
+    <string name="delete_button_description">Delete button</string>
 </resources>
