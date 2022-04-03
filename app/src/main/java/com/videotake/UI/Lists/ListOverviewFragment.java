@@ -5,7 +5,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -15,17 +14,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.Domain.Movie;
 import com.videotake.Logic.Movie.MovieResult;
 import com.videotake.Logic.Movie.MovieViewModel;
 import com.videotake.Logic.Movie.MovieViewModelFactory;
 import com.videotake.Logic.User.LoggedInUserView;
 import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.Logic.User.LoginViewModelFactory;
-import com.videotake.UI.Adapters.MovieListAdapter;
+import com.videotake.UI.Adapters.MovieListOverviewAdapter;
 import com.videotake.databinding.FragmentHomeBinding;
-
-import java.util.List;
 
 public class ListOverviewFragment extends Fragment {
     private final String TAG_NAME = ListOverviewFragment.class.getSimpleName();
@@ -40,8 +36,7 @@ public class ListOverviewFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        //veranderen naar MovieListListAdapter
-        MovieListAdapter mAdapter = new MovieListAdapter(inflater.getContext());
+        MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(inflater.getContext());
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 
@@ -56,8 +51,8 @@ public class ListOverviewFragment extends Fragment {
                 }
 //                loadingProgressBar.setVisibility(View.GONE);
                 if (movieResult.getError() == null) {
-                    List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
-                    mAdapter.setData(movies);
+//                    List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
+//                    mAdapter.setData(movies);
                 } else {
                     Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
 //                    showLoginFailed(loginResult.getError());
