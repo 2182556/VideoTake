@@ -19,6 +19,7 @@ public class MovieViewModel extends ViewModel {
     private MovieApiDAO movieDAO;
     private MutableLiveData<MovieResult> trendingListResult = new MutableLiveData<>();
     private MutableLiveData<MovieResult> movieByIdResult = new MutableLiveData<>();
+    private MutableLiveData<MovieResult> movieVideoLinkAndReviewsResult = new MutableLiveData<>();
 
     private MovieRepository movieRepository;
     private MovieList trendingMovies = null;
@@ -35,6 +36,8 @@ public class MovieViewModel extends ViewModel {
     public Movie getMovieByIdResultMovie(){ return this.movieRepository.getMovieByIdResultMovie(); }
 
     public LiveData<MovieResult> getMovieByIdResult() { return this.movieByIdResult; }
+
+    public LiveData<MovieResult> getVideoLinkAndReviewsResult() { return this.movieVideoLinkAndReviewsResult; }
 
     public LiveData<MovieResult> getTrendingListResult() {
         return trendingListResult;
@@ -63,6 +66,19 @@ public class MovieViewModel extends ViewModel {
                     movieByIdResult.postValue(new MovieResult());
                 } else {
                     movieByIdResult.postValue(new MovieResult(R.string.getting_movie_by_id_failed));
+                }
+            }
+        });
+    }
+
+    public void getVideoLinkAndReviews(Movie movie){
+        movieRepository.getVideoLinkAndReviews(movie, new RepositoryCallback<Movie>() {
+            @Override
+            public void onComplete(Result<Movie> result) {
+                if (result instanceof Result.Success) {
+                    movieVideoLinkAndReviewsResult.postValue(new MovieResult());
+                } else {
+                    movieVideoLinkAndReviewsResult.postValue(new MovieResult(R.string.getting_movie_by_id_failed));
                 }
             }
         });

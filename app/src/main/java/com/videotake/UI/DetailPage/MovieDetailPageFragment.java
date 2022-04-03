@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
+import com.videotake.Domain.Review;
 import com.videotake.Logic.Movie.MovieResult;
 import com.videotake.Logic.Movie.MovieViewModel;
 import com.videotake.Logic.Movie.MovieViewModelFactory;
@@ -54,6 +55,7 @@ public class MovieDetailPageFragment extends Fragment {
         //resources for strings
         Resources res = getResources();
 
+        //getting the xml elements
         ImageView image = binding.mealImage;
         TextView title = binding.mealTitle;
         TextView description = binding.mealDescription;
@@ -71,10 +73,39 @@ public class MovieDetailPageFragment extends Fragment {
         List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
         if (movies!=null) {
             movie = movies.get(moviePosition);
+
+            //getting video link and reviews of this movie
+            movieViewModel.getVideoLinkAndReviews(movie);
+            movieViewModel.getVideoLinkAndReviewsResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
+                @Override
+                public void onChanged(@Nullable MovieResult movieResult) {
+                    if (movieResult == null) {
+                        return;
+                    }
+//                loadingProgressBar.setVisibility(View.GONE);
+                    if (movieResult.getError() == null) {
+                        String videoPath = movie.getVideoPath();
+                        List<Review> reviews = movie.getReviews();
+
+                        for (Review review : reviews){
+                            //misschien een nieuwe adapter om variabele hoeveelheid reviews te laten zien
+                        }
+
+
+                        //code to show video
+
+                    } else {
+                        Log.d(TAG_NAME, "An error occurred when trying to load the reviews and trailer");
+                    }
+                }
+            });
+
+
+            //assigning values to xml attributes
             title.setText(movie.getMovieName());
             description.setText(movie.getMovieDescription());
 
-                    //examples from shareameal
+            //examples from shareameal
 //        title.setText(meal.getTitle());
 //        description.setText(meal.getDescription());
 //        price.setText(String.format(res.getString(R.string.price_full_string),meal.getFormattedPrice()));
@@ -85,29 +116,6 @@ public class MovieDetailPageFragment extends Fragment {
 //        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
 //        cookCity.setText(meal.getCook().getCity());
         }
-
-
-//        movieViewModel.getMovieById(movieId);
-//        movieViewModel.getMovieByIdResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
-//            @Override
-//            public void onChanged(@Nullable MovieResult movieResult) {
-//                if (movieResult == null) {
-//                    return;
-//                }
-////                loadingProgressBar.setVisibility(View.GONE);
-//                if (movieResult.getError() == null) {
-//                    movie = movieViewModel.getMovieByIdResultMovie();
-//                    title.setText(movie.getMovieName());
-//                    description.setText(movie.getMovieDescription());
-//
-//                } else {
-//                    Log.d(TAG_NAME, "An error occurred when trying to load movie with id: " + movieId);
-////                    showLoginFailed(loginResult.getError());
-//                }
-////                setResult(Activity.RESULT_OK);
-//            }
-//        });
-
 
         return root;
     }

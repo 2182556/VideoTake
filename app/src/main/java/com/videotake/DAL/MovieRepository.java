@@ -73,4 +73,14 @@ public class MovieRepository {
         });
     }
 
+    public void getVideoLinkAndReviews(Movie movie, final RepositoryCallback<Movie> callback){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                Result<Movie> result = MovieApiDAO.getVideoLinkAndReviews(movie);
+                callback.onComplete(result);
+            }
+        });
+    }
+
 }

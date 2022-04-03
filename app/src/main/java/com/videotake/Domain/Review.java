@@ -13,5 +13,19 @@ public class Review {
         this.rating = rating;
     }
 
+    public String getReviewID() {
+        return reviewID;
+    }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public double getRating() {
+        return rating;
+    }
 }
