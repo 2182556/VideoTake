@@ -40,10 +40,7 @@ public class ListOverviewFragment extends Fragment {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-//        setContentView(R.layout.activity_home);
-//        Toolbar toolbar = findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
+        //veranderen naar MovieListListAdapter
         MovieListAdapter mAdapter = new MovieListAdapter(inflater.getContext());
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);

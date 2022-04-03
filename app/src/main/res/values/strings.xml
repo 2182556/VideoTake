@@ -47,4 +47,5 @@
     <string name="register_label">register</string>
     <string name="guest_label">Continue as guest</string>
     <string name="star_desc">Star</string>
+    <string name="menu_lists">List overview</string>
 </resources>

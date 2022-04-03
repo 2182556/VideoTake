@@ -217,6 +217,7 @@ public class UserApiDAO extends ApiDAO {
                         ResponseBody list_body = list_response.body();
                         JSONObject list_json = new JSONObject(list_body.string());
                         Log.d(TAG_NAME, list_json.toString());
+                        JSONArray movies_in_list_json  = list_json.getJSONArray("items");
 
                     }
                 }
