@@ -98,12 +98,8 @@ public class MovieApiDAO extends ApiDAO {
 
     protected static Movie getMovieByIdInClass(int id){
         Movie movie = null;
-        RequestBody requestBody = new MultipartBody.Builder()
-                .addFormDataPart("append_to_response", "videos,reviews")
-                .build();
         Request request = new Request.Builder()
                 .url(BASE_URL + MOVIE + id + API_KEY + "&append_to_response=videos,reviews")
-//                .post(requestBody)
                 .build();
 
         OkHttpClient client = new OkHttpClient();
@@ -150,6 +146,46 @@ public class MovieApiDAO extends ApiDAO {
             e.printStackTrace();
         }
         return movie;
+    }
+
+    public static Result<Movie> getVideoLinkAndReviews(Movie movie){
+        Request request = new Request.Builder()
+                .url(BASE_URL + MOVIE + movie.getMovieID() + API_KEY + "&append_to_response=videos,reviews")
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        try (Response response = client.newCall(request).execute()) {
+            ResponseBody body = response.body();
+            JSONObject json = new JSONObject(body.string());
+            JSONObject videos_object = json.getJSONObject("videos");
+            JSONArray videos_json = videos_object.getJSONArray("results");
+            for (int i = 0; i < videos_json.length(); i++) {
+                JSONObject video = videos_json.getJSONObject(i);
+                if (video.getBoolean("official") && video.getString("type").equals("Trailer")) {
+                    if (video.getString("site").equals("Youtube")) {
+                        movie.setVideoPath(YOUTUBE_PATH + video.getString("key"));
+                        break;
+                    } else if (video.getString("site").equals("Vimeo")) {
+                        movie.setVideoPath(VIMEO_PATH + video.getString("key"));
+                        break;
+                    }
+                }
+            }
+            JSONObject reviews_object = json.getJSONObject("reviews");
+            JSONArray reviews_json = reviews_object.getJSONArray("results");
+            List<Review> reviews = new ArrayList<>();
+            for (int i = 0; i < reviews_json.length(); i++) {
+                JSONObject review_json = reviews_json.getJSONObject(i);
+                Review review = new Review(review_json.optString("id"), review_json.optString("author"),
+                        review_json.optString("content"), review_json.optDouble("rating"));
+                reviews.add(review);
+            }
+            movie.setReviews(reviews);
+            return new Result.Success<>(movie);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result.Error(new IOException("Could not get video link and reviews", e));
+        }
     }
 
 }
