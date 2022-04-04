@@ -116,6 +116,18 @@ public class UserRepository {
         }
     }
 
+    public void removeList(String listId, final RepositoryCallback<String> callback){
+        if (loggedInUser!=null){
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Result<String> result = userDAO.deleteList(loggedInUser.getSession_Id(),listId);
+                    callback.onComplete(result);
+                }
+            });
+        }
+    }
+
     public void addMovieToList(String list_id, int movie_id, final RepositoryCallback<String> callback){
         if (loggedInUser!=null){
             executor.execute(new Runnable() {

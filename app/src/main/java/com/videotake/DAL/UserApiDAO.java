@@ -204,7 +204,7 @@ public class UserApiDAO extends ApiDAO {
         return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 
-    protected void deleteList(String session_Id, int list_id){
+    protected Result<String> deleteList(String session_Id, String list_id){
         Log.d(TAG_NAME, "Attempting to remove list");
         if (session_Id!=null) {
             Request request = new Request.Builder()
@@ -217,11 +217,16 @@ public class UserApiDAO extends ApiDAO {
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 int status_code = json.getInt("status_code");
-                if (status_code==12) Log.d(TAG_NAME,"The list has been removed");
+                if (status_code==12) {
+                    Log.d(TAG_NAME,"The list has been removed");
+                    return new Result.Success<>("Success");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
+                return new Result.Error(new IOException("Error removing list", e));
             }
         }
+        return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 
     protected Result<List<MovieList>> lists(String session_Id){
