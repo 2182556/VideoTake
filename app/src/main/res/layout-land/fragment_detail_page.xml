@@ -120,8 +120,8 @@
 
             <Button
                 android:id="@+id/ratemoviebutton"
-                android:layout_width="49dp"
-                android:layout_height="30dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="Rate"
                 app:layout_constraintStart_toEndOf="@id/movie_ratingint"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
