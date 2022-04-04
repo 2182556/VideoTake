@@ -51,6 +51,8 @@ public class LoginViewModel extends ViewModel {
 
     public LiveData<StringResult> getAddMovieToListResult(){ return this.addMovieToListResult; }
 
+    public void resetAddMovieToListResult(){ this.addMovieToListResult = new MutableLiveData<>(); }
+
     public List<MovieList> getUserLists(){ return userRepository.getUserLists(); }
 
     public LiveData<MovieResult> getListsResult(){ return this.listsResult; }

@@ -72,11 +72,11 @@ public class MovieListAdapter extends
         Picasso.with(mInflater.getContext())
                 .load("https://image.tmdb.org/t/p/original/" + mCurrent.getPosterPath())
                 .into(holder.imgMovie);
-
         holder.addToListButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LayoutInflater popUpInflater = (LayoutInflater) mInflater.getContext().getSystemService(mInflater.getContext().LAYOUT_INFLATER_SERVICE);
+                mInflater.getContext();
+                LayoutInflater popUpInflater = (LayoutInflater) mInflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
                 int width = LinearLayout.LayoutParams.MATCH_PARENT;
                 int height = LinearLayout.LayoutParams.MATCH_PARENT;
@@ -84,7 +84,8 @@ public class MovieListAdapter extends
                 popupWindow.setElevation(20);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),mCurrent.getMovieID(),loginViewModel,ViewTreeLifecycleOwner.get(view));
+                MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),
+                        mCurrent.getMovieID(),loginViewModel,ViewTreeLifecycleOwner.get(view));
                 RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
                 mRecyclerView.setAdapter(mAdapter);
                 loginViewModel.lists();
@@ -115,6 +116,7 @@ public class MovieListAdapter extends
                             Toast.makeText(mInflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
                             Log.d(TAG_NAME, "An error occurred when trying add the movie to the list");
                         }
+                        loginViewModel.resetAddMovieToListResult();
                     }
                 });
                 final Button cancelButton = popupView.findViewById(R.id.cancel_button);

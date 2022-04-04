@@ -164,6 +164,7 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
                     } else {
                         MovieList listToAddTo = allLists.get(getLayoutPosition());
                         loginViewModel.addMovieToList(listToAddTo.getListId(),movieId);
+                        movieId=0;
                     }
                 }
             });
