@@ -76,7 +76,7 @@ public class ListOverviewFragment extends Fragment {
             }
         });
 
-        FloatingActionButton addListButton = binding.addToListFab;
+        FloatingActionButton addListButton = binding.addList;
         addListButton.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
