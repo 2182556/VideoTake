@@ -10,7 +10,7 @@ import com.videotake.Domain.Movie;
 import java.util.List;
 
 @Dao
-public interface MovieDao {
+public interface MovieRoomDBDAO {
     @Insert
     void insert(Movie movie);
 

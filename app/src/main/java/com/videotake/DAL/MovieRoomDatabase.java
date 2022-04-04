@@ -11,7 +11,7 @@ import com.videotake.Domain.Movie;
 @Database(entities = {Movie.class}, version = 1, exportSchema = false)
 public abstract class MovieRoomDatabase extends RoomDatabase {
 
-    public abstract MovieDao movieDao();
+    public abstract MovieRoomDBDAO movieDao();
     private static MovieRoomDatabase INSTANCE;
 
     static MovieRoomDatabase getDatabase(final Context context) {

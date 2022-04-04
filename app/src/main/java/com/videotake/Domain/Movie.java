@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 import java.time.LocalDate;
@@ -21,11 +22,13 @@ public class Movie {
     private String description;
     private String posterPath;
     private String originalLanguage;
+    @Ignore
     private List<String> genres;
     private String releaseDate;
     private Double rating;
     private String videoPath;
     private String shareableLink;
+    @Ignore
     private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
@@ -38,6 +41,20 @@ public class Movie {
         this.genres = genres;
         this.releaseDate = releaseDate;
         this.rating = rating;
+    }
+
+    public Movie(int movieID, String movieName, String description, String posterPath,
+                 String originalLanguage, String releaseDate, Double rating, String videoPath,
+                 String shareableLink) {
+        this.movieID = movieID;
+        this.movieName = movieName;
+        this.description = description;
+        this.posterPath = posterPath;
+        this.originalLanguage = originalLanguage;
+        this.releaseDate = releaseDate;
+        this.rating = rating;
+        this.videoPath = videoPath;
+        this.shareableLink = shareableLink;
     }
 
     public String getMovieName() {
@@ -80,5 +97,45 @@ public class Movie {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<String> getGenres() {
+        return genres;
+    }
+
+    public void setMovieID(int movieID) {
+        this.movieID = movieID;
+    }
+
+    public void setMovieName(String movieName) {
+        this.movieName = movieName;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setPosterPath(String posterPath) {
+        this.posterPath = posterPath;
+    }
+
+    public void setOriginalLanguage(String originalLanguage) {
+        this.originalLanguage = originalLanguage;
+    }
+
+    public void setGenres(List<String> genres) {
+        this.genres = genres;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setRating(Double rating) {
+        this.rating = rating;
     }
 }
