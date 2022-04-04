@@ -7,21 +7,13 @@ import android.view.MenuItem;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.navigation.NavigationView;
-import com.videotake.Logic.Movie.MovieResult;
-import com.videotake.Logic.Movie.MovieViewModel;
-import com.videotake.Logic.Movie.MovieViewModelFactory;
-import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.R;
-import com.videotake.UI.Adapters.MovieListAdapter;
 import com.videotake.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {

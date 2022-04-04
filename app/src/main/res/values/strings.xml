@@ -25,7 +25,7 @@
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
     <string name="action_sign_in_short">Sign in</string>
-    <string name="welcome">"Welcome !"</string>
+    <string name="welcome">"Welcome "</string>
     <string name="invalid_username">Please enter a username</string>
     <string name="invalid_password">Please enter a password</string>
     <string name="login_failed">"Login failed"</string>

@@ -1,17 +1,10 @@
 package com.videotake.UI;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -21,26 +14,23 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.videotake.Domain.Movie;
-import com.videotake.Logic.Movie.MovieResult;
-import com.videotake.Logic.Movie.MovieViewModel;
-import com.videotake.Logic.Movie.MovieViewModelFactory;
-import com.videotake.Logic.User.GuestSessionResult;
-import com.videotake.Logic.User.LoggedInUserView;
+import androidx.annotation.Nullable;
+import androidx.annotation.StringRes;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+
+import com.videotake.Domain.LoggedInUser;
+import com.videotake.Logic.User.EmptyResult;
 import com.videotake.Logic.User.LoginFormState;
-import com.videotake.Logic.User.LoginResult;
 import com.videotake.Logic.User.LoginViewModel;
-import com.videotake.Logic.User.LoginViewModelFactory;
 import com.videotake.R;
 import com.videotake.databinding.ActivityLoginBinding;
-
-import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
     private final String TAG_NAME = LoginActivity.class.getSimpleName();
 
     private LoginViewModel loginViewModel;
-    private MovieViewModel movieViewModel;
     private ActivityLoginBinding binding;
 
     @Override
@@ -50,8 +40,7 @@ public class LoginActivity extends AppCompatActivity {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         final EditText usernameEditText = binding.username;
         final EditText passwordEditText = binding.password;
@@ -75,22 +64,19 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getLoginResult().observe(this, new Observer<LoginResult>() {
+        loginViewModel.getLoginResult().observe(this, new Observer<EmptyResult>() {
             @Override
-            public void onChanged(@Nullable LoginResult loginResult) {
-                if (loginResult == null) {
+            public void onChanged(@Nullable EmptyResult result) {
+                if (result == null) {
                     return;
                 }
                 loadingProgressBar.setVisibility(View.GONE);
-                if (loginResult.getError() != null) {
-                    Log.d(TAG_NAME, "it's not here?");
-                    showLoginFailed(loginResult.getError());
-                }
-                if (loginResult.getSuccess() != null) {
-                    updateUiWithUser(loginResult.getSuccess());
+                if (result.getError() != null) {
+                    showLoginFailed(result.getError());
+                } else if (result.getError() == null ){
+                    updateUiWithUser(loginViewModel.getLoggedInUser());
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     LoginActivity.this.startActivity(intent);
-
                 }
                 setResult(Activity.RESULT_OK);
             }
@@ -136,9 +122,9 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-        loginViewModel.getGuestSessionResult().observe(this, new Observer<GuestSessionResult>() {
+        loginViewModel.getGuestSessionResult().observe(this, new Observer<EmptyResult>() {
             @Override
-            public void onChanged(@Nullable GuestSessionResult guestSessionResult) {
+            public void onChanged(@Nullable EmptyResult guestSessionResult) {
                 if (guestSessionResult == null) {
                     return;
                 }
@@ -162,9 +148,8 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // initiate successful logged in experience
+    private void updateUiWithUser(LoggedInUser user) {
+        String welcome = getString(R.string.welcome) + user.getDisplayName();
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
     }
 

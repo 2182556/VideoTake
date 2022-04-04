@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,10 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.Movie.MovieResult;
-import com.videotake.Logic.User.LoginViewModel;
-import com.videotake.Logic.User.LoginViewModelFactory;
-import com.videotake.Logic.User.StringResult;
+import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.Home.HomeFragmentDirections;
 import com.videotake.UI.Lists.MovieListFragmentDirections;
@@ -43,17 +39,17 @@ public class MovieListAdapter extends
     private List<Movie> allMovies;
     private final LayoutInflater mInflater;
     private String parentName = "";
-    private LoginViewModel loginViewModel = null;
+    private LoggedInUserViewModel loggedInUserViewModel = null;
 
     public MovieListAdapter(String parentName, Context context) {
         this.parentName = parentName;
         mInflater = LayoutInflater.from(context);
     }
 
-    public MovieListAdapter(String parentName, Context context, LoginViewModel loginViewModel) {
+    public MovieListAdapter(String parentName, Context context, LoggedInUserViewModel loggedInUserViewModel) {
         this.parentName = parentName;
         mInflater = LayoutInflater.from(context);
-        this.loginViewModel = loginViewModel;
+        this.loggedInUserViewModel = loggedInUserViewModel;
     }
 
     @NonNull
@@ -70,7 +66,7 @@ public class MovieListAdapter extends
         holder.priceMovie.setText(String.valueOf(mCurrent.getRating()));
         holder.releasedateMovie.setText(mCurrent.getReleaseDate());
         Picasso.with(mInflater.getContext())
-                .load("https://image.tmdb.org/t/p/original/" + mCurrent.getPosterPath())
+                .load("https://image.tmdb.org/t/p/w500" + mCurrent.getPosterPath())
                 .into(holder.imgMovie);
         holder.addToListButton.setOnClickListener( new View.OnClickListener() {
             @Override
@@ -84,38 +80,38 @@ public class MovieListAdapter extends
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
                 MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),
-                        mCurrent.getMovieID(),loginViewModel,ViewTreeLifecycleOwner.get(view));
+                        mCurrent.getMovieID(), loggedInUserViewModel,ViewTreeLifecycleOwner.get(view));
                 RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
                 mRecyclerView.setAdapter(mAdapter);
-                loginViewModel.lists();
-                loginViewModel.getListsResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<MovieResult>() {
+                loggedInUserViewModel.lists();
+                loggedInUserViewModel.getListsResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<EmptyResult>() {
                     @Override
-                    public void onChanged(@Nullable MovieResult movieResult) {
-                        if (movieResult == null) {
+                    public void onChanged(@Nullable EmptyResult result) {
+                        if (result == null) {
                             return;
                         }
-                        if (movieResult.getError() == null) {
-                            List<MovieList> allLists = loginViewModel.getUserLists();
+                        if (result.getError() == null) {
+                            List<MovieList> allLists = loggedInUserViewModel.getUserLists();
                             mAdapter.setData(allLists);
                         } else {
                             Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
                         }
                     }
                 });
-                loginViewModel.getAddMovieToListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<StringResult>() {
+                loggedInUserViewModel.getAddMovieToListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<EmptyResult>() {
                     @Override
-                    public void onChanged(@Nullable StringResult stringResult) {
-                        if (stringResult == null) {
+                    public void onChanged(@Nullable EmptyResult result) {
+                        if (result == null) {
                             return;
                         }
-                        if (stringResult.getError() == null) {
+                        if (result.getError() == null) {
                             Toast.makeText(mInflater.getContext(), "Succesfully added movie to list!", Toast.LENGTH_LONG).show();
                             popupWindow.dismiss();
                         } else {
                             Toast.makeText(mInflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
                             Log.d(TAG_NAME, "An error occurred when trying add the movie to the list");
                         }
-                        loginViewModel.resetAddMovieToListResult();
+                        loggedInUserViewModel.resetAddMovieToListResult();
                     }
                 });
                 final Button cancelButton = popupView.findViewById(R.id.cancel_button);

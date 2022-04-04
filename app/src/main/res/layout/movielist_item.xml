@@ -41,9 +41,9 @@
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="4dp"
                 android:clickable="true"
-                app:backgroundTint="#D8F4B7"
-                app:fabSize="mini"
                 android:visibility="visible"
+                app:backgroundTint="#CDF49F"
+                app:fabSize="mini"
                 app:srcCompat="@drawable/ic_add_list_fab" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -1,7 +1,6 @@
 package com.videotake.UI.DetailPage;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,9 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,26 +23,16 @@ import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
 import com.videotake.Domain.Review;
-import com.videotake.Logic.Movie.MovieResult;
-import com.videotake.Logic.Movie.MovieViewModel;
-import com.videotake.Logic.Movie.MovieViewModelFactory;
-import com.videotake.Logic.User.LoggedInUserView;
+import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.Logic.User.LoginViewModel;
-import com.videotake.Logic.User.LoginViewModelFactory;
-import com.videotake.Logic.User.StringResult;
 import com.videotake.R;
-import com.videotake.UI.Adapters.MovieListAdapter;
 import com.videotake.UI.Adapters.MovieListOverviewAdapter;
 import com.videotake.UI.Home.HomeViewModel;
-import com.videotake.UI.Home.HomeViewModelFactory;
 import com.videotake.databinding.FragmentDetailPageBinding;
-import com.videotake.databinding.FragmentHomeBinding;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,8 +40,10 @@ import java.util.Objects;
 public class MovieDetailPageFragment extends Fragment {
     private final String TAG_NAME = MovieDetailPageFragment.class.getSimpleName();
     private FragmentDetailPageBinding binding;
-    private MovieViewModel movieViewModel;
+    private HomeViewModel homeViewModel;
+    private MovieDetailsViewModel movieDetailsViewModel;
     private LoginViewModel loginViewModel;
+    private LoggedInUserViewModel loggedInUserViewModel;
     private Movie movie;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -80,38 +68,38 @@ public class MovieDetailPageFragment extends Fragment {
         TextView language = binding.movieLanguage;
         Button addToListButton = binding.addmovietolistbutton;
 
-        movieViewModel = new ViewModelProvider(this, new MovieViewModelFactory())
-                .get(MovieViewModel.class);
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
-        List<Movie> movies = movieViewModel.getTrendingMovieList().getMovies();
+
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+
+        List<Movie> movies = homeViewModel.getTrendingMovieList().getMovies();
         if (movies!=null) {
             movie = movies.get(moviePosition);
 
             //getting video link and reviews of this movie
-            movieViewModel.getVideoLinkAndReviews(movie);
-            movieViewModel.getVideoLinkAndReviewsResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
-                @Override
-                public void onChanged(@Nullable MovieResult movieResult) {
-                    if (movieResult == null) {
-                        return;
-                    }
+            movieDetailsViewModel.getVideoLinkAndReviews(movie);
+            movieDetailsViewModel.getVideoLinkAndReviewsResult().observe(
+                    getViewLifecycleOwner(), (Observer<EmptyResult>) result -> {
+                if (result == null) {
+                    return;
+                }
 //                loadingProgressBar.setVisibility(View.GONE);
-                    if (movieResult.getError() == null) {
-                        String videoPath = movie.getVideoPath();
-                        List<Review> reviews = movie.getReviews();
+                if (result.getError() == null) {
+                    String videoPath = movie.getVideoPath();
+                    List<Review> reviews = movie.getReviews();
 
-                        for (Review review : reviews){
-                            //misschien een nieuwe adapter om variabele hoeveelheid reviews te laten zien
-                        }
-
-
-                        //code to show video
-
-                    } else {
-                        Log.d(TAG_NAME, "An error occurred when trying to load the reviews and trailer");
+                    for (Review review : reviews){
+                        //misschien een nieuwe adapter om variabele hoeveelheid reviews te laten zien
                     }
+
+
+                    //code to show video
+
+                } else {
+                    Log.d(TAG_NAME, "An error occurred when trying to load the reviews and trailer");
                 }
             });
 
@@ -136,39 +124,35 @@ public class MovieDetailPageFragment extends Fragment {
                         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
                         MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),
-                                movie.getMovieID(),loginViewModel, ViewTreeLifecycleOwner.get(view));
+                                movie.getMovieID(),loggedInUserViewModel, ViewTreeLifecycleOwner.get(view));
                         RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
                         mRecyclerView.setAdapter(mAdapter);
-                        loginViewModel.lists();
-                        loginViewModel.getListsResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<MovieResult>() {
-                            @Override
-                            public void onChanged(@Nullable MovieResult movieResult) {
-                                if (movieResult == null) {
-                                    return;
-                                }
-                                if (movieResult.getError() == null) {
-                                    List<MovieList> allLists = loginViewModel.getUserLists();
-                                    mAdapter.setData(allLists);
-                                } else {
-                                    Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
-                                }
+                        loggedInUserViewModel.lists();
+                        loggedInUserViewModel.getListsResult().observe(
+                                Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
+                            if (result == null) {
+                                return;
+                            }
+                            if (result.getError() == null) {
+                                List<MovieList> allLists = loggedInUserViewModel.getUserLists();
+                                mAdapter.setData(allLists);
+                            } else {
+                                Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
                             }
                         });
-                        loginViewModel.getAddMovieToListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<StringResult>() {
-                            @Override
-                            public void onChanged(@Nullable StringResult stringResult) {
-                                if (stringResult == null) {
-                                    return;
-                                }
-                                if (stringResult.getError() == null) {
-                                    Toast.makeText(inflater.getContext(), "Succesfully added movie to list!", Toast.LENGTH_LONG).show();
-                                    popupWindow.dismiss();
-                                } else {
-                                    Toast.makeText(inflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
-                                    Log.d(TAG_NAME, "An error occurred when trying add the movie to the list");
-                                }
-                                loginViewModel.resetAddMovieToListResult();
+                        loggedInUserViewModel.getAddMovieToListResult().observe(
+                                Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
+                            if (result == null) {
+                                return;
                             }
+                            if (result.getError() == null) {
+                                Toast.makeText(inflater.getContext(), "Succesfully added movie to list!", Toast.LENGTH_LONG).show();
+                                popupWindow.dismiss();
+                            } else {
+                                Toast.makeText(inflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
+                                Log.d(TAG_NAME, "An error occurred when trying add the movie to the list");
+                            }
+                            loggedInUserViewModel.resetAddMovieToListResult();
                         });
                         final Button cancelButton = popupView.findViewById(R.id.cancel_button);
                         cancelButton.setOnClickListener(new View.OnClickListener() {

@@ -1,20 +1,20 @@
-package com.videotake.Logic.Movie;
+package com.videotake.Logic.User;
 
 import androidx.annotation.Nullable;
 
-public class MovieResult {
+public class EmptyResult {
+
     @Nullable
     private Integer error;
 
-    public MovieResult(@Nullable Integer error) {
+    public EmptyResult(@Nullable Integer error) {
         this.error = error;
     }
 
-    public MovieResult() { }
+    public EmptyResult() { }
 
     @Nullable
     public Integer getError() {
         return error;
     }
-
 }

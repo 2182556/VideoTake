@@ -3,7 +3,6 @@ package com.videotake.DAL;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.StringResult;
 
 import java.util.List;
 import java.util.concurrent.Executor;

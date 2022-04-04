@@ -11,22 +11,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.Movie.MovieResult;
-import com.videotake.Logic.User.LoginViewModel;
-import com.videotake.Logic.User.LoginViewModelFactory;
-import com.videotake.Logic.User.StringResult;
+import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 
@@ -38,18 +34,18 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
     private List<MovieList> allLists;
     private final LayoutInflater mInflater;
     private int movieId = 0;
-    private LoginViewModel loginViewModel = null;
+    private LoggedInUserViewModel loggedInUserViewModel = null;
     private LifecycleOwner lifecycleOwner = null;
 
-    public MovieListOverviewAdapter(Context context, LoginViewModel loginViewModel) {
-        this.loginViewModel = loginViewModel;
+    public MovieListOverviewAdapter(Context context, LoggedInUserViewModel loggedInUserViewModel) {
+        this.loggedInUserViewModel = loggedInUserViewModel;
         mInflater = LayoutInflater.from(context);
     }
 
-    public MovieListOverviewAdapter(Context context, int movieId, LoginViewModel loginViewModel, LifecycleOwner owner) {
+    public MovieListOverviewAdapter(Context context, int movieId, LoggedInUserViewModel loggedInUserViewModel, LifecycleOwner owner) {
         mInflater = LayoutInflater.from(context);
         this.movieId = movieId;
-        this.loginViewModel = loginViewModel;
+        this.loggedInUserViewModel = loggedInUserViewModel;
         this.lifecycleOwner = owner;
     }
 
@@ -96,14 +92,14 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.delete_list:
-                    loginViewModel.removeList(allLists.get(position).getListId());
-                    loginViewModel.getRemoveListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<StringResult>() {
+                    loggedInUserViewModel.removeList(allLists.get(position).getListId());
+                    loggedInUserViewModel.getRemoveListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<EmptyResult>() {
                         @Override
-                        public void onChanged(@Nullable StringResult stringResult) {
-                            if (stringResult == null) {
+                        public void onChanged(@Nullable EmptyResult result) {
+                            if (result == null) {
                                 return;
                             }
-                            if (stringResult.getError() == null) {
+                            if (result.getError() == null) {
                                 Log.d(TAG_NAME, "Deleted the list");
                                 allLists.remove(position);
                                 notifyDataSetChanged();
@@ -163,7 +159,7 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
                         Navigation.findNavController(v).navigate(action);
                     } else {
                         MovieList listToAddTo = allLists.get(getLayoutPosition());
-                        loginViewModel.addMovieToList(listToAddTo.getListId(),movieId);
+                        loggedInUserViewModel.addMovieToList(listToAddTo.getListId(),movieId);
                         movieId=0;
                     }
                 }
