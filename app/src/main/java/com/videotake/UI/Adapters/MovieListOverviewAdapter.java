@@ -11,24 +11,45 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.lifecycle.LifecycleOwner;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
+import com.videotake.Logic.Movie.MovieResult;
+import com.videotake.Logic.User.LoginViewModel;
+import com.videotake.Logic.User.LoginViewModelFactory;
+import com.videotake.Logic.User.StringResult;
 import com.videotake.R;
 import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 
 import java.util.List;
+import java.util.Objects;
 
 public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOverviewAdapter.MovieListViewHolder> {
     private final String TAG_NAME = MovieListOverviewAdapter.class.getSimpleName();
     private List<MovieList> allLists;
     private final LayoutInflater mInflater;
+    private int movieId = 0;
+    private LoginViewModel loginViewModel = null;
+    private LifecycleOwner lifecycleOwner = null;
 
     public MovieListOverviewAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+    }
+
+    public MovieListOverviewAdapter(Context context, int movieId, LoginViewModel loginViewModel, LifecycleOwner owner) {
+        mInflater = LayoutInflater.from(context);
+        this.movieId = movieId;
+        this.loginViewModel = loginViewModel;
+        this.lifecycleOwner = owner;
     }
 
     @NonNull
@@ -118,9 +139,14 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ListOverviewFragmentDirections.ActionNavListOverviewToNavMovieList action =
-                            ListOverviewFragmentDirections.actionNavListOverviewToNavMovieList(getLayoutPosition());
-                    Navigation.findNavController(v).navigate(action);
+                    if (movieId==0){
+                        ListOverviewFragmentDirections.ActionNavListOverviewToNavMovieList action =
+                                ListOverviewFragmentDirections.actionNavListOverviewToNavMovieList(getLayoutPosition(),allLists.get(getLayoutPosition()).getListName());
+                        Navigation.findNavController(v).navigate(action);
+                    } else {
+                        MovieList listToAddTo = allLists.get(getLayoutPosition());
+                        loginViewModel.addMovieToList(listToAddTo.getListId(),movieId);
+                    }
                 }
             });
         }
