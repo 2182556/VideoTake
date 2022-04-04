@@ -22,6 +22,7 @@ import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
@@ -149,7 +150,7 @@ public class MovieListAdapter extends
         public final TextView priceMovie;
         public final TextView releasedateMovie;
         public ImageView imgMovie;
-        public ImageView addToListButton;
+        public FloatingActionButton addToListButton;
 
         public MovieViewHolder(@NonNull View itemView, MovieListAdapter adapter) {
             super(itemView);
@@ -157,7 +158,7 @@ public class MovieListAdapter extends
             priceMovie = itemView.findViewById(R.id.rec_movie_rating);
             imgMovie = itemView.findViewById(R.id.rec_movie_image);
             releasedateMovie = itemView.findViewById(R.id.rec_movie_releasedate);
-            addToListButton = itemView.findViewById(R.id.add_to_list);
+            addToListButton = itemView.findViewById(R.id.add_to_list_fab);
             this.adapter = adapter;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
