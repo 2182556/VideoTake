@@ -75,7 +75,6 @@ public class MovieListAdapter extends
         holder.addToListButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mInflater.getContext();
                 LayoutInflater popUpInflater = (LayoutInflater) mInflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
                 int width = LinearLayout.LayoutParams.MATCH_PARENT;
