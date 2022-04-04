@@ -143,7 +143,7 @@ public class UserApiDAO extends ApiDAO {
         return null;
     }
 
-    public void addMovieToList(String session_Id, int list_id, int movie_id){
+    public Result<String> addMovieToList(String session_Id, String list_id, int movie_id){
         RequestBody requestBody = new MultipartBody.Builder()
                 .addFormDataPart("media_id", String.valueOf(movie_id))
                 .build();
@@ -160,10 +160,15 @@ public class UserApiDAO extends ApiDAO {
             JSONObject json = new JSONObject(body.string());
             Log.d(TAG_NAME,json.toString());
             boolean success = json.getBoolean("success");
-            if (success) Log.d(TAG_NAME,"The movie was added to the list");
+            if (success) {
+                Log.d(TAG_NAME,"The movie was added to the list");
+                return new Result.Success<>("Success");
+            }
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return new Result.Error(new IOException("Error: Could not add movie to list"));
     }
 
     public Result<String> addList(String session_Id, String name, String description){
@@ -247,7 +252,7 @@ public class UserApiDAO extends ApiDAO {
                         JSONArray movies_in_list_json  = list_json.getJSONArray("items");
                         List<Movie> movies = new ArrayList<>();
                         movies.addAll(MovieApiDAO.getListOfMoviesFromJSONArray(movies_in_list_json));
-                        allLists.add(new MovieList(list_json.getString("name"),list_json.getString("description"), movies));
+                        allLists.add(new MovieList(list_json.getString("id"),list_json.getString("name"),list_json.getString("description"), movies));
                     }
                 }
                 if (page<amountOfPages){
