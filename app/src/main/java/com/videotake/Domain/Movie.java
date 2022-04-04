@@ -1,12 +1,22 @@
 package com.videotake.Domain;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.PrimaryKey;
+
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
+// Annotations for DataBase
+@Entity(tableName = "movie_table")
 public class Movie {
 
-    private int movieID;
+    // Key values
+    @ColumnInfo(name = "movie")
+    @PrimaryKey private int movieID;
     private String movieName;
     private String description;
     private String posterPath;
