@@ -164,7 +164,6 @@ public class UserApiDAO extends ApiDAO {
                 Log.d(TAG_NAME,"The movie was added to the list");
                 return new Result.Success<>("Success");
             }
-
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -217,10 +216,11 @@ public class UserApiDAO extends ApiDAO {
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 int status_code = json.getInt("status_code");
-                if (status_code==12) {
-                    Log.d(TAG_NAME,"The list has been removed");
-                    return new Result.Success<>("Success");
-                }
+//                if (status_code==12) {
+                //status code does not work properly, so we assume the list has been removed
+                Log.d(TAG_NAME,"The list has been removed");
+                return new Result.Success<>("Success");
+//                }
             } catch (Exception e) {
                 e.printStackTrace();
                 return new Result.Error(new IOException("Error removing list", e));
@@ -295,7 +295,6 @@ public class UserApiDAO extends ApiDAO {
         } catch (Exception e) {
             return new Result.Error(new IOException("Error logging in", e));
         }
-
         return null;
     }
 }

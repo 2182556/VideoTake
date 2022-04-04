@@ -106,6 +106,7 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
                             if (stringResult.getError() == null) {
                                 Log.d(TAG_NAME, "Deleted the list");
                                 allLists.remove(position);
+                                notifyDataSetChanged();
                             } else {
                                 Log.d(TAG_NAME, "An error occurred when trying to delete the list");
                             }
