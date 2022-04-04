@@ -24,6 +24,7 @@ import com.videotake.UI.Adapters.MovieListAdapter;
 import com.videotake.UI.DetailPage.MovieDetailPageFragmentArgs;
 import com.videotake.UI.Home.HomeFragment;
 import com.videotake.databinding.FragmentHomeBinding;
+import com.videotake.databinding.FragmentMovieListBinding;
 
 import java.util.List;
 
@@ -33,18 +34,18 @@ public class MovieListFragment extends Fragment {
     private LoginViewModel loginViewModel;
     private List<Movie> trendingMovies;
 
-    private FragmentHomeBinding binding;
+    private FragmentMovieListBinding binding;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentHomeBinding.inflate(inflater, container, false);
+        binding = FragmentMovieListBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
         int movieListPosition = MovieListFragmentArgs.fromBundle(getArguments()).getMovieListId();
 
 
-        MovieListAdapter mAdapter = new MovieListAdapter(inflater.getContext());
+        MovieListAdapter mAdapter = new MovieListAdapter("MovieListFragment",inflater.getContext());
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 

@@ -36,14 +36,11 @@ public class UserApiDAO extends ApiDAO {
 //    }
 
     public Result<LoggedInUser> login(String username, String password) {
-        Log.d(TAG_NAME, username + " " +password);
         try {
             String session_Id = requestSession(username,password);
             JSONObject user_details = getUserDetails(session_Id);
-            LoggedInUser user =  new LoggedInUser(user_details.getInt("id"),username,password,session_Id);
-//            LoggedInUser user = requestSession(username,password);
-            Log.d(TAG_NAME, "The value of user is: " + user);
-            if (user!=null) {
+            if (user_details!=null){
+                LoggedInUser user =  new LoggedInUser(user_details.getInt("id"),username,password,session_Id);
                 return new Result.Success<>(user);
             } else {
                 return new Result.Error(new IOException("Error logging in", new NullPointerException()));
@@ -169,7 +166,7 @@ public class UserApiDAO extends ApiDAO {
         }
     }
 
-    protected void addList(String session_Id, String name, String description){
+    public Result<String> addList(String session_Id, String name, String description){
         Log.d(TAG_NAME, "Attempting to add list to API");
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
@@ -190,11 +187,16 @@ public class UserApiDAO extends ApiDAO {
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 boolean success = json.getBoolean("success");
-                if (success) Log.d(TAG_NAME,"The list was added to the API");
+                if (success) {
+                    Log.d(TAG_NAME,"The list was added to the API");
+                    return new Result.Success<>("Success");
+                }
             } catch (Exception e) {
                 e.printStackTrace();
+                return new Result.Error(new IOException("Error adding list", e));
             }
         }
+        return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 
     protected void deleteList(String session_Id, int list_id){

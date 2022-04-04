@@ -11,7 +11,7 @@
             android:id="@+id/nav_list_overview"
             android:title="@string/menu_lists" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:title="@string/menu_slideshow" />
+            android:id="@+id/nav_logout"
+            android:title="@string/menu_logout" />
     </group>
 </menu>

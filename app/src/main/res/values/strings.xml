@@ -7,7 +7,7 @@
     <string name="price">Prijs: </string>
     <string name="price_full_string">Prijs: €%1$s</string>
     <string name="spots_left">Plek over: </string>
-    <string name="description_placeholder">Descriptie</string>
+    <string name="description_placeholder">Description</string>
     <string name="date">Geserveerd op </string>
     <string name="allergeninfo">Allergeneninfo:</string>
     <string name="allergeninfo_full_string">Allergeneninfo: %1$s</string>
@@ -55,4 +55,11 @@
     <string name="delete">Delete</string>
     <string name="add_movie_to_list_button">Add movie to list button</string>
     <string name="calendar">calendar</string>
+    <string name="menu_logout">Log out</string>
+    <string name="prompt_list_title">Title</string>
+    <string name="title_list">List title</string>
+    <string name="add_lists_failed">Could not add list</string>
+    <string name="movie_list_placeholder">{movie_list}</string>
+    <string name="add_list">Add a new list</string>
+    <string name="accept_text">Accept</string>
 </resources>

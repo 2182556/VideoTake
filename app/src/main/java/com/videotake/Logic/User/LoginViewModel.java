@@ -25,6 +25,7 @@ public class LoginViewModel extends ViewModel {
     private UserRepository userRepository;
 
     private MutableLiveData<MovieResult> listsResult = new MutableLiveData<>();
+    private MutableLiveData<StringResult> addListResult = new MutableLiveData<>();
 
     LoginViewModel(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -41,6 +42,8 @@ public class LoginViewModel extends ViewModel {
     public LiveData<LoginResult> getLoginResult() {
         return loginResult;
     }
+
+    public LiveData<StringResult> getAddListResult(){ return this.addListResult; }
 
     public List<MovieList> getUserLists(){ return userRepository.getUserLists(); }
 
@@ -69,6 +72,19 @@ public class LoginViewModel extends ViewModel {
                     listsResult.postValue(new MovieResult());
                 } else {
                     listsResult.postValue(new MovieResult(R.string.get_lists_failed));
+                }
+            }
+        });
+    }
+
+    public void addList(String title, String description){
+        userRepository.addList(title, description, new RepositoryCallback<String>() {
+            @Override
+            public void onComplete(Result<String> result) {
+                if (result instanceof Result.Success) {
+                    addListResult.postValue(new StringResult());
+                } else {
+                    addListResult.postValue(new StringResult(R.string.add_lists_failed));
                 }
             }
         });

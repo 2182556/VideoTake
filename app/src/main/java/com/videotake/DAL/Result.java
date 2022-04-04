@@ -2,7 +2,7 @@ package com.videotake.DAL;
 
 public class Result<T> {
     // hide the private constructor to limit subclass types (Success, Error)
-    private Result() {
+    public Result() {
     }
 
     @Override
@@ -28,6 +28,10 @@ public class Result<T> {
         public T getData() {
             return this.data;
         }
+    }
+
+    public final static class SuccessNoParameter extends Result {
+
     }
 
     // Error sub-class

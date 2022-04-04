@@ -46,6 +46,8 @@ public class Movie {
 
     public int getMovieID() { return this.movieID; }
 
+    public String getOriginalLanguage() { return this.originalLanguage; }
+
     public void setVideoPath(String videoPath){ this.videoPath = videoPath; }
 
     public String getVideoPath(){ return this.videoPath; }

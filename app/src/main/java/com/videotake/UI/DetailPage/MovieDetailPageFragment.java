@@ -20,6 +20,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.Review;
@@ -104,17 +105,11 @@ public class MovieDetailPageFragment extends Fragment {
             //assigning values to xml attributes
             title.setText(movie.getMovieName());
             description.setText(movie.getMovieDescription());
+            rating.setText(String.valueOf(movie.getRating()));
+            date.setText(movie.getReleaseDate());
+            language.setText(movie.getOriginalLanguage());
+            Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/original/" + movie.getPosterPath()).into(image);
 
-            //examples from shareameal
-//        title.setText(meal.getTitle());
-//        description.setText(meal.getDescription());
-//        price.setText(String.format(res.getString(R.string.price_full_string),meal.getFormattedPrice()));
-//        allergenInfo.setText(String.format(res.getString(R.string.allergeninfo_full_string),meal.getAllergens()));
-//        date.setText(meal.getFormattedDatetime());
-//        spotsLeft.setText(res.getString(R.string.spots_left)+meal.getSpotsLeft());
-//
-//        cookName.setText(meal.getCook().getFirstName() + " " + meal.getCook().getLastName());
-//        cookCity.setText(meal.getCook().getCity());
         }
 
         return root;
