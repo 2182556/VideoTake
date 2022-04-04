@@ -26,6 +26,7 @@ public class LoginViewModel extends ViewModel {
 
     private MutableLiveData<MovieResult> listsResult = new MutableLiveData<>();
     private MutableLiveData<StringResult> addListResult = new MutableLiveData<>();
+    private MutableLiveData<StringResult> removeListResult = new MutableLiveData<>();
     private MutableLiveData<StringResult> addMovieToListResult = new MutableLiveData<>();
 
     LoginViewModel(UserRepository userRepository) {
@@ -45,6 +46,8 @@ public class LoginViewModel extends ViewModel {
     }
 
     public LiveData<StringResult> getAddListResult(){ return this.addListResult; }
+
+    public LiveData<StringResult> getRemoveListResult(){ return this.removeListResult; }
 
     public LiveData<StringResult> getAddMovieToListResult(){ return this.addMovieToListResult; }
 
@@ -88,6 +91,19 @@ public class LoginViewModel extends ViewModel {
                     addListResult.postValue(new StringResult());
                 } else {
                     addListResult.postValue(new StringResult(R.string.add_lists_failed));
+                }
+            }
+        });
+    }
+
+    public void removeList(String listId){
+        userRepository.removeList(listId, new RepositoryCallback<String>() {
+            @Override
+            public void onComplete(Result<String> result) {
+                if (result instanceof Result.Success) {
+                    removeListResult.postValue(new StringResult());
+                } else {
+                    removeListResult.postValue(new StringResult(R.string.remove_list_failed));
                 }
             }
         });

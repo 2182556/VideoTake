@@ -65,4 +65,5 @@
     <string name="accept_text">Accept</string>
     <string name="movie_poster">movie poster</string>
     <string name="add_to_list">Add to list</string>
+    <string name="remove_list_failed">Could not remove list</string>
 </resources>

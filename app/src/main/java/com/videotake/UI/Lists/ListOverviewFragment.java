@@ -54,12 +54,13 @@ public class ListOverviewFragment extends Fragment {
         binding = FragmentListOverviewBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(inflater.getContext());
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+
+        MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(inflater.getContext(),loginViewModel);
         RecyclerView mRecyclerView = binding.recyclerviewList;
         mRecyclerView.setAdapter(mAdapter);
 
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
         loginViewModel.lists();
         loginViewModel.getListsResult().observe(getViewLifecycleOwner(), new Observer<MovieResult>() {
             @Override
@@ -127,8 +128,6 @@ public class ListOverviewFragment extends Fragment {
                                 });
                             }
                         });
-
-
 
                     }
                 });

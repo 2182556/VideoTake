@@ -41,7 +41,8 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
     private LoginViewModel loginViewModel = null;
     private LifecycleOwner lifecycleOwner = null;
 
-    public MovieListOverviewAdapter(Context context) {
+    public MovieListOverviewAdapter(Context context, LoginViewModel loginViewModel) {
+        this.loginViewModel = loginViewModel;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -66,7 +67,6 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
         holder.menu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 showPopupMenu(holder.menu, holder.getAdapterPosition());
             }
         });
@@ -79,14 +79,16 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
         inflater.inflate(R.menu.menu_popup_list, popup.getMenu());
 
         //set menu item click listener here
-        popup.setOnMenuItemClickListener(new PopupMenuListOnClickListener(position));
+        popup.setOnMenuItemClickListener(new PopupMenuListOnClickListener(position,view));
         popup.show();
     }
 
-    static class PopupMenuListOnClickListener implements PopupMenu.OnMenuItemClickListener {
+    class PopupMenuListOnClickListener implements PopupMenu.OnMenuItemClickListener {
+        View view;
         int position;
 
-        PopupMenuListOnClickListener(int position) {
+        PopupMenuListOnClickListener(int position, View view) {
+            this.view = view;
             this.position = position;
         }
 
@@ -94,6 +96,21 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
         public boolean onMenuItemClick(MenuItem menuItem) {
             switch (menuItem.getItemId()) {
                 case R.id.delete_list:
+                    loginViewModel.removeList(allLists.get(position).getListId());
+                    loginViewModel.getRemoveListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<StringResult>() {
+                        @Override
+                        public void onChanged(@Nullable StringResult stringResult) {
+                            if (stringResult == null) {
+                                return;
+                            }
+                            if (stringResult.getError() == null) {
+                                Log.d(TAG_NAME, "Deleted the list");
+                                allLists.remove(position);
+                            } else {
+                                Log.d(TAG_NAME, "An error occurred when trying to delete the list");
+                            }
+                        }
+                    });
                     // ...
                     return true;
 //                case R.id.edit:
