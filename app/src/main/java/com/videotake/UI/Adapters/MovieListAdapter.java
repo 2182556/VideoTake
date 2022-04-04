@@ -66,15 +66,15 @@ public class MovieListAdapter extends
         holder.priceMovie.setText(String.valueOf(mCurrent.getRating()));
         holder.releasedateMovie.setText(mCurrent.getReleaseDate());
         Picasso.with(mInflater.getContext())
-                .load("https://image.tmdb.org/t/p/w500" + mCurrent.getPosterPath())
+                .load("https://image.tmdb.org/t/p/w500/" + mCurrent.getPosterPath())
                 .into(holder.imgMovie);
-        holder.addToListButton.setOnClickListener( new View.OnClickListener() {
+        holder.addToListImage.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 LayoutInflater popUpInflater = (LayoutInflater) mInflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
-                int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                int height = LinearLayout.LayoutParams.MATCH_PARENT;
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
                 popupWindow.setElevation(20);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
@@ -147,7 +147,7 @@ public class MovieListAdapter extends
         public final TextView priceMovie;
         public final TextView releasedateMovie;
         public ImageView imgMovie;
-        public FloatingActionButton addToListButton;
+        public ImageView addToListImage;
 
         public MovieViewHolder(@NonNull View itemView, MovieListAdapter adapter) {
             super(itemView);
@@ -155,7 +155,7 @@ public class MovieListAdapter extends
             priceMovie = itemView.findViewById(R.id.rec_movie_rating);
             imgMovie = itemView.findViewById(R.id.rec_movie_image);
             releasedateMovie = itemView.findViewById(R.id.rec_movie_releasedate);
-            addToListButton = itemView.findViewById(R.id.add_to_list_fab);
+            addToListImage = itemView.findViewById(R.id.add_to_list);
             this.adapter = adapter;
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

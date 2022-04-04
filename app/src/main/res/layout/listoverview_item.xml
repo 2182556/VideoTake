@@ -8,7 +8,6 @@
     android:layout_gravity="center"
     android:elevation="10dp"
     android:layout_margin="7dp"
-    app:cardCornerRadius="2dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true">
 
@@ -32,7 +31,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_toStartOf="@id/list_settings"
                 android:text="@string/movie_title_placeholder"
-                android:textSize="18sp"
+                android:textSize="30sp"
                 android:textStyle="bold" />
 
             <ImageView
@@ -40,6 +39,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
                 android:contentDescription="@string/menu_icon"
                 app:srcCompat="@drawable/ic_menu_dots"
                 tools:ignore="ImageContrastCheck" />

@@ -3,6 +3,7 @@ package com.videotake.DAL;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
+import com.videotake.Domain.User;
 
 import java.util.List;
 import java.util.concurrent.Executor;
@@ -138,4 +139,22 @@ public class UserRepository {
             });
         }
     }
+
+    public void postRating(int movie_id, double rating, final RepositoryCallback<String> callback){
+        executor.execute(new Runnable() {
+            @Override
+            public void run() {
+                User user = loggedInUser;
+                boolean loggedIn = true;
+                if (loggedInUser==null) {
+                    user = guestUser;
+                    loggedIn = false;
+                }
+                Result<String> result = userDAO.postRating(loggedIn,user.getSession_Id(),movie_id,rating);
+                callback.onComplete(result);
+            }
+        });
+    }
+
+
 }

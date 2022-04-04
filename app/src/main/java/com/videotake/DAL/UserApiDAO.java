@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.sql.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,11 +28,9 @@ public class UserApiDAO extends ApiDAO {
     public final String AUTHENTICATE_SESSION = "authentication/session/new";
     public final String GUEST_SESSION = "authentication/guest_session/new";
     public final String ACCOUNT = "account";
+    public final String RATING = "rating";
     public final String SESSION_ID_STRING = "session_id";
-
-//    public UserDAO(String username, String password){
-//        ;
-//    }
+    public final String GUEST_SESSION_ID_STRING = "guest_session_id";
 
     public Result<LoggedInUser> login(String username, String password) {
         try {
@@ -216,7 +213,7 @@ public class UserApiDAO extends ApiDAO {
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 int status_code = json.getInt("status_code");
-//                if (status_code==12) {
+//                if (status_code==12) { }
                 //status code does not work properly, so we assume the list has been removed
                 Log.d(TAG_NAME,"The list has been removed");
                 return new Result.Success<>("Success");
@@ -296,5 +293,37 @@ public class UserApiDAO extends ApiDAO {
             return new Result.Error(new IOException("Error logging in", e));
         }
         return null;
+    }
+
+    public Result<String> postRating(boolean loggedIn, String session_Id, int movie_Id, double rating){
+//        https://api.themoviedb.org/3/movie/{movie_id}/rating?api_key=5144de6e9e1919536a34c7c1e2736453&guest_session_id=jklj%3Bdsf
+        String session_type = GUEST_SESSION_ID_STRING;
+        if (session_Id!=null) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .addFormDataPart("value", String.valueOf(rating))
+                    .build();
+            if (loggedIn) session_type = SESSION_ID_STRING;
+            Request request = new Request.Builder()
+                    .url(BASE_URL + MOVIE + movie_Id + RATING +  API_KEY + "&" + session_type + "=" + session_Id )
+                    .addHeader("Content-Type", "application/json;charset=utf-8")
+                    .post(requestBody)
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json = new JSONObject(body.string());
+                Log.d(TAG_NAME,json.toString());
+                boolean success = json.getBoolean("success");
+                int status_code = json.getInt("status_code");
+//                if (status_code==12) { }
+                //status code does not work properly, so we assume the rating has been posted
+                Log.d(TAG_NAME,"The rating has been posted");
+                return new Result.Success<>("Success");
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new Result.Error(new IOException("Error adding list", e));
+            }
+        }
+        return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 }

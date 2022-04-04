@@ -64,13 +64,11 @@ public class MovieDetailPageFragment extends Fragment {
         TextView date = binding.movieReleasedate;
         TextView rating = binding.movieRatingint;
         TextView genre = binding.movieGenre;
-        TextView age = binding.movieAge;
-        TextView language = binding.movieLanguage;
+        ImageView adult = binding.movieAdult;
         Button addToListButton = binding.addmovietolistbutton;
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
-
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
@@ -108,8 +106,7 @@ public class MovieDetailPageFragment extends Fragment {
             description.setText(movie.getMovieDescription());
             rating.setText(String.valueOf(movie.getRating()));
             date.setText(movie.getReleaseDate());
-            language.setText(movie.getOriginalLanguage());
-            Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/original/" + movie.getPosterPath()).into(image);
+            Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()).into(image);
 
             if (loginViewModel.getLoggedInUser()!=null){
                 addToListButton.setOnClickListener( new View.OnClickListener() {
