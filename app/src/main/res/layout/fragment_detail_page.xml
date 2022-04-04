@@ -25,6 +25,7 @@
                 android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:contentDescription="@string/movie_poster"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,6 +60,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:src="@drawable/ic_rating_star"
+                android:contentDescription="@string/star_desc"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
 
@@ -104,7 +106,8 @@
                 android:id="@+id/addmovietolistbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Add to list"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_to_list"
                 app:layout_constraintTop_toBottomOf="@id/movie_description"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>

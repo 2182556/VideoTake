@@ -62,4 +62,6 @@
     <string name="movie_list_placeholder">{movie_list}</string>
     <string name="add_list">Add a new list</string>
     <string name="accept_text">Accept</string>
+    <string name="movie_poster">movie poster</string>
+    <string name="add_to_list">Add to list</string>
 </resources>
