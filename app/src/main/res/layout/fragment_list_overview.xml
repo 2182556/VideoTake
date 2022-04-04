@@ -32,7 +32,7 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/ic_add_list_fab"
-        app:backgroundTint="#E0FFBB"
+        app:backgroundTint="#D8F4B7"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
