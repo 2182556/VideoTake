@@ -18,8 +18,11 @@
 
             <ImageView
                 android:id="@+id/movie_image"
-                android:layout_width="220dp"
-                android:layout_height="200dp"
+                android:layout_width="180dp"
+                android:layout_height="250dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:layout_constraintStart_toStartOf="parent"
@@ -29,7 +32,9 @@
                 android:id="@+id/movie_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
                 android:text="@string/movie_title_placeholder"
                 android:textSize="26sp"
                 app:layout_constraintTop_toTopOf="parent"
@@ -42,18 +47,22 @@
                 android:layout_height="wrap_content"
                 android:text="@string/description_placeholder"
                 android:textSize="16sp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintHorizontal_bias="0.38"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_ratingicon" />
+                app:layout_constraintTop_toBottomOf="@id/movie_ratingicon"
+                app:layout_constrainedWidth="true" />
 
             <ImageView
                 android:id="@+id/movie_ratingicon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_rating_star"
-                tools:layout_editor_absoluteX="320dp"
-                tools:layout_editor_absoluteY="48dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/movie_title"
                 app:layout_constraintStart_toEndOf="@+id/movie_image" />
 
@@ -62,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TextView"
+                android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@id/movie_title"
                 app:layout_constraintStart_toEndOf="@+id/movie_ratingicon"/>
 
@@ -69,7 +79,8 @@
                 android:id="@+id/addmovietolistbutton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Button"
+                android:layout_marginEnd="16dp"
+                android:text="@string/add_to_list"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 
@@ -77,6 +88,8 @@
                 android:id="@+id/movie_releasedate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
                 android:text="releasedate"
                 app:layout_constraintStart_toEndOf="@id/movie_title"
                 app:layout_constraintTop_toTopOf="parent" />
