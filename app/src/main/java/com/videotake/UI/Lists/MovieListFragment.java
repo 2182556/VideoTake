@@ -21,9 +21,7 @@ import java.util.List;
 
 public class MovieListFragment extends Fragment {
     private final String TAG_NAME = MovieListFragment.class.getSimpleName();
-    private LoginViewModel loginViewModel;
     private LoggedInUserViewModel loggedInUserViewModel;
-    private List<Movie> trendingMovies;
 
     private FragmentMovieListBinding binding;
 
@@ -34,11 +32,7 @@ public class MovieListFragment extends Fragment {
         View root = binding.getRoot();
 
         int movieListPosition = MovieListFragmentArgs.fromBundle(getArguments()).getMovieListId();
-
-
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
-
 
         MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext(), loggedInUserViewModel);
         RecyclerView mRecyclerView = binding.recyclerview;

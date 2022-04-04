@@ -34,15 +34,12 @@ public class HomeViewModel extends ViewModel {
     }
 
     public void getTrendingMovies() {
-        movieRepository.getTrendingMovies(new RepositoryCallback<MovieList>() {
-            @Override
-            public void onComplete(Result<MovieList> result) {
-                if (result instanceof Result.Success) {
-                    trendingMovies = ((Result.Success<MovieList>) result).getData();
-                    trendingListResult.postValue(new EmptyResult());
-                } else {
-                    trendingListResult.postValue(new EmptyResult(R.string.getting_trending_movies_failed));
-                }
+        movieRepository.getTrendingMovies(result -> {
+            if (result instanceof Result.Success) {
+                trendingMovies = ((Result.Success<MovieList>) result).getData();
+                trendingListResult.postValue(new EmptyResult());
+            } else {
+                trendingListResult.postValue(new EmptyResult(R.string.getting_trending_movies_failed));
             }
         });
     }

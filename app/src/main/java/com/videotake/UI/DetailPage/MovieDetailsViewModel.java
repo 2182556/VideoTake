@@ -36,27 +36,21 @@ public class MovieDetailsViewModel extends ViewModel {
 
 
     public void getMovieById(int id){
-        movieRepository.getMovieById(id, new RepositoryCallback<Movie>() {
-            @Override
-            public void onComplete(Result<Movie> result) {
-                if (result instanceof Result.Success) {
-                    movieByIdResult.postValue(new EmptyResult());
-                } else {
-                    movieByIdResult.postValue(new EmptyResult(R.string.getting_movie_by_id_failed));
-                }
+        movieRepository.getMovieById(id, result -> {
+            if (result instanceof Result.Success) {
+                movieByIdResult.postValue(new EmptyResult());
+            } else {
+                movieByIdResult.postValue(new EmptyResult(R.string.getting_movie_by_id_failed));
             }
         });
     }
 
     public void getVideoLinkAndReviews(Movie movie){
-        movieRepository.getVideoLinkAndReviews(movie, new RepositoryCallback<Movie>() {
-            @Override
-            public void onComplete(Result<Movie> result) {
-                if (result instanceof Result.Success) {
-                    movieVideoLinkAndReviewsResult.postValue(new EmptyResult());
-                } else {
-                    movieVideoLinkAndReviewsResult.postValue(new EmptyResult(R.string.getting_movie_by_id_failed));
-                }
+        movieRepository.getVideoLinkAndReviews(movie, result -> {
+            if (result instanceof Result.Success) {
+                movieVideoLinkAndReviewsResult.postValue(new EmptyResult());
+            } else {
+                movieVideoLinkAndReviewsResult.postValue(new EmptyResult(R.string.getting_movie_by_id_failed));
             }
         });
     }
