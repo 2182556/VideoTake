@@ -115,4 +115,16 @@ public class UserRepository {
             });
         }
     }
+
+    public void addMovieToList(String list_id, int movie_id, final RepositoryCallback<String> callback){
+        if (loggedInUser!=null){
+            executor.execute(new Runnable() {
+                @Override
+                public void run() {
+                    Result<String> result = userDAO.addMovieToList(loggedInUser.getSession_Id(),list_id,movie_id);
+                    callback.onComplete(result);
+                }
+            });
+        }
+    }
 }

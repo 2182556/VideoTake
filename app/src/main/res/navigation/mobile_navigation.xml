@@ -16,6 +16,9 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+        <argument
+            android:name="detail_page"
+            app:argType="java.lang.String" />
     </fragment>
     <fragment
         android:id="@+id/movieDetailPageFragment"
@@ -25,6 +28,9 @@
         <argument
             android:name="movieId"
             app:argType="integer" />
+        <argument
+            android:name="detail_page"
+            app:argType="java.lang.String" />
     </fragment>
 
         <fragment
@@ -42,9 +48,12 @@
         android:name="com.videotake.UI.Lists.MovieListFragment"
         android:label="@string/movie_list_placeholder"
         tools:layout="@layout/fragment_movie_list">
-    <argument
-        android:name="movieListId"
-        app:argType="integer" />
+        <argument
+            android:name="movieListId"
+            app:argType="integer" />
+        <argument
+            android:name="movie_list"
+            app:argType="java.lang.String" />
         <action
             android:id="@+id/action_nav_movie_list_to_movieDetailPageFragment"
             app:destination="@id/movieDetailPageFragment" />

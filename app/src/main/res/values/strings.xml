@@ -60,4 +60,5 @@
     <string name="title_list">List title</string>
     <string name="add_lists_failed">Could not add list</string>
     <string name="movie_list_placeholder">{movie_list}</string>
+    <string name="add_movie_to_list_failed">Could not add movie to list</string>
 </resources>
