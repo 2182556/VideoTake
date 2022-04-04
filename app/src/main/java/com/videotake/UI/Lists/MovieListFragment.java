@@ -45,12 +45,12 @@ public class MovieListFragment extends Fragment {
         int movieListPosition = MovieListFragmentArgs.fromBundle(getArguments()).getMovieListId();
 
 
-        MovieListAdapter mAdapter = new MovieListAdapter("MovieListFragment",inflater.getContext());
-        RecyclerView mRecyclerView = binding.recyclerview;
-        mRecyclerView.setAdapter(mAdapter);
-
         loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
                 .get(LoginViewModel.class);
+
+        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext(),loginViewModel);
+        RecyclerView mRecyclerView = binding.recyclerview;
+        mRecyclerView.setAdapter(mAdapter);
 
         MovieList currentList = loginViewModel.getUserLists().get(movieListPosition);
         mAdapter.setData(currentList.getMovies());

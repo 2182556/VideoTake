@@ -70,7 +70,7 @@ public class MovieApiDAO extends ApiDAO {
                     JSONArray movieArray = json_response.getJSONArray("results");
                     movies.addAll(getListOfMoviesFromJSONArray(movieArray));
                     Log.d(TAG_NAME, "Successfully retrieved movies");
-                    return new MovieList(listName,
+                    return new MovieList("trending",listName,
                             listDescription, movies);
                 }
             }

@@ -53,7 +53,10 @@ public class HomeFragment extends Fragment {
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 
-        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext());
+        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
+                .get(LoginViewModel.class);
+
+        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext(),loginViewModel);
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 
@@ -85,8 +88,7 @@ public class HomeFragment extends Fragment {
 
 
         //checking if user got saved
-        loginViewModel = new ViewModelProvider(this, new LoginViewModelFactory())
-                .get(LoginViewModel.class);
+
         try {
 //            LoggedInUserView user = loginViewModel.getLoginResult().getValue().getSuccess();
 //            LoggedInUser loggedInUser = loginViewModel.getLoggedInUser();

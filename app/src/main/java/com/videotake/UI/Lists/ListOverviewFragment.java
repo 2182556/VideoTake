@@ -132,8 +132,6 @@ public class ListOverviewFragment extends Fragment {
 
                     }
                 });
-
-        //section to place get button and make onclick addlist (with popup?)
         return root;
     }
 
