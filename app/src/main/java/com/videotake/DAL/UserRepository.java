@@ -59,6 +59,8 @@ public class UserRepository {
         return this.loggedInUser;
     }
 
+    public GuestUser getGuestUser() {return this.guestUser; }
+
     public List<MovieList> getUserLists() { return this.userLists; }
 
     private void setUserLists(List<MovieList> userLists) { this.userLists = userLists; }

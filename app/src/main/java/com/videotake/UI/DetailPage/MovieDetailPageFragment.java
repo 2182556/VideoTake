@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,9 +31,9 @@ import com.videotake.Domain.Review;
 import com.videotake.Logic.User.EmptyResult;
 import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.Logic.User.LoginViewModel;
+import com.videotake.Logic.User.UserViewModel;
 import com.videotake.R;
-import com.videotake.UI.Adapters.MovieListOverviewAdapter;
-import com.videotake.UI.Home.HomeViewModel;
+import com.videotake.UI.Adapters.MovieListOverviewInPopupAdapter;
 import com.videotake.databinding.FragmentDetailPageBinding;
 
 import java.util.List;
@@ -40,10 +42,10 @@ import java.util.Objects;
 public class MovieDetailPageFragment extends Fragment {
     private final String TAG_NAME = MovieDetailPageFragment.class.getSimpleName();
     private FragmentDetailPageBinding binding;
-    private HomeViewModel homeViewModel;
     private MovieDetailsViewModel movieDetailsViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInUserViewModel loggedInUserViewModel;
+    private UserViewModel userViewModel;
     private Movie movie;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -65,15 +67,14 @@ public class MovieDetailPageFragment extends Fragment {
         TextView genre = binding.movieGenre;
         ImageView adult = binding.movieAdult;
         Button addToListButton = binding.addmovietolistbutton;
+        Button rateButton = binding.ratemoviebutton;
 
-        homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
 
-        //check if movies from list that are not in trending can be accessed??
-        //they can in fact not, find solution for getting proper movie (parcelable?)
         List<Movie> movies = movieDetailsViewModel.getCurrentList();
         if (movies!=null) {
             movie = movies.get(moviePosition);
@@ -103,16 +104,17 @@ public class MovieDetailPageFragment extends Fragment {
             Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()).into(image);
 
             if (loginViewModel.getLoggedInUser()!=null){
+                addToListButton.setVisibility(View.VISIBLE);
                 addToListButton.setOnClickListener(view -> {
                     LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
-                    int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    int height = LinearLayout.LayoutParams.MATCH_PARENT;
+                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
                     popupWindow.setElevation(20);
                     popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                    MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),
+                    MovieListOverviewInPopupAdapter mAdapter = new MovieListOverviewInPopupAdapter(popupView.getContext(),
                             movie.getMovieID(),loggedInUserViewModel, ViewTreeLifecycleOwner.get(view));
                     RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
                     mRecyclerView.setAdapter(mAdapter);
@@ -131,7 +133,7 @@ public class MovieDetailPageFragment extends Fragment {
                             Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
                         if (result == null) { return; }
                         if (result.getError() == null) {
-                            Toast.makeText(inflater.getContext(), "Succesfully added movie to list!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(inflater.getContext(), "Successfully added movie to list!", Toast.LENGTH_LONG).show();
                             popupWindow.dismiss();
                         } else {
                             Toast.makeText(inflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
@@ -143,8 +145,30 @@ public class MovieDetailPageFragment extends Fragment {
                     cancelButton.setOnClickListener(v -> popupWindow.dismiss());
                 });
             }
-        } else {
-            Log.d(TAG_NAME, "Did not set movies on time");
+            rateButton.setOnClickListener(view -> {
+                LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                View popupView = popUpInflater.inflate(R.layout.popup_window_rate, null);
+                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+                popupWindow.setElevation(20);
+                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+
+                final RatingBar ratingValue = popupView.findViewById(R.id.rating_field);
+                final Button addRatingButton = popupView.findViewById(R.id.rate_button);
+                addRatingButton.setOnClickListener(v -> {
+                    userViewModel.postRating(movie.getMovieID(),ratingValue.getRating());
+                    userViewModel.getPostRatingResult().observe(getViewLifecycleOwner(), result -> {
+                        if (result == null) { return; }
+                        if (result.getError() == null) {
+                            popupWindow.dismiss();
+                            Toast.makeText(getLayoutInflater().getContext(), "Rating added!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Log.d(TAG_NAME, "An error occurred trying to rate this movie");
+                        }
+                    });
+                });
+            });
         }
         return root;
     }

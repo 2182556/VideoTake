@@ -7,7 +7,8 @@
     <string name="price">Prijs: </string>
     <string name="price_full_string">Prijs: €%1$s</string>
     <string name="spots_left">Plek over: </string>
-    <string name="description_placeholder">Description</string>
+    <string name="description_placeholder">Description (optional)</string>
+    <string name="overview">Overview</string>
     <string name="date">Geserveerd op </string>
     <string name="allergeninfo">Allergeneninfo:</string>
     <string name="allergeninfo_full_string">Allergeneninfo: %1$s</string>
@@ -68,4 +69,5 @@
     <string name="remove_list_failed">Could not remove list</string>
     <string name="post_rating_failed">Could not post rating</string>
     <string name="getting_videoLink_and_reviews_failed">Could not get videolink and reviews of this movie</string>
+    <string name="list_title_placeholder">List title</string>
 </resources>

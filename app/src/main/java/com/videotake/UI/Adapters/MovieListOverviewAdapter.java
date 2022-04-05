@@ -33,20 +33,11 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
     private final String TAG_NAME = MovieListOverviewAdapter.class.getSimpleName();
     private List<MovieList> allLists;
     private final LayoutInflater mInflater;
-    private int movieId = 0;
     private LoggedInUserViewModel loggedInUserViewModel = null;
-    private LifecycleOwner lifecycleOwner = null;
 
     public MovieListOverviewAdapter(Context context, LoggedInUserViewModel loggedInUserViewModel) {
         this.loggedInUserViewModel = loggedInUserViewModel;
         mInflater = LayoutInflater.from(context);
-    }
-
-    public MovieListOverviewAdapter(Context context, int movieId, LoggedInUserViewModel loggedInUserViewModel, LifecycleOwner owner) {
-        mInflater = LayoutInflater.from(context);
-        this.movieId = movieId;
-        this.loggedInUserViewModel = loggedInUserViewModel;
-        this.lifecycleOwner = owner;
     }
 
     @NonNull
@@ -60,21 +51,13 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
     public void onBindViewHolder(@NonNull MovieListOverviewAdapter.MovieListViewHolder holder, int position) {
         MovieList mCurrent = allLists.get(position);
         holder.titleList.setText(mCurrent.getListName());
-        holder.menu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showPopupMenu(holder.menu, holder.getAdapterPosition());
-            }
-        });
+        holder.menu.setOnClickListener(v -> showPopupMenu(holder.menu, holder.getAdapterPosition()));
     }
 
     public void showPopupMenu(View view, int position){
         PopupMenu popup = new PopupMenu(mInflater.getContext(), view, Gravity.END);
         MenuInflater inflater = popup.getMenuInflater();
-
         inflater.inflate(R.menu.menu_popup_list, popup.getMenu());
-
-        //set menu item click listener here
         popup.setOnMenuItemClickListener(new PopupMenuListOnClickListener(position,view));
         popup.show();
     }
@@ -150,19 +133,10 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
             titleList = itemView.findViewById(R.id.rec_list_title);
             menu = itemView.findViewById(R.id.list_settings);
             this.adapter = adapter;
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (movieId==0){
-                        ListOverviewFragmentDirections.ActionNavListOverviewToNavMovieList action =
-                                ListOverviewFragmentDirections.actionNavListOverviewToNavMovieList(getLayoutPosition(),allLists.get(getLayoutPosition()).getListName());
-                        Navigation.findNavController(v).navigate(action);
-                    } else {
-                        MovieList listToAddTo = allLists.get(getLayoutPosition());
-                        loggedInUserViewModel.addMovieToList(listToAddTo.getListId(),movieId);
-                        movieId=0;
-                    }
-                }
+            itemView.setOnClickListener(v -> {
+                ListOverviewFragmentDirections.ActionNavListOverviewToNavMovieList action =
+                        ListOverviewFragmentDirections.actionNavListOverviewToNavMovieList(getLayoutPosition(),allLists.get(getLayoutPosition()).getListName());
+                Navigation.findNavController(v).navigate(action);
             });
         }
     }

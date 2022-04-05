@@ -10,7 +10,7 @@
     android:background="@drawable/popup_outline">
 
     <TextView
-        android:id="@+id/add_list_text"
+        android:id="@+id/rate_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAlignment="center"
@@ -18,26 +18,25 @@
         android:text="Rate this movie!"
         app:layout_constraintTop_toTopOf="parent"/>
 
-    <EditText
-        android:id="@+id/list_title"
-        android:layout_width="100dp"
+    <RatingBar
+        android:id="@+id/rating_field"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:hint="7.5"
-        android:textAlignment="center"
-        android:inputType="numberDecimal"
-        android:selectAllOnFocus="true"
+        android:scaleX="0.75"
+        android:scaleY="0.75"
+        android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/add_list_text" />
+        app:layout_constraintTop_toBottomOf="@id/rate_text" />
+
     <Button
         android:id="@+id/rate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:text="Rate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/list_title" />
+        app:layout_constraintTop_toBottomOf="@+id/rating_field" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

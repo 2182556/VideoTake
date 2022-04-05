@@ -34,6 +34,8 @@ public class LoginViewModel extends ViewModel {
         return this.userRepository.getLoggedInUser();
     }
 
+    public GuestUser getGuestUser() { return this.userRepository.getGuestUser(); }
+
     public LiveData<LoginFormState> getLoginFormState() {
         return loginFormState;
     }

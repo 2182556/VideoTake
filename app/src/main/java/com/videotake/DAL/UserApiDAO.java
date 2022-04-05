@@ -304,7 +304,7 @@ public class UserApiDAO extends ApiDAO {
                     .build();
             if (loggedIn) session_type = SESSION_ID_STRING;
             Request request = new Request.Builder()
-                    .url(BASE_URL + MOVIE + movie_Id + RATING +  API_KEY + "&" + session_type + "=" + session_Id )
+                    .url(BASE_URL + MOVIE + movie_Id + "/" + RATING + API_KEY + "&" + session_type + "=" + session_Id )
                     .addHeader("Content-Type", "application/json;charset=utf-8")
                     .post(requestBody)
                     .build();

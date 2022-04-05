@@ -85,7 +85,7 @@ public class MovieListAdapter extends
             popupWindow.setElevation(20);
             popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-            MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(popupView.getContext(),
+            MovieListOverviewInPopupAdapter mAdapter = new MovieListOverviewInPopupAdapter(popupView.getContext(),
                     mCurrent.getMovieID(), loggedInUserViewModel,ViewTreeLifecycleOwner.get(view));
             RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
             mRecyclerView.setAdapter(mAdapter);
