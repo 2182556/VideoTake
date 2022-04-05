@@ -43,15 +43,12 @@ public class MovieRepository {
 
     public void getTrendingMovies(final RepositoryCallback<MovieList> callback) {
         if (trendingMovies==null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Result<MovieList> result = MovieApiDAO.getTrendingMovies();
-                    if (result instanceof Result.Success) {
-                        setTrendingMovies(((Result.Success<MovieList>) result).getData());
-                    }
-                    callback.onComplete(result);
+            executor.execute(() -> {
+                Result<MovieList> result = MovieApiDAO.getTrendingMovies();
+                if (result instanceof Result.Success) {
+                    setTrendingMovies(((Result.Success<MovieList>) result).getData());
                 }
+                callback.onComplete(result);
             });
         }
     }
@@ -63,15 +60,12 @@ public class MovieRepository {
     }
 
     public void getMovieById(int id, final RepositoryCallback<Movie> callback){
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result<Movie> result = MovieApiDAO.getMovieById(id);
-                if (result instanceof Result.Success) {
-                    setMovieById(((Result.Success<Movie>) result).getData());
-                }
-                callback.onComplete(result);
+        executor.execute(() -> {
+            Result<Movie> result = MovieApiDAO.getMovieById(id);
+            if (result instanceof Result.Success) {
+                setMovieById(((Result.Success<Movie>) result).getData());
             }
+            callback.onComplete(result);
         });
     }
 

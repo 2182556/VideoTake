@@ -28,6 +28,7 @@ public class MovieApiDAO extends ApiDAO {
     private static final String YOUTUBE_PATH = "https://www.youtube.com/watch?v=";
     private static final String VIMEO_PATH = "https://vimeo.com/";
     private static final String THEMOVIEDB_URL = "https://www.themoviedb.org/";
+    private static final String DISCOVER = "discover/movie";
     private static Map<Integer,String> genres;
 
     public static Result<MovieList> getTrendingMovies(){
@@ -43,7 +44,7 @@ public class MovieApiDAO extends ApiDAO {
         try {
             List<Movie> movies = new ArrayList<>();
             Request request = new Request.Builder()
-                    .url(BASE_URL + TRENDING + API_KEY)
+                    .url(BASE_URL + DISCOVER + API_KEY)
                     .build();
 
             OkHttpClient client = new OkHttpClient();
@@ -94,7 +95,8 @@ public class MovieApiDAO extends ApiDAO {
                 Movie movie = new Movie(json.getInt("id"), json.getString("original_title"),
                         json.getString("overview"), json.getString("poster_path"),
                         json.getString("original_language"), movieGenres,
-                        json.getString("release_date"), json.getDouble("vote_average"));
+                        json.getString("release_date"), json.getDouble("vote_average"),
+                        json.getInt("vote_count"));
                 movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
                 movies.add(movie);
             }
@@ -132,7 +134,8 @@ public class MovieApiDAO extends ApiDAO {
             movie = new Movie(json.getInt("id"), json.getString("original_title"),
                     json.getString("overview"), json.getString("poster_path"),
                     json.getString("original_language"), movieGenres,
-                    json.getString("release_date"), json.getDouble("vote_average"));
+                    json.getString("release_date"), json.getDouble("vote_average"),
+                    json.getInt("vote_count"));
             movie.setShareableLink(THEMOVIEDB_URL + MOVIE + json.getInt("id"));
             JSONObject videos_object = json.getJSONObject("videos");
             JSONArray videos_json = videos_object.getJSONArray("results");
@@ -203,5 +206,25 @@ public class MovieApiDAO extends ApiDAO {
             return new Result.Error(new IOException("Could not get video link and reviews", e));
         }
     }
+
+    public static Result<Movie> fetchNewVoteCountAndVoteAverage(Movie movie){
+        Request request = new Request.Builder()
+                .url(BASE_URL + MOVIE + movie.getMovieID() + API_KEY)
+                .build();
+
+        OkHttpClient client = new OkHttpClient();
+        try (Response response = client.newCall(request).execute()) {
+            ResponseBody body = response.body();
+            JSONObject json = new JSONObject(body.string());
+            movie.setVoteAverage(json.getDouble("vote_average"));
+            movie.setVoteCount(json.getInt("vote_count"));
+            return new Result.Success<>(movie);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result.Error(new IOException("Could not get video link and reviews", e));
+        }
+    }
+
+
 
 }

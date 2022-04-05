@@ -66,95 +66,83 @@ public class UserRepository {
     private void setUserLists(List<MovieList> userLists) { this.userLists = userLists; }
 
     public void login(String username, String password, final RepositoryCallback<LoggedInUser> callback) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result<LoggedInUser> result = userDAO.login(username, password);
-                if (result instanceof Result.Success) {
-                    setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
-                }
-                callback.onComplete(result);
+        executor.execute(() -> {
+            Result<LoggedInUser> result = userDAO.login(username, password);
+            if (result instanceof Result.Success) {
+                setLoggedInUser(((Result.Success<LoggedInUser>) result).getData());
             }
+            callback.onComplete(result);
         });
     }
 
     public void useAsGuest(final RepositoryCallback<GuestUser> callback) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                Result<GuestUser> result = userDAO.createGuestSession();
-                if (result instanceof Result.Success) {
-                    setGuestUser(((Result.Success<GuestUser>) result).getData());
-                }
-                callback.onComplete(result);
+        executor.execute(() -> {
+            Result<GuestUser> result = userDAO.createGuestSession();
+            if (result instanceof Result.Success) {
+                setGuestUser(((Result.Success<GuestUser>) result).getData());
             }
+            callback.onComplete(result);
         });
     }
 
     public void lists(final RepositoryCallback<List<MovieList>> callback) {
         if (loggedInUser!=null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Result<List<MovieList>> result = userDAO.lists(loggedInUser.getSession_Id());
-                    if (result instanceof Result.Success) {
-                        setUserLists(((Result.Success<List<MovieList>>) result).getData());
-                    }
-                    callback.onComplete(result);
+            executor.execute(() -> {
+                Result<List<MovieList>> result = userDAO.lists(loggedInUser.getSession_Id());
+                if (result instanceof Result.Success) {
+                    setUserLists(((Result.Success<List<MovieList>>) result).getData());
                 }
+                callback.onComplete(result);
             });
         }
     }
 
     public void addList(String listName, String listDescription, final RepositoryCallback<String> callback){
         if (loggedInUser!=null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Result<String> result = userDAO.addList(loggedInUser.getSession_Id(),listName,listDescription);
-                    callback.onComplete(result);
-                }
+            executor.execute(() -> {
+                Result<String> result = userDAO.addList(loggedInUser.getSession_Id(),listName,listDescription);
+                callback.onComplete(result);
             });
         }
     }
 
     public void removeList(String listId, final RepositoryCallback<String> callback){
         if (loggedInUser!=null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Result<String> result = userDAO.deleteList(loggedInUser.getSession_Id(),listId);
-                    callback.onComplete(result);
-                }
+            executor.execute(() -> {
+                Result<String> result = userDAO.deleteList(loggedInUser.getSession_Id(),listId);
+                callback.onComplete(result);
             });
         }
     }
 
     public void addMovieToList(String list_id, int movie_id, final RepositoryCallback<String> callback){
         if (loggedInUser!=null){
-            executor.execute(new Runnable() {
-                @Override
-                public void run() {
-                    Result<String> result = userDAO.addMovieToList(loggedInUser.getSession_Id(),list_id,movie_id);
-                    callback.onComplete(result);
-                }
+            executor.execute(() -> {
+                Result<String> result = userDAO.addMovieToList(loggedInUser.getSession_Id(),list_id,movie_id);
+                callback.onComplete(result);
+            });
+        }
+    }
+
+    public void removeMovieFromList(String listId, int movie_id, final RepositoryCallback<String> callback){
+        if (loggedInUser!=null){
+            executor.execute(() -> {
+                Result<String> result = userDAO.removeMovieFromList(loggedInUser.getSession_Id(),listId, movie_id);
+                callback.onComplete(result);
             });
         }
     }
 
     public void postRating(int movie_id, double rating, final RepositoryCallback<String> callback){
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                User user = loggedInUser;
-                boolean loggedIn = true;
-                if (loggedInUser==null) {
-                    user = guestUser;
-                    loggedIn = false;
-                }
-                Result<String> result = userDAO.postRating(loggedIn,user.getSession_Id(),movie_id,rating);
-                callback.onComplete(result);
+        executor.execute(() -> {
+            User user = loggedInUser;
+            boolean loggedIn = true;
+            if (loggedInUser==null) {
+                user = guestUser;
+                loggedIn = false;
             }
+            Result<String> result = userDAO.postRating(loggedIn,user.getSession_Id(),movie_id,rating);
+            callback.onComplete(result);
         });
     }
 

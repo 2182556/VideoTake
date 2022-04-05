@@ -167,8 +167,38 @@ public class UserApiDAO extends ApiDAO {
         return new Result.Error(new IOException("Error: Could not add movie to list"));
     }
 
+    protected Result<String> removeMovieFromList(String session_Id, String list_id, int movie_id){
+        if (session_Id!=null) {
+            RequestBody requestBody = new MultipartBody.Builder()
+                    .addFormDataPart("media_id", String.valueOf(movie_id))
+                    .build();
+
+            Request request = new Request.Builder()
+                    .url(BASE_URL + LIST + "/" + list_id + "/remove_item" + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
+                    .addHeader("Content-Type", "application/json;charset=utf-8")
+                    .post(requestBody)
+                    .build();
+            OkHttpClient client = new OkHttpClient();
+            try (Response response = client.newCall(request).execute()) {
+                ResponseBody body = response.body();
+                JSONObject json = new JSONObject(body.string());
+                Log.d(TAG_NAME,json.toString());
+                int status_code = json.getInt("status_code");
+                if (status_code==13) {
+                    Log.d(TAG_NAME,"The movie has been removed from the list");
+                    return new Result.Success<>("Success");
+                } else {
+                    return new Result.Error(new IOException("The movie could not be removed"));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return new Result.Error(new IOException("Error removing list", e));
+            }
+        }
+        return new Result.Error(new IOException("Error: Session id is not valid"));
+    }
+
     public Result<String> addList(String session_Id, String name, String description){
-        Log.d(TAG_NAME, "Attempting to add list to API");
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
@@ -201,7 +231,6 @@ public class UserApiDAO extends ApiDAO {
     }
 
     protected Result<String> deleteList(String session_Id, String list_id){
-        Log.d(TAG_NAME, "Attempting to remove list");
         if (session_Id!=null) {
             Request request = new Request.Builder()
                     .url(BASE_URL + LIST + "/" + list_id + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
@@ -296,7 +325,6 @@ public class UserApiDAO extends ApiDAO {
     }
 
     public Result<String> postRating(boolean loggedIn, String session_Id, int movie_Id, double rating){
-//        https://api.themoviedb.org/3/movie/{movie_id}/rating?api_key=5144de6e9e1919536a34c7c1e2736453&guest_session_id=jklj%3Bdsf
         String session_type = GUEST_SESSION_ID_STRING;
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
@@ -314,14 +342,15 @@ public class UserApiDAO extends ApiDAO {
                 JSONObject json = new JSONObject(body.string());
                 Log.d(TAG_NAME,json.toString());
                 boolean success = json.getBoolean("success");
-                int status_code = json.getInt("status_code");
-//                if (status_code==12) { }
-                //status code does not work properly, so we assume the rating has been posted
-                Log.d(TAG_NAME,"The rating has been posted");
-                return new Result.Success<>("Success");
+                if (success){
+                    Log.d(TAG_NAME,"The rating has been posted");
+                    return new Result.Success<>("Success");
+                } else {
+                    return new Result.Error(new IOException("Something went wrong"));
+                }
             } catch (Exception e) {
                 e.printStackTrace();
-                return new Result.Error(new IOException("Error adding list", e));
+                return new Result.Error(new IOException("Error posting rating", e));
             }
         }
         return new Result.Error(new IOException("Error: Session id is not valid"));

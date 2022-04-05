@@ -99,7 +99,7 @@ public class MovieDetailPageFragment extends Fragment {
             //assigning values to xml attributes
             title.setText(movie.getMovieName());
             description.setText(movie.getMovieDescription());
-            rating.setText(String.valueOf(movie.getRating()));
+            rating.setText(String.valueOf(movie.getVoteAverage()));
             date.setText(movie.getReleaseDate());
             Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()).into(image);
 
@@ -108,7 +108,7 @@ public class MovieDetailPageFragment extends Fragment {
                 addToListButton.setOnClickListener(view -> {
                     LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                     View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
-                    int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                    int width = LinearLayout.LayoutParams.MATCH_PARENT;
                     int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                     final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
                     popupWindow.setElevation(20);
@@ -148,15 +148,15 @@ public class MovieDetailPageFragment extends Fragment {
             rateButton.setOnClickListener(view -> {
                 LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
                 View popupView = popUpInflater.inflate(R.layout.popup_window_rate, null);
-                int width = LinearLayout.LayoutParams.WRAP_CONTENT;
+                int width = LinearLayout.LayoutParams.MATCH_PARENT;
                 int height = LinearLayout.LayoutParams.WRAP_CONTENT;
                 final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
                 popupWindow.setElevation(20);
                 popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                final RatingBar ratingValue = popupView.findViewById(R.id.rating_field);
                 final Button addRatingButton = popupView.findViewById(R.id.rate_button);
                 addRatingButton.setOnClickListener(v -> {
+                    RatingBar ratingValue = popupView.findViewById(R.id.rating_field);
                     userViewModel.postRating(movie.getMovieID(),ratingValue.getRating());
                     userViewModel.getPostRatingResult().observe(getViewLifecycleOwner(), result -> {
                         if (result == null) { return; }

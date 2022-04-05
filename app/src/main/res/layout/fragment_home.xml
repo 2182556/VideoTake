@@ -177,9 +177,11 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="top"
         app:layout_constrainedHeight="true"
-        app:layout_constraintTop_toBottomOf="@id/search_options">
+        app:layout_constraintTop_toBottomOf="@id/search_options"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerview"

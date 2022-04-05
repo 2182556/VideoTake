@@ -76,19 +76,16 @@ public class MovieListOverviewAdapter extends RecyclerView.Adapter<MovieListOver
             switch (menuItem.getItemId()) {
                 case R.id.delete_list:
                     loggedInUserViewModel.removeList(allLists.get(position).getListId());
-                    loggedInUserViewModel.getRemoveListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), new Observer<EmptyResult>() {
-                        @Override
-                        public void onChanged(@Nullable EmptyResult result) {
-                            if (result == null) {
-                                return;
-                            }
-                            if (result.getError() == null) {
-                                Log.d(TAG_NAME, "Deleted the list");
-                                allLists.remove(position);
-                                notifyDataSetChanged();
-                            } else {
-                                Log.d(TAG_NAME, "An error occurred when trying to delete the list");
-                            }
+                    loggedInUserViewModel.getRemoveListResult().observe(Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
+                        if (result == null) {
+                            return;
+                        }
+                        if (result.getError() == null) {
+                            Log.d(TAG_NAME, "Deleted the list");
+                            allLists.remove(position);
+                            notifyDataSetChanged();
+                        } else {
+                            Log.d(TAG_NAME, "An error occurred when trying to delete the list");
                         }
                     });
                     // ...

@@ -74,4 +74,5 @@
     <string name="release_year">Year of release (yyyy)</string>
     <string name="min_rating">min</string>
     <string name="max_rating">max</string>
+    <string name="action_theme">Dark mode</string>
 </resources>

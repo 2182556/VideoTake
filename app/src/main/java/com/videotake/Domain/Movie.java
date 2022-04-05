@@ -22,29 +22,41 @@ public class Movie {
     private String description;
     private String posterPath;
     private String originalLanguage;
-    @Ignore
-    private List<String> genres;
+    private String genres;
     private String releaseDate;
-    private Double rating;
+    private Double voteAverage;
+    private int voteCount;
     private String videoPath;
     private String shareableLink;
     @Ignore
     private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
-                 String originalLanguage, List<String> genres, String releaseDate, Double rating) {
+                 String originalLanguage, List<String> genres, String releaseDate, Double voteAverage, int voteCount) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.description = description;
         this.posterPath = posterPath;
         this.originalLanguage = originalLanguage;
-        this.genres = genres;
+        this.genres = genresToString(genres);
         this.releaseDate = releaseDate;
-        this.rating = rating;
+        this.voteAverage = voteAverage;
+        this.voteCount = voteCount;
     }
 
+    private String genresToString(List<String> genres){
+        String genreString = "";
+        if (genres.size()>0) genreString += genres.get(0);
+        for (int i=1; i<genres.size(); i++){
+            genreString += ", " + genres.get(i);
+        }
+        return genreString;
+    }
+
+
+
     public Movie(int movieID, String movieName, String description, String posterPath,
-                 String originalLanguage, String releaseDate, Double rating, String videoPath,
+                 String originalLanguage, String releaseDate, Double voteAverage, int voteCount, String videoPath,
                  String shareableLink) {
         this.movieID = movieID;
         this.movieName = movieName;
@@ -52,7 +64,8 @@ public class Movie {
         this.posterPath = posterPath;
         this.originalLanguage = originalLanguage;
         this.releaseDate = releaseDate;
-        this.rating = rating;
+        this.voteAverage = voteAverage;
+        this.voteCount = voteCount;
         this.videoPath = videoPath;
         this.shareableLink = shareableLink;
     }
@@ -65,8 +78,8 @@ public class Movie {
         return this.description;
     }
 
-    public Double getRating() {
-        return this.rating;
+    public Double getVoteAverage() {
+        return this.voteAverage;
     }
 
     public String getPosterPath() { return this.posterPath; }
@@ -103,7 +116,7 @@ public class Movie {
         return description;
     }
 
-    public List<String> getGenres() {
+    public String getGenres() {
         return genres;
     }
 
@@ -127,7 +140,7 @@ public class Movie {
         this.originalLanguage = originalLanguage;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(String genres) {
         this.genres = genres;
     }
 
@@ -135,7 +148,15 @@ public class Movie {
         this.releaseDate = releaseDate;
     }
 
-    public void setRating(Double rating) {
-        this.rating = rating;
+    public void setVoteAverage(Double voteAverage) {
+        this.voteAverage = voteAverage;
+    }
+
+    public int getVoteCount() {
+        return voteCount;
+    }
+
+    public void setVoteCount(int voteCount) {
+        this.voteCount = voteCount;
     }
 }
