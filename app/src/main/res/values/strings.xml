@@ -67,4 +67,5 @@
     <string name="add_to_list">Add to list</string>
     <string name="remove_list_failed">Could not remove list</string>
     <string name="post_rating_failed">Could not post rating</string>
+    <string name="getting_videoLink_and_reviews_failed">Could not get videolink and reviews of this movie</string>
 </resources>

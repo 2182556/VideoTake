@@ -3,6 +3,7 @@ package com.videotake.DAL;
 import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
 
+import java.util.List;
 import java.util.concurrent.Executor;
 
 public class MovieRepository {
@@ -12,13 +13,10 @@ public class MovieRepository {
     private MovieApiDAO movieDAO;
 
     private MovieList trendingMovies = null;
+    private List<Movie> currentList = null;
 
     private Movie movieById = null;
 
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
-
-    // private constructor : singleton access
     private MovieRepository(MovieApiDAO movieDAO, Executor executor) {
         this.executor = executor;
         this.movieDAO = movieDAO;
@@ -30,6 +28,10 @@ public class MovieRepository {
         }
         return instance;
     }
+
+    public void setCurrentList(List<Movie> list) { this.currentList = list; }
+
+    public List<Movie> getCurrentList() { return this.currentList; }
 
     private void setTrendingMovies(MovieList trendingMovies) {
         this.trendingMovies = trendingMovies;

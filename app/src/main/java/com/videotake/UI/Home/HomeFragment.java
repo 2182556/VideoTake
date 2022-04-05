@@ -14,12 +14,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.videotake.Domain.MovieList;
 import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.UI.Adapters.MovieListAdapter;
+import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentHomeBinding;
 
 public class HomeFragment extends Fragment {
     private final String TAG_NAME = HomeFragment.class.getSimpleName();
     private HomeViewModel homeViewModel;
     private LoggedInUserViewModel loggedInUserViewModel;
+    private MovieDetailsViewModel movieDetailsViewModel;
 
     private FragmentHomeBinding binding;
 
@@ -30,9 +32,10 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
         MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",
-                inflater.getContext(), loggedInUserViewModel);
+                inflater.getContext(), loggedInUserViewModel,movieDetailsViewModel);
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 

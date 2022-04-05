@@ -16,6 +16,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,6 +29,7 @@ import com.videotake.Domain.MovieList;
 import com.videotake.Logic.User.EmptyResult;
 import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.R;
+import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.UI.Home.HomeFragmentDirections;
 import com.videotake.UI.Lists.MovieListFragmentDirections;
 
@@ -40,16 +43,20 @@ public class MovieListAdapter extends
     private final LayoutInflater mInflater;
     private String parentName = "";
     private LoggedInUserViewModel loggedInUserViewModel = null;
+    private MovieDetailsViewModel movieDetailsViewModel = null;
 
-    public MovieListAdapter(String parentName, Context context) {
+    public MovieListAdapter(String parentName, Context context, MovieDetailsViewModel movieDetailsViewModel) {
         this.parentName = parentName;
         this.mInflater = LayoutInflater.from(context);
+        this.movieDetailsViewModel = movieDetailsViewModel;
     }
 
-    public MovieListAdapter(String parentName, Context context, LoggedInUserViewModel loggedInUserViewModel) {
+    public MovieListAdapter(String parentName, Context context, LoggedInUserViewModel loggedInUserViewModel,
+                            MovieDetailsViewModel movieDetailsViewModel) {
         this.parentName = parentName;
         this.mInflater = LayoutInflater.from(context);
         this.loggedInUserViewModel = loggedInUserViewModel;
+        this.movieDetailsViewModel = movieDetailsViewModel;
     }
 
     @NonNull
@@ -113,6 +120,7 @@ public class MovieListAdapter extends
     public void setData(List<Movie> items) {
         Log.d(TAG_NAME,"Data updated");
         allMovies = items;
+        movieDetailsViewModel.setCurrentList(allMovies);
         notifyDataSetChanged();
     }
 

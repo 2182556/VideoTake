@@ -73,7 +73,8 @@ public class MovieDetailPageFragment extends Fragment {
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
 
         //check if movies from list that are not in trending can be accessed??
-        List<Movie> movies = homeViewModel.getTrendingMovieList().getMovies();
+        //they can in fact not, find solution for getting proper movie (parcelable?)
+        List<Movie> movies = movieDetailsViewModel.getCurrentList();
         if (movies!=null) {
             movie = movies.get(moviePosition);
 
@@ -142,6 +143,8 @@ public class MovieDetailPageFragment extends Fragment {
                     cancelButton.setOnClickListener(v -> popupWindow.dismiss());
                 });
             }
+        } else {
+            Log.d(TAG_NAME, "Did not set movies on time");
         }
         return root;
     }

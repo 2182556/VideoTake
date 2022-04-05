@@ -15,6 +15,7 @@ import com.videotake.Domain.MovieList;
 import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.UI.Adapters.MovieListAdapter;
+import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentMovieListBinding;
 
 import java.util.List;
@@ -22,6 +23,7 @@ import java.util.List;
 public class MovieListFragment extends Fragment {
     private final String TAG_NAME = MovieListFragment.class.getSimpleName();
     private LoggedInUserViewModel loggedInUserViewModel;
+    private MovieDetailsViewModel movieDetailsViewModel;
 
     private FragmentMovieListBinding binding;
 
@@ -33,8 +35,10 @@ public class MovieListFragment extends Fragment {
 
         int movieListPosition = MovieListFragmentArgs.fromBundle(getArguments()).getMovieListId();
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
+        movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
-        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext(), loggedInUserViewModel);
+        MovieListAdapter mAdapter = new MovieListAdapter("HomeFragment",inflater.getContext(),
+                loggedInUserViewModel, movieDetailsViewModel);
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(mAdapter);
 
