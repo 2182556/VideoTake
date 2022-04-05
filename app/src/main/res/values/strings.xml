@@ -70,4 +70,8 @@
     <string name="post_rating_failed">Could not post rating</string>
     <string name="getting_videoLink_and_reviews_failed">Could not get videolink and reviews of this movie</string>
     <string name="list_title_placeholder">List title</string>
+    <string name="genre">Genre</string>
+    <string name="release_year">Year of release (yyyy)</string>
+    <string name="min_rating">min</string>
+    <string name="max_rating">max</string>
 </resources>
