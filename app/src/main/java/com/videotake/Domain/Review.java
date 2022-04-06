@@ -5,6 +5,7 @@ public class Review {
     private String userName;
     private String content;
     private double rating;
+    private String movieID;
 
     public Review(String reviewID, String userName, String content, double rating) {
         this.reviewID = reviewID;

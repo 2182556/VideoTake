@@ -53,8 +53,6 @@ public class Movie {
         return genreString;
     }
 
-
-
     public Movie(int movieID, String movieName, String description, String posterPath,
                  String originalLanguage, String releaseDate, Double voteAverage, int voteCount, String videoPath,
                  String shareableLink) {

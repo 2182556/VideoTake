@@ -58,5 +58,10 @@
             android:id="@+id/action_nav_movie_list_to_movieDetailPageFragment"
             app:destination="@id/movieDetailPageFragment" />
     </fragment>
+    <activity
+        android:id="@+id/nav_login"
+        android:name="com.videotake.UI.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 
 </navigation>
