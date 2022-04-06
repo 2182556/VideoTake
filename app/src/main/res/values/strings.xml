@@ -1,25 +1,13 @@
 <resources>
     <string name="app_name">VideoTake</string>
-    <string name="action_settings">Instellingen</string>
+    <string name="action_settings">Settings</string>
 
-    <string name="image_description">Movie</string>
-    <string name="movie_title_placeholder">Movie title</string>
-    <string name="price">Prijs: </string>
-    <string name="price_full_string">Prijs: €%1$s</string>
-    <string name="spots_left">Plek over: </string>
-    <string name="description_placeholder">Description (optional)</string>
+    <string name="image_description" translatable="false">Movieposter</string>
+    <string name="movie_title_placeholder" translatable="false">Movie title</string>
+    <string name="description_placeholder" translatable="false">Description (optional)</string>
     <string name="overview">Overview</string>
-    <string name="date">Geserveerd op </string>
-    <string name="allergeninfo">Allergeneninfo:</string>
-    <string name="allergeninfo_full_string">Allergeneninfo: %1$s</string>
-    <string name="sign_up_button">Aanmelden!</string>
-    <string name="cook_name_placeholder">Kok naam</string>
-    <string name="city_placeholder">Stad</string>
-    <string name="vega">Vega</string>
-    <string name="vegan">Vegan</string>
-    <string name="movie_info_placeholder">Movie information</string>
-    <string name="euro">€</string>
-    <string name="filter">Filter</string>
+    <string name="movie_info_placeholder" translatable="false">Movie information</string>
+    <string name="filter" translatable="false">Filter</string>
 
 <!--    strings copied from login template-->
     <string name="prompt_username">Username</string>
@@ -32,14 +20,12 @@
     <string name="login_failed">"Login failed"</string>
     <string name="getting_trending_movies_failed">"Could not retrieve trending movies"</string>
 
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
+    <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
+    <string name="nav_header_title">Welcome!</string>
+    <string name="nav_header_subtitle" translatable="false">android.studio@android.com</string>
+    <string name="nav_header_desc" translatable="false">Navigation header</string>
+    <string name="menu_home" translatable="false">Home</string>
     <string name="getting_movie_by_id_failed">Could not retrieve movie by id</string>
     <string name="get_lists_failed">Could not retrieve lists for this user</string>
     <string name="password_textview">Password</string>
@@ -52,7 +38,7 @@
     <string name="share_button_description">share button</string>
     <string name="edit_button_description">Edit button</string>
     <string name="delete_button_description">Delete button</string>
-    <string name="menu_icon">Menu_icon</string>
+    <string name="menu_icon" translatable="false">Menu_icon</string>
     <string name="delete">Delete</string>
     <string name="add_movie_to_list_button">Add movie to list button</string>
     <string name="calendar">calendar</string>
@@ -60,22 +46,38 @@
     <string name="prompt_list_title">Title</string>
     <string name="title_list">List title</string>
     <string name="add_lists_failed">Could not add list</string>
-    <string name="movie_list_placeholder">{movie_list}</string>
+    <string name="movie_list_placeholder" translatable="false">{movie_list}</string>
     <string name="add_movie_to_list_failed">Could not add movie to list</string>
     <string name="add_list">Add a new list</string>
     <string name="add_text">add</string>
-    <string name="movie_poster">movie poster</string>
+    <string name="movie_poster" translatable="false">movie poster</string>
     <string name="add_to_list">Add to list</string>
     <string name="remove_list_failed">Could not remove list</string>
     <string name="post_rating_failed">Could not post rating</string>
     <string name="getting_videoLink_and_reviews_failed">Could not get videolink and reviews of this movie</string>
     <string name="list_title_placeholder">List title</string>
-    <string name="genre">Genre</string>
+    <string name="genre" translatable="false">Genre</string>
     <string name="release_year">Year of release (yyyy)</string>
-    <string name="min_rating">min</string>
-    <string name="max_rating">max</string>
+    <string name="min_rating" translatable="false">min</string>
+    <string name="max_rating" translatable="false">max</string>
     <string name="action_theme">Dark mode</string>
-    <string name="review_rating">Rating: %1$.1f</string>
+    <string name="review_rating" translatable="false">Rating: %1$.1f</string>
     <string name="review_username">"User: "</string>
-    <string name="review_content">Content review</string>
+    <string name="review_content" translatable="false">Content review</string>
+    <string name="guest_list_text">Looks like you\'re not logged in… Make sure you are before viewing lists!</string>
+    <string name="trailer_label" translatable="false">Trailer</string>
+    <string name="releasedate_label">Releasedate</string>
+    <string name="genre_placeholder" translatable="false">genre</string>
+    <string name="age_placeholder" translatable="false">age</string>
+    <string name="rate_label">Rate</string>
+    <string name="reviews_label" translatable="false">Reviews</string>
+    <string name="add_review_label">Add a review</string>
+    <string name="no_reviews_found_label">No reviews have been posted yet for this movie</string>
+    <string name="rating">Rating:</string>
+    <string name="dash" translatable="false">-</string>
+    <string name="adult">Adult</string>
+    <string name="what_list_text">What list would you like to add the movie to?</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="add_new_list_label">Add new list</string>
+    <string name="rate_movie_text">Rate this movie!</string>
 </resources>

@@ -2,8 +2,8 @@
     <!-- Base application theme. -->
     <style name="Theme.VideoTake" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_700</item>
-        <item name="colorPrimaryVariant">@color/purple_500</item>
+        <item name="colorPrimary">@color/darkgreenblue</item>
+        <item name="colorPrimaryVariant">@color/lightgreenblue</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -11,6 +11,7 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="cardStyle">@style/CardView.Light</item>
     </style>
 
     <style name="Theme.VideoTake.NoActionBar">
@@ -18,7 +19,9 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <style name="Theme.VideoTake.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.VideoTake.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    </style>
 
     <style name="Theme.VideoTake.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>

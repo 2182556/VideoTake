@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="22sp"
-        android:text="What list would you like to add the movie to?"
+        android:text="@string/what_list_text"
         app:layout_constraintTop_toTopOf="parent"/>
 
 
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Cancel"
+        android:text="@string/cancel_label"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Add new list"
+        android:text="@string/add_new_list_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent" />
 

@@ -32,9 +32,25 @@
         android:layout_marginBottom="8dp"
         android:clickable="true"
         android:src="@drawable/ic_add_list_fab"
-        app:backgroundTint="#D8F4B7"
+        app:backgroundTint="@color/lightergreenblue"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck"
+        android:visibility="visible"/>
+
+    <TextView
+        android:id="@+id/not_logged_in_label"
+        android:layout_width="242dp"
+        android:layout_height="97dp"
+        android:text="@string/guest_list_text"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:visibility="gone"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

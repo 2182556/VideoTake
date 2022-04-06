@@ -16,6 +16,17 @@
         </item>
 
         <item
-            android:id="@+id/nav_list_overview"
-            android:title="@string/menu_lists" />
+            android:id="@+id/nav_lists"
+            android:title="Lists" >
+            <menu>
+                <item
+                    android:id="@+id/nav_list_overview"
+                    android:title="@string/menu_lists" />
+            </menu>
+        </item>
+
+        <item
+            android:id="@+id/nav_login"
+            android:title="Back to login page" />
+
 </menu>

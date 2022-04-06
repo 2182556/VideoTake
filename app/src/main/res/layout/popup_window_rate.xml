@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textSize="22sp"
-        android:text="Rate this movie!"
+        android:text="@string/rate_movie_text"
         app:layout_constraintTop_toTopOf="parent"/>
 
     <RatingBar
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Rate"
+        android:text="@string/rate_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/rating_field" />
 
