@@ -1,24 +1,12 @@
 <resources>
     <string name="app_name">VideoTake</string>
-    <string name="action_settings">Instellingen</string>
+    <string name="action_settings">Settings</string>
 
-    <string name="image_description">Movie</string>
+    <string name="image_description">Movieposter</string>
     <string name="movie_title_placeholder">Movie title</string>
-    <string name="price">Prijs: </string>
-    <string name="price_full_string">Prijs: €%1$s</string>
-    <string name="spots_left">Plek over: </string>
     <string name="description_placeholder">Description (optional)</string>
     <string name="overview">Overview</string>
-    <string name="date">Geserveerd op </string>
-    <string name="allergeninfo">Allergeneninfo:</string>
-    <string name="allergeninfo_full_string">Allergeneninfo: %1$s</string>
-    <string name="sign_up_button">Aanmelden!</string>
-    <string name="cook_name_placeholder">Kok naam</string>
-    <string name="city_placeholder">Stad</string>
-    <string name="vega">Vega</string>
-    <string name="vegan">Vegan</string>
     <string name="movie_info_placeholder">Movie information</string>
-    <string name="euro">€</string>
     <string name="filter">Filter</string>
 
 <!--    strings copied from login template-->
@@ -78,6 +66,20 @@
     <string name="review_rating">Rating: %1$.1f</string>
     <string name="review_username">"User: "</string>
     <string name="review_content">Content review</string>
-    <string name="guest_list_text">Looks like you\'re not logged in... Make sure you are before viewing lists!</string>
+    <string name="guest_list_text">Looks like you\'re not logged in… Make sure you are before viewing lists!</string>
     <string name="trailer_label">Trailer</string>
+    <string name="releasedate_label">Releasedate</string>
+    <string name="genre_placeholder">genre</string>
+    <string name="age_placeholder">age</string>
+    <string name="rate_label">Rate</string>
+    <string name="reviews_label">Reviews</string>
+    <string name="add_review_label">Add a review</string>
+    <string name="no_reviews_found_label">No reviews have been posted yet for this movie</string>
+    <string name="rating">Rating:</string>
+    <string name="dash">-</string>
+    <string name="adult">Adult</string>
+    <string name="what_list_text">What list would you like to add the movie to?</string>
+    <string name="cancel_label">Cancel</string>
+    <string name="add_new_list_label">Add new list</string>
+    <string name="rate_movie_text">Rate this movie!</string>
 </resources>
