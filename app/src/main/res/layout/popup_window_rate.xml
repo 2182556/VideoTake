@@ -7,7 +7,7 @@
     android:layout_gravity="center_vertical"
     android:layout_margin="50dp"
     android:background="@drawable/popup_outline"
-    android:backgroundTint="@color/greenblue"
+    android:backgroundTint="@color/Opal"
     android:padding="16dp">
 
     <TextView
@@ -16,8 +16,10 @@
         android:layout_height="wrap_content"
         android:text="@string/rate_movie_text"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <RatingBar
         android:id="@+id/rating_field"

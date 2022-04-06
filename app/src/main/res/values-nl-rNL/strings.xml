@@ -15,7 +15,7 @@
     <string name="overview">Overzicht</string>
     <string name="getting_movie_by_id_failed">Kan film niet ophalen doormiddel van een id</string>
     <string name="get_lists_failed">Kan geen lijsten ophalen voor deze gebruiker</string>
-    <string name="password_textview">Password</string>
+    <string name="password_textview">Wachtwoord</string>
     <string name="welcome_textview">Welkom!</string>
     <string name="username_textview">Gebruikersnaam</string>
     <string name="register_label">registreer</string>
@@ -54,5 +54,11 @@
     <string name="adult">18+</string>
     <string name="add_new_list_label">Voeg een nieuwe lijst toe</string>
     <string name="rate_movie_text">Beoordeel deze film!</string>
+    <string name="search">ZOEKEN</string>
+    <string name="lists">Lijsten</string>
+    <string name="search_lowercase">Zoeken</string>
+    <string name="back_to_login_page">Terug naar login pagina</string>
+    <string name="discover">ONTDEK</string>
+    <string name="discover_lowercase">Ontdek</string>
 
 </resources>
