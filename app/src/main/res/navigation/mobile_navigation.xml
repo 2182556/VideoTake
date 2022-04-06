@@ -10,6 +10,14 @@
         android:name="com.videotake.UI.Home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
+        <fragment
+            android:id="@+id/nav_search"
+            android:name="com.videotake.UI.Home.SearchFragment"
+            android:label="Search" />
+        <fragment
+            android:id="@+id/nav_discover"
+            android:name="com.videotake.UI.Home.DiscoverFragment"
+            android:label="Discover" />
         <action
             android:id="@+id/action_nav_home_to_movieDetailPageFragment"
             app:destination="@id/movieDetailPageFragment" />

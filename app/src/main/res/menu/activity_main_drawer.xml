@@ -4,24 +4,16 @@
     tools:showIn="navigation_view">
 
         <item
-            android:id="@+id/nav_home"
-            android:title="@string/menu_home" >
+            android:id="@+id/nav_nav"
+            android:title="@string/go_to" >
             <menu>
-                <item android:id="@+id/nav_search"
-                    android:title="@string/search_lowercase" />
-                <item android:id="@+id/nav_discover"
-                    android:title="@string/discover_lowercase" />
-
-            </menu>
-        </item>
-
-        <item
-            android:id="@+id/nav_lists"
-            android:title="@string/lists" >
-            <menu>
+                <item
+                    android:id="@+id/nav_home"
+                    android:title="@string/menu_home" />
                 <item
                     android:id="@+id/nav_list_overview"
                     android:title="@string/menu_lists" />
+
             </menu>
         </item>
 
