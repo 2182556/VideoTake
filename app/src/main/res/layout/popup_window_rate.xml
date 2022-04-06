@@ -16,8 +16,10 @@
         android:layout_height="wrap_content"
         android:text="@string/rate_movie_text"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <RatingBar
         android:id="@+id/rating_field"

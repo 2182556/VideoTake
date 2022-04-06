@@ -16,8 +16,10 @@
         android:layout_height="wrap_content"
         android:text="@string/add_list"
         android:textAlignment="center"
+        android:textColor="@color/black"
         android:textSize="22sp"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="16dp" />
 
     <EditText
         android:id="@+id/list_title"
@@ -27,6 +29,7 @@
         android:hint="@string/prompt_list_title"
         android:inputType="textNoSuggestions"
         android:selectAllOnFocus="true"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/add_list_text" />
@@ -39,6 +42,7 @@
         android:hint="@string/description_placeholder"
         android:inputType="textNoSuggestions"
         android:selectAllOnFocus="true"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/list_title" />
