@@ -104,18 +104,22 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
                 android:text="@string/releasedate_label"
                 app:layout_constraintBottom_toTopOf="@id/movie_genre"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/movie_image" />
 
             <TextView
                 android:id="@+id/movie_genre"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/genre_placeholder"
                 app:layout_constraintBottom_toTopOf="@id/movie_description"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@id/movie_image" />
 
             <ImageView
