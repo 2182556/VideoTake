@@ -78,4 +78,6 @@
     <string name="review_rating">Rating: %1$.1f</string>
     <string name="review_username">"User: "</string>
     <string name="review_content">Content review</string>
+    <string name="guest_list_text">Looks like you\'re not logged in... Make sure you are before viewing lists!</string>
+    <string name="trailer_label">Trailer</string>
 </resources>
