@@ -1,5 +1,6 @@
 package com.videotake.UI.Home;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -54,11 +55,12 @@ public class HomeFragment extends Fragment {
         collectionAdapter.addFragment(new DiscoverFragment());
         collectionAdapter.addFragment(new SearchFragment());
         TabLayout tabLayout = view.findViewById(R.id.tab_layout);
+        Resources res = getResources();
         new TabLayoutMediator(tabLayout, viewPager, (tab, position) -> {
             if(position == 0)
-                tab.setText("DISCOVER");
+                tab.setText(R.string.discover);
             else
-                tab.setText("SEARCH");
+                tab.setText(R.string.search);
         }).attach();
     }
 }
