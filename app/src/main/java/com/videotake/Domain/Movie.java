@@ -16,17 +16,36 @@ import java.util.List;
 public class Movie {
 
     // Key values
-    @ColumnInfo(name = "movie")
+    @ColumnInfo(name = "movieID")
     @PrimaryKey private int movieID;
+    @ColumnInfo(name = "movie_name")
     private String movieName;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "poster_path")
     private String posterPath;
+
+    @ColumnInfo(name = "original_language")
     private String originalLanguage;
+
+    @ColumnInfo(name = "genres")
     private String genres;
+
+    @ColumnInfo(name = "release_date")
     private String releaseDate;
+
+    @ColumnInfo(name = "vote_average")
     private Double voteAverage;
+
+    @ColumnInfo(name= "vote_count")
     private int voteCount;
+
+    @ColumnInfo(name = "video_path")
     private String videoPath;
+
+    @ColumnInfo(name = "shareable_link")
     private String shareableLink;
     @Ignore
     private List<Review> reviews;
