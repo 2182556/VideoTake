@@ -7,7 +7,7 @@
     android:layout_gravity="center_vertical"
     android:layout_margin="50dp"
     android:background="@drawable/popup_outline"
-    android:backgroundTint="@color/greenblue"
+    android:backgroundTint="@color/Opal"
     android:padding="16dp">
 
     <TextView
