@@ -105,7 +105,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="Releasedate"
+                android:text="@string/releasedate_label"
                 app:layout_constraintBottom_toTopOf="@id/movie_genre"
                 app:layout_constraintStart_toEndOf="@id/movie_image" />
 
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
-                android:text="genre"
+                android:text="@string/genre_label"
                 app:layout_constraintBottom_toTopOf="@id/movie_description"
                 app:layout_constraintStart_toEndOf="@id/movie_image" />
 
@@ -123,7 +123,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_adult"
-                android:text="age"
+                android:text="@string/age_label"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="@id/movie_image"
                 app:layout_constraintTop_toTopOf="@id/movie_image" />
@@ -138,7 +138,7 @@
                 android:minWidth="0dp"
                 android:paddingVertical="5dp"
                 android:paddingHorizontal="10dp"
-                android:text="rate"
+                android:text="@string/rate_label"
                 app:layout_constraintStart_toEndOf="@id/movie_ratingint"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
 
@@ -157,7 +157,7 @@
                     android:background="@color/light_grey"
                     android:paddingVertical="5dp"
                     android:paddingHorizontal="16dp"
-                    android:text="Reviews"
+                    android:text="@string/reviews_label"
                     android:textSize="22sp"
                     android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
@@ -181,7 +181,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                android:text="Add a review"
+                android:text="@string/add_review_label"
                 app:layout_constraintTop_toBottomOf="@id/expand_reviews_field" />
 
 
@@ -190,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:text="No reviews have been posted yet for this movie"
+            android:text="@string/no_reviews_found_label"
             android:visibility="gone"
             app:layout_constraintTop_toBottomOf="@id/add_review_button"/>
 
