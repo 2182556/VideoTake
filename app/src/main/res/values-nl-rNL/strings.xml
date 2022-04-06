@@ -54,5 +54,11 @@
     <string name="adult">18+</string>
     <string name="add_new_list_label">Voeg een nieuwe lijst toe</string>
     <string name="rate_movie_text">Beoordeel deze film!</string>
+    <string name="search">ZOEKEN</string>
+    <string name="lists">Lijsten</string>
+    <string name="search_lowercase">Zoeken</string>
+    <string name="back_to_login_page">Terug naar login pagina</string>
+    <string name="discover">ONTDEK</string>
+    <string name="discover_lowercase">ONTDEK</string>
 
 </resources>
