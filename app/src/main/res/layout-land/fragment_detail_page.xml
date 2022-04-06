@@ -7,6 +7,11 @@
     tools:context=".UI.DetailPage.MovieDetailPageFragment"
     android:id="@+id/fragment_detail_page">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
@@ -77,6 +82,26 @@
                 app:layout_constraintStart_toEndOf="@+id/movie_ratingicon"
                 app:layout_constraintTop_toBottomOf="@id/movie_title" />
 
+            <Button
+                android:id="@+id/addmovietolistbutton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                android:text="@string/add_to_list"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/share_button" />
+
+            <ImageView
+                android:id="@+id/share_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:contentDescription="@string/share_button_description"
+                app:srcCompat="@drawable/ic_list_share"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
             <TextView
                 android:id="@+id/movie_releasedate"
                 android:layout_width="wrap_content"
@@ -84,7 +109,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="Releasedate"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/share_button"
                 app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
@@ -153,43 +178,39 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <Button
+                android:id="@+id/add_review_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add a review"
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/expand_reviews_field" />
+
+
             <TextView
                 android:id="@+id/no_reviews_found"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="16dp"
                 android:text="No reviews have been posted yet for this movie"
-                android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/static_section"/>
+                android:visibility="gone"
+                app:layout_constraintTop_toBottomOf="@id/add_review_button"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerview_reviews"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                app:layout_constraintTop_toBottomOf="@id/static_section"/>
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                app:spanCount="1"
+                app:layout_constraintTop_toBottomOf="@id/add_review_button"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_anchor="@id/nestedScrollView"
-        app:layout_anchorGravity="bottom">
 
-        <Button
-            android:id="@+id/addmovietolistbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:visibility="gone"
-            android:text="@string/add_to_list"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </LinearLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

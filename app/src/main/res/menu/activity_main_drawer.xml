@@ -3,15 +3,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_home"
-            android:title="@string/menu_home" />
+            android:title="@string/menu_home" >
+            <menu>
+                <item android:id="@+id/nav_search"
+                    android:title="Search" />
+                <item android:id="@+id/nav_discover"
+                    android:title="Discover" />
+
+            </menu>
+        </item>
+
         <item
             android:id="@+id/nav_list_overview"
             android:title="@string/menu_lists" />
-        <item
-            android:id="@+id/nav_logout"
-            android:title="@string/menu_logout" />
-    </group>
 </menu>

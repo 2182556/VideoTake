@@ -200,6 +200,7 @@ public class MovieApiDAO extends ApiDAO {
                 reviews.add(review);
             }
             movie.setReviews(reviews);
+            Log.d(TAG_NAME,"Amount of reviews: " + reviews.size());
             return new Result.Success<>(movie);
         } catch (Exception e) {
             e.printStackTrace();

@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
@@ -18,26 +17,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
-import com.videotake.Domain.Review;
 import com.videotake.Logic.User.EmptyResult;
 import com.videotake.Logic.User.LoggedInUserViewModel;
 import com.videotake.Logic.User.LoginViewModel;
 import com.videotake.Logic.User.UserViewModel;
 import com.videotake.R;
-import com.videotake.UI.Adapters.MovieListOverviewInPopupAdapter;
+import com.videotake.UI.Adapters.ReviewListAdapter;
+import com.videotake.VideoTake;
 import com.videotake.databinding.FragmentDetailPageBinding;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MovieDetailPageFragment extends Fragment {
     private final String TAG_NAME = MovieDetailPageFragment.class.getSimpleName();
@@ -47,6 +45,7 @@ public class MovieDetailPageFragment extends Fragment {
     private LoggedInUserViewModel loggedInUserViewModel;
     private UserViewModel userViewModel;
     private Movie movie;
+    private ReviewListAdapter reviewListAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -68,6 +67,11 @@ public class MovieDetailPageFragment extends Fragment {
         ImageView adult = binding.movieAdult;
         Button addToListButton = binding.addmovietolistbutton;
         Button rateButton = binding.ratemoviebutton;
+        Button addReview = binding.addReviewButton;
+
+        reviewListAdapter = new ReviewListAdapter(inflater.getContext());
+        RecyclerView reviewRecyclerView = binding.recyclerviewReviews;
+        reviewRecyclerView.setAdapter(reviewListAdapter);
 
         movieDetailsViewModel = new ViewModelProvider(this).get(MovieDetailsViewModel.class);
 
@@ -83,18 +87,24 @@ public class MovieDetailPageFragment extends Fragment {
             movieDetailsViewModel.getVideoLinkAndReviews(movie);
             movieDetailsViewModel.getVideoLinkAndReviewsResult().observe(
                     getViewLifecycleOwner(), (Observer<EmptyResult>) result -> {
-                if (result == null) {
-                    return;
-                }
-//                loadingProgressBar.setVisibility(View.GONE);
+                if (result == null) { return; }
                 if (result.getError() == null) {
                     String videoPath = movie.getVideoPath();
-                    List<Review> reviews = movie.getReviews();
+                    Log.d(TAG_NAME, "Amount of reviews: " + movie.getReviews().size());
+
+                    ConstraintLayout expandReviews = binding.expandReviewsField;
+                    reviewListAdapter.setData(movie.getReviews());
+                    expandReviews.setOnClickListener(view -> {
+                        addReview.setVisibility(View.VISIBLE);
+                        reviewRecyclerView.setVisibility(View.VISIBLE);
+                    });
+
                     //code to show video
                 } else {
                     Log.d(TAG_NAME, "An error occurred when trying to load the reviews and trailer");
                 }
             });
+
 
             //assigning values to xml attributes
             title.setText(movie.getMovieName());
@@ -107,42 +117,8 @@ public class MovieDetailPageFragment extends Fragment {
                 addToListButton.setVisibility(View.VISIBLE);
                 addToListButton.setOnClickListener(view -> {
                     LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View popupView = popUpInflater.inflate(R.layout.popup_window_add_movie_to_list, null);
-                    int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                    int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                    final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-                    popupWindow.setElevation(20);
-                    popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
-
-                    MovieListOverviewInPopupAdapter mAdapter = new MovieListOverviewInPopupAdapter(popupView.getContext(),
-                            movie.getMovieID(),loggedInUserViewModel, ViewTreeLifecycleOwner.get(view));
-                    RecyclerView mRecyclerView = popupView.findViewById(R.id.recyclerview_list);
-                    mRecyclerView.setAdapter(mAdapter);
-                    loggedInUserViewModel.lists();
-                    loggedInUserViewModel.getListsResult().observe(
-                            Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
-                        if (result == null) { return; }
-                        if (result.getError() == null) {
-                            List<MovieList> allLists = loggedInUserViewModel.getUserLists();
-                            mAdapter.setData(allLists);
-                        } else {
-                            Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
-                        }
-                    });
-                    loggedInUserViewModel.getAddMovieToListResult().observe(
-                            Objects.requireNonNull(ViewTreeLifecycleOwner.get(view)), result -> {
-                        if (result == null) { return; }
-                        if (result.getError() == null) {
-                            Toast.makeText(inflater.getContext(), "Successfully added movie to list!", Toast.LENGTH_LONG).show();
-                            popupWindow.dismiss();
-                        } else {
-                            Toast.makeText(inflater.getContext(), "Could not add movie to list", Toast.LENGTH_LONG).show();
-                            Log.d(TAG_NAME, "An error occurred when trying add the movie to the list");
-                        }
-                        loggedInUserViewModel.resetAddMovieToListResult();
-                    });
-                    final Button cancelButton = popupView.findViewById(R.id.cancel_button);
-                    cancelButton.setOnClickListener(v -> popupWindow.dismiss());
+                    VideoTake.showAddToListPopup(popUpInflater,view,movie.getMovieID(),loggedInUserViewModel,
+                            TAG_NAME,inflater);
                 });
             }
             rateButton.setOnClickListener(view -> {

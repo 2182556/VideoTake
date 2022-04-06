@@ -75,4 +75,7 @@
     <string name="min_rating">min</string>
     <string name="max_rating">max</string>
     <string name="action_theme">Dark mode</string>
+    <string name="review_rating">Rating: %1$.1f</string>
+    <string name="review_username">"User: "</string>
+    <string name="review_content">Content review</string>
 </resources>
