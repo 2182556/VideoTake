@@ -15,7 +15,7 @@
     <string name="overview">Overzicht</string>
     <string name="getting_movie_by_id_failed">Kan film niet ophalen doormiddel van een id</string>
     <string name="get_lists_failed">Kan geen lijsten ophalen voor deze gebruiker</string>
-    <string name="password_textview">Password</string>
+    <string name="password_textview">Wachtwoord</string>
     <string name="welcome_textview">Welkom!</string>
     <string name="username_textview">Gebruikersnaam</string>
     <string name="register_label">registreer</string>
