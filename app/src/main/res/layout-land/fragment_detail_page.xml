@@ -205,6 +205,18 @@
                 app:spanCount="1"
                 app:layout_constraintTop_toBottomOf="@id/add_review_button"/>
 
+            <Button
+                android:id="@+id/trailer_button"
+                android:layout_width="197dp"
+                android:layout_height="42dp"
+                android:text="@string/trailer_label"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.633"
+                app:layout_constraintStart_toEndOf="@+id/movie_image"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.253" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
