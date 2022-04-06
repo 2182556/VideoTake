@@ -1,4 +1,4 @@
-package com.videotake.Logic.User;
+package com.videotake.Logic;
 
 import androidx.annotation.Nullable;
 

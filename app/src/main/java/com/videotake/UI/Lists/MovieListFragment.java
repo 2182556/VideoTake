@@ -1,25 +1,22 @@
 package com.videotake.UI.Lists;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.videotake.Domain.Movie;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.LoggedInUserViewModel;
-import com.videotake.Logic.User.LoginViewModel;
-import com.videotake.UI.Adapters.MovieListAdapter;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.UI.Adapters.MovieListUserAdapter;
 import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentMovieListBinding;
-
-import java.util.List;
 
 public class MovieListFragment extends Fragment {
     private final String TAG_NAME = MovieListFragment.class.getSimpleName();
@@ -45,6 +42,17 @@ public class MovieListFragment extends Fragment {
         mRecyclerView.setAdapter(mAdapter);
 
         mAdapter.setData(currentList.getMovies());
+
+        ImageView shareList = binding.shareButton;
+        shareList.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "You should check my list! ");
+
+            intent.putExtra(Intent.EXTRA_TEXT, "https://www.themoviedb.org/list/" + currentList.getListId());
+            startActivity(Intent.createChooser(intent, "Share Via"));
+        });
         return root;
     }
 

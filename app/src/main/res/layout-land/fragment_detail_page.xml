@@ -43,7 +43,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/movie_title_placeholder"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/movie_image"
                 app:layout_constraintEnd_toStartOf="@id/movie_releasedate"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -55,11 +55,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:minHeight="136dp"
                 android:text="@string/description_placeholder"
                 android:textSize="16sp"
                 app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/ratemoviebutton" />
+                app:layout_constraintTop_toBottomOf="@id/movie_genre" />
 
             <ImageView
                 android:id="@+id/movie_ratingicon"
@@ -114,8 +115,9 @@
 
             <TextView
                 android:id="@+id/movie_genre"
-                android:layout_width="wrap_content"
+                android:layout_width="160dp"
                 android:layout_height="wrap_content"
+                android:textAlignment="textEnd"
                 android:text="@string/genre_placeholder"
                 app:layout_constraintTop_toBottomOf="@id/movie_releasedate"
                 app:layout_constraintEnd_toEndOf="parent" />
@@ -133,7 +135,7 @@
             <Button
                 android:id="@+id/ratemoviebutton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="8dp"
                 android:minHeight="0dp"
@@ -150,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:layout_marginVertical="16dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/movie_image">
+                app:layout_constraintTop_toBottomOf="@id/movie_description">
 
                 <TextView
                     android:id="@+id/review_text"
@@ -207,15 +209,13 @@
 
             <Button
                 android:id="@+id/trailer_button"
-                android:layout_width="197dp"
-                android:layout_height="42dp"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="8dp"
                 android:text="@string/trailer_label"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.633"
-                app:layout_constraintStart_toEndOf="@+id/movie_image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.253" />
+                app:layout_constraintStart_toEndOf="@+id/ratemoviebutton"
+                app:layout_constraintTop_toBottomOf="@id/movie_title" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

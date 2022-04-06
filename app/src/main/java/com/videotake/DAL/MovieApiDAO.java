@@ -13,8 +13,10 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
@@ -29,50 +31,116 @@ public class MovieApiDAO extends ApiDAO {
     private static final String VIMEO_PATH = "https://vimeo.com/";
     private static final String THEMOVIEDB_URL = "https://www.themoviedb.org/";
     private static final String DISCOVER = "discover/movie";
+    private static final String SORT = "&sort_by=";
+    private static final String ADULT = "&include_adult=";
+    private static final String RELEASE_YEAR = "&year=";
+    private static final String MIN_RATING = "&vote_average.gte=";
+    private static final String MAX_RATING = "&vote_average.lte=";
+    private static final String GENRES = "&with_genres=";
     private static Map<Integer,String> genres;
+    private static Map<String,String> sortOptions;
+    private static String[] genreOptionsArray;
 
-    public static Result<MovieList> getTrendingMovies(){
-        MovieList movies = getMovieList(BASE_URL + TRENDING + API_KEY, "Trending", "Trending movies for the homescreen");
-        if (movies!=null){
-            return new Result.Success<>(movies);
-        } else {
-            return new Result.Error(new IOException("Could not get trending movies"));
+    public static String[] getSortOptions(){
+        if (sortOptions==null){
+            sortOptions = new LinkedHashMap<>();
+            sortOptions.put("Popularity (desc)", "popularity.desc");
+            sortOptions.put("Popularity (asc)", "popularity.asc");
+            sortOptions.put("Rating (desc)", "vote_average.desc");
+            sortOptions.put("Rating (asc)", "vote_average.asc");
+            sortOptions.put("Title (desc)", "original_title.desc");
+            sortOptions.put("Title (asc)", "original_title.asc");
+            sortOptions.put("Release date (desc)", "release_date.desc");
+            sortOptions.put("Release date (asc)", "release_date.asc");
+        }
+        List<String> keys = new ArrayList<>(sortOptions.keySet());
+        String[] sortOptionsArray = new String[keys.size()];
+        for (int i=0; i<sortOptions.size(); i++){ sortOptionsArray[i] = keys.get(i); }
+        return sortOptionsArray;
+    }
+
+    public static String[] getGenres(){
+        return genreOptionsArray;
+    }
+
+    public static void getGenresFromAPI(){
+        Request genre_request = new Request.Builder()
+                .url(BASE_URL + MOVIE_GENRES + API_KEY)
+                .build();
+        OkHttpClient client = new OkHttpClient();
+        try (Response genre_response = client.newCall(genre_request).execute()) {
+            ResponseBody genre_body = genre_response.body();
+            JSONObject json_genre_response = new JSONObject(genre_body.string());
+            JSONArray genreArray = json_genre_response.getJSONArray("genres");
+            genres = new HashMap<>();
+            for (int i=0; i<genreArray.length(); i++){
+                JSONObject genre = genreArray.getJSONObject(i);
+                genres.put(genre.getInt("id"),genre.getString("name"));
+            }
+            List<String> values = new ArrayList<>(genres.values());
+            genreOptionsArray = new String[values.size()+1];
+            genreOptionsArray[0] = "";
+            for (int i=0; i<values.size(); i++){
+                genreOptionsArray[i+1] = values.get(i);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
-    public static MovieList getMovieList(String url, String listName, String listDescription){
-        try {
-            List<Movie> movies = new ArrayList<>();
-            Request request = new Request.Builder()
-                    .url(BASE_URL + DISCOVER + API_KEY)
-                    .build();
+    public static Result<List<Movie>> getMoviesWithFilterAndSort(
+            String sortingChoice, boolean adult, String releaseYear, String minRating, String maxRating, String genre){
+        String genreId= "";
+        for(Map.Entry<Integer,String> entry: genres.entrySet()){
+            if(genre.equals(entry.getValue())){
+                genreId = String.valueOf(entry.getKey());
+                break;
+            }
+        }
+        List<Movie> movies = getMovieList(BASE_URL + DISCOVER + API_KEY + SORT + sortOptions.get(sortingChoice) +
+        ADULT + adult + RELEASE_YEAR + releaseYear + MIN_RATING + minRating + MAX_RATING + maxRating +
+                GENRES + genreId);
+        if (movies!=null){
+            return new Result.Success<>(movies);
+        } else {
+            return new Result.Error(new IOException("Could not get movies when filtering"));
+        }
+    }
 
+    public static Result<List<Movie>> getSearchResult(String query){
+        List<Movie> movies = getMovieList(BASE_URL + SEARCH_MOVIE + API_KEY + QUERY_PARAM + query);
+        if (movies!=null){
+            return new Result.Success<>(movies);
+        } else {
+            return new Result.Error(new IOException("Could not get movies from search"));
+        }
+    }
+
+    public static Result<List<Movie>> getDiscoverMovies(){
+        List<Movie> movies = getMovieList(BASE_URL + DISCOVER + API_KEY);
+        if (movies!=null){
+            return new Result.Success<>(movies);
+        } else {
+            return new Result.Error(new IOException("Could not get movies using discover"));
+        }
+    }
+
+    public static List<Movie> getMovieList(String url){
+        try {
+            List<Movie> movies;
+            Request request = new Request.Builder()
+                    .url(url)
+                    .build();
             OkHttpClient client = new OkHttpClient();
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json_response = new JSONObject(body.string());
                 if (json_response.getInt("total_results")>0){
-                    if (genres==null) {
-                        Request genre_request = new Request.Builder()
-                                .url(BASE_URL + MOVIE_GENRES + API_KEY)
-                                .build();
-                        try (Response genre_response = client.newCall(genre_request).execute()) {
-                            ResponseBody genre_body = genre_response.body();
-                            JSONObject json_genre_response = new JSONObject(genre_body.string());
-                            JSONArray genreArray = json_genre_response.getJSONArray("genres");
-                            genres = new HashMap<>();
-                            for (int i=0; i<genreArray.length(); i++){
-                                JSONObject genre = genreArray.getJSONObject(i);
-                                genres.put(genre.getInt("id"),genre.getString("name"));
-                            }
-                        }
-                    }
-
+                    if (genres==null) { getGenresFromAPI(); }
                     JSONArray movieArray = json_response.getJSONArray("results");
-                    movies.addAll(getListOfMoviesFromJSONArray(movieArray));
+                    movies = getListOfMoviesFromJSONArray(movieArray);
                     Log.d(TAG_NAME, "Successfully retrieved movies");
-                    return new MovieList("trending",listName,
-                            listDescription, movies);
+                    return movies;
                 }
             }
         } catch (Exception e) {
@@ -200,7 +268,6 @@ public class MovieApiDAO extends ApiDAO {
                 reviews.add(review);
             }
             movie.setReviews(reviews);
-            Log.d(TAG_NAME,"Amount of reviews: " + reviews.size());
             return new Result.Success<>(movie);
         } catch (Exception e) {
             e.printStackTrace();
@@ -225,7 +292,4 @@ public class MovieApiDAO extends ApiDAO {
             return new Result.Error(new IOException("Could not get video link and reviews", e));
         }
     }
-
-
-
 }

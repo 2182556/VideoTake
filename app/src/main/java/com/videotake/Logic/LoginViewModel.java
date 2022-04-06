@@ -1,6 +1,4 @@
-package com.videotake.Logic.User;
-
-import android.util.Patterns;
+package com.videotake.Logic;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -12,12 +10,10 @@ import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.DAL.UserRepository;
 import com.videotake.DAL.Result;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoginFormState;
+import com.videotake.Logic.EmptyResult;
+import com.videotake.Logic.LoginFormState;
 import com.videotake.R;
 import com.videotake.VideoTake;
-
-import java.util.List;
 
 public class LoginViewModel extends ViewModel {
 
@@ -46,15 +42,11 @@ public class LoginViewModel extends ViewModel {
 
 
     public void login(String username, String password) {
-        userRepository.login(username, password, new RepositoryCallback<LoggedInUser>() {
-            @Override
-            public void onComplete(Result<LoggedInUser> result) {
-                if (result instanceof Result.Success) {
-                    LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-                    loginResult.postValue(new EmptyResult());
-                } else {
-                    loginResult.postValue(new EmptyResult(R.string.login_failed));
-                }
+        userRepository.login(username, password, result -> {
+            if (result instanceof Result.Success) {
+                loginResult.postValue(new EmptyResult());
+            } else {
+                loginResult.postValue(new EmptyResult(R.string.login_failed));
             }
         });
     }
@@ -80,15 +72,11 @@ public class LoginViewModel extends ViewModel {
     }
 
     public void useAsGuest(){
-        userRepository.useAsGuest(new RepositoryCallback<GuestUser>() {
-            @Override
-            public void onComplete(Result<GuestUser> result) {
-                if (result instanceof Result.Success) {
-                    GuestUser data = ((Result.Success<GuestUser>) result).getData();
-                    guestSessionResult.postValue(new EmptyResult());
-                } else {
-                    guestSessionResult.postValue(new EmptyResult(R.string.login_failed));
-                }
+        userRepository.useAsGuest(result -> {
+            if (result instanceof Result.Success) {
+                guestSessionResult.postValue(new EmptyResult());
+            } else {
+                guestSessionResult.postValue(new EmptyResult(R.string.login_failed));
             }
         });
     }

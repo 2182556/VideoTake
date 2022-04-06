@@ -3,7 +3,6 @@ package com.videotake;
 import android.app.Application;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -14,13 +13,12 @@ import android.widget.Toast;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.videotake.Logic.User.LoggedInUserViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.UI.Adapters.MovieListOverviewInPopupAdapter;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.zip.Inflater;
 
 public class VideoTake extends Application {
     public static ExecutorService executorService = Executors.newFixedThreadPool(4);

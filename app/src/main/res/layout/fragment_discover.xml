@@ -45,22 +45,31 @@
                     android:id="@+id/btn_expand_filter_options"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    android:minWidth="40dp"
-                    android:visibility="visible"
+                    android:minHeight="35dp"
+                    android:minWidth="35dp"
                     android:layout_marginEnd="5dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toStartOf="@id/btn_expand_sort_options"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:srcCompat="@drawable/ic_filter" />
+
+                <Spinner
+                    android:id="@+id/sort_spinner"
+                    android:layout_width="210dp"
+                    android:layout_height="wrap_content"
+                    android:maxHeight="300dp"
+                    android:minHeight="35dp"
+                    android:prompt="@string/genre"
+                    android:spinnerMode="dropdown"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/btn_expand_sort_options" />
 
                 <ImageView
                     android:id="@+id/btn_expand_sort_options"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:minHeight="40dp"
-                    android:minWidth="40dp"
-                    android:visibility="visible"
+                    android:minHeight="35dp"
+                    android:minWidth="35dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
@@ -91,6 +100,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/release_year"
+                        android:maxLength="4"
                         android:inputType="number"
                         android:selectAllOnFocus="true"
                         app:layout_constraintStart_toStartOf="parent"
@@ -103,7 +113,7 @@
                         android:maxHeight="300dp"
                         android:minHeight="42dp"
                         android:prompt="@string/genre"
-                        android:spinnerMode="dialog"
+                        android:spinnerMode="dropdown"
                         app:layout_constraintEnd_toEndOf="parent" />
 
                 </LinearLayout>
@@ -125,7 +135,7 @@
                         android:id="@+id/minimum_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/max_rating"
+                        android:hint="@string/min_rating"
                         android:inputType="numberDecimal"
                         android:selectAllOnFocus="true"
                         app:layout_constraintStart_toStartOf="parent"
@@ -142,7 +152,7 @@
                         android:id="@+id/maximum_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:hint="@string/min_rating"
+                        android:hint="@string/max_rating"
                         android:inputType="numberDecimal"
                         android:selectAllOnFocus="true"
                         android:layout_marginEnd="10dp"
@@ -154,10 +164,22 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Adult"
+                        android:text="@string/adult"
                         android:textSize="18sp"
                         android:textAlignment="textEnd"/>
 
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <Button
+                        android:id="@+id/filter_button"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:minHeight="40dp"
+                        android:text="@string/filter" />
                 </LinearLayout>
 
 

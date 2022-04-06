@@ -6,42 +6,79 @@ import androidx.lifecycle.ViewModel;
 
 import com.videotake.DAL.MovieApiDAO;
 import com.videotake.DAL.MovieRepository;
-import com.videotake.DAL.RepositoryCallback;
 import com.videotake.DAL.Result;
-import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Domain.Movie;
+import com.videotake.Logic.EmptyResult;
 import com.videotake.R;
 import com.videotake.VideoTake;
+
+import java.util.List;
 
 public class HomeViewModel extends ViewModel {
     private final String TAG_NAME = HomeViewModel.class.getSimpleName();
     private MovieApiDAO movieDAO;
-    private MutableLiveData<EmptyResult> trendingListResult = new MutableLiveData<>();
+    private MutableLiveData<EmptyResult> searchMoviesResult = new MutableLiveData<>();
+    private MutableLiveData<EmptyResult> discoverMoviesResult = new MutableLiveData<>();
+    private MutableLiveData<EmptyResult> discoverMoviesFilterAndSortResult = new MutableLiveData<>();
+    private MutableLiveData<EmptyResult> genreListResult = new MutableLiveData<>();
 
     private MovieRepository movieRepository;
-    private MovieList trendingMovies = null;
 
     public HomeViewModel() {
         this.movieRepository = MovieRepository.getInstance(new MovieApiDAO(), VideoTake.executorService);
     }
 
-    public MovieList getTrendingMovieList(){
-        return this.movieRepository.getTrendingMovieList();
+    public List<Movie> getDiscoverMovieList(){
+        return this.movieRepository.getDiscoverMoviesList();
     }
 
-    public LiveData<EmptyResult> getTrendingListResult() {
-        return trendingListResult;
+    public LiveData<EmptyResult> getDiscoverMovieResult() {
+        return discoverMoviesResult;
     }
 
-    public void getTrendingMovies() {
-        movieRepository.getTrendingMovies(result -> {
+    public void getDiscoverMovies() {
+        movieRepository.getDiscoverMovies(result -> {
             if (result instanceof Result.Success) {
-                trendingMovies = ((Result.Success<MovieList>) result).getData();
-                trendingListResult.postValue(new EmptyResult());
+                discoverMoviesResult.postValue(new EmptyResult());
             } else {
-                trendingListResult.postValue(new EmptyResult(R.string.getting_trending_movies_failed));
+                discoverMoviesResult.postValue(new EmptyResult(R.string.getting_movies_failed));
             }
         });
     }
+
+    public List<Movie> getDiscoverFilterAndSortMoviesList(){ return this.movieRepository.getDiscoverFilterAndSortMoviesList(); }
+
+    public LiveData<EmptyResult> getDiscoverFilterAndSortMoviesResult() {
+        return discoverMoviesFilterAndSortResult;
+    }
+
+    public void getDiscoverFilterAndSortMovies(String sortingChoice, boolean adult, String releaseYear,
+                                               String minRating, String maxRating, String genre) {
+        movieRepository.getDiscoverFilterAndSortMovies(sortingChoice, adult, releaseYear, minRating,
+                maxRating, genre, result -> {
+            if (result instanceof Result.Success) {
+                discoverMoviesFilterAndSortResult.postValue(new EmptyResult());
+            } else {
+                discoverMoviesFilterAndSortResult.postValue(new EmptyResult(R.string.getting_movies_failed));
+            }
+        });
+    }
+
+    public List<Movie> getSearchResultMovies(){ return this.movieRepository.getSearchResultMovies(); }
+
+    public LiveData<EmptyResult> getSearchResultResult() {
+        return searchMoviesResult;
+    }
+
+    public void getSearchResult(String query) {
+        movieRepository.getSearchResult(query, result -> {
+            if (result instanceof Result.Success) {
+                searchMoviesResult.postValue(new EmptyResult());
+            } else {
+                searchMoviesResult.postValue(new EmptyResult(R.string.getting_movies_failed));
+            }
+        });
+    }
+
 
 }

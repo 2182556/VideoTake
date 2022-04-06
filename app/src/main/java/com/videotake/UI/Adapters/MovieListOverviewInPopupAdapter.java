@@ -2,32 +2,21 @@ package com.videotake.UI.Adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewTreeLifecycleOwner;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoggedInUserViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.R;
-import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MovieListOverviewInPopupAdapter extends RecyclerView.Adapter<MovieListOverviewInPopupAdapter.MovieListViewHolder> {
     private final String TAG_NAME = MovieListOverviewInPopupAdapter.class.getSimpleName();

@@ -60,7 +60,6 @@ public class UserApiDAO extends ApiDAO {
                     .build();
 
             OkHttpClient client = new OkHttpClient();
-            Log.d(TAG_NAME, "Trying to get request token.");
             try (Response token_request_response = client.newCall(token_request).execute()) {
                 ResponseBody token_request_body = token_request_response.body();
                 JSONObject token_request_json = new JSONObject(token_request_body.string());
@@ -68,7 +67,6 @@ public class UserApiDAO extends ApiDAO {
                 boolean token_request_success = token_request_json.getBoolean("success");
                 if (token_request_success) {
                     REQUEST_TOKEN = token_request_json.getString("request_token");
-                    Log.d(TAG_NAME,"Successfully retrieved request token.");
 
                     RequestBody validate_token_requestBody = new MultipartBody.Builder()
                             .setType(MultipartBody.FORM)
@@ -87,7 +85,6 @@ public class UserApiDAO extends ApiDAO {
                         Log.d(TAG_NAME, validate_token_json.toString());
                         boolean validate_token_success = validate_token_json.getBoolean("success");
                         if (validate_token_success) {
-                            Log.d(TAG_NAME, "Successfully validated request token.");
                             RequestBody authenticate_session_requestBody = new MultipartBody.Builder()
                                     .addFormDataPart("request_token", REQUEST_TOKEN)
                                     .build();
@@ -131,7 +128,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 return json;
             } catch (Exception e) {
                 e.printStackTrace();
@@ -155,7 +151,6 @@ public class UserApiDAO extends ApiDAO {
         try (Response response = client.newCall(request).execute()) {
             ResponseBody body = response.body();
             JSONObject json = new JSONObject(body.string());
-            Log.d(TAG_NAME,json.toString());
             boolean success = json.getBoolean("success");
             if (success) {
                 Log.d(TAG_NAME,"The movie was added to the list");
@@ -182,7 +177,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 int status_code = json.getInt("status_code");
                 if (status_code==13) {
                     Log.d(TAG_NAME,"The movie has been removed from the list");
@@ -216,7 +210,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 boolean success = json.getBoolean("success");
                 if (success) {
                     Log.d(TAG_NAME,"The list was added to the API");
@@ -240,7 +233,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 int status_code = json.getInt("status_code");
 //                if (status_code==12) { }
                 //status code does not work properly, so we assume the list has been removed
@@ -268,7 +260,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 amountOfPages = json.getInt("total_pages");
                 JSONArray json_lists = json.getJSONArray("results");
                 for (int i=0; i<json_lists.length(); i++){
@@ -279,7 +270,6 @@ public class UserApiDAO extends ApiDAO {
                     try (Response list_response = client.newCall(list_request).execute()) {
                         ResponseBody list_body = list_response.body();
                         JSONObject list_json = new JSONObject(list_body.string());
-                        Log.d(TAG_NAME, list_json.toString());
                         JSONArray movies_in_list_json  = list_json.getJSONArray("items");
                         List<Movie> movies = new ArrayList<>();
                         movies.addAll(MovieApiDAO.getListOfMoviesFromJSONArray(movies_in_list_json));
@@ -340,7 +330,6 @@ public class UserApiDAO extends ApiDAO {
             try (Response response = client.newCall(request).execute()) {
                 ResponseBody body = response.body();
                 JSONObject json = new JSONObject(body.string());
-                Log.d(TAG_NAME,json.toString());
                 boolean success = json.getBoolean("success");
                 if (success){
                     Log.d(TAG_NAME,"The rating has been posted");

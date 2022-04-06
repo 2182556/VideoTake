@@ -38,7 +38,7 @@
             <Button
                 android:id="@+id/addmovietolistbutton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:text="@string/add_to_list"
                 android:visibility="gone"
                 app:layout_constraintEnd_toStartOf="@+id/share_button"
@@ -49,7 +49,7 @@
                 android:id="@+id/share_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/share_button_description"
                 app:srcCompat="@drawable/ic_list_share"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -60,14 +60,22 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="16dp"
                 android:text="@string/movie_title_placeholder"
-                android:textSize="26sp"
+                android:textSize="24sp"
                 app:layout_constraintStart_toEndOf="@+id/movie_image"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/share_button" />
 
+            <Button
+                android:id="@+id/trailer_button"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/trailer_label"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/movie_image" />
 
             <TextView
                 android:id="@+id/movie_description"
@@ -76,7 +84,7 @@
                 android:layout_marginTop="16dp"
                 android:text="@string/description_placeholder"
                 android:textSize="16sp"
-                app:layout_constraintTop_toBottomOf="@id/movie_image" />
+                app:layout_constraintTop_toBottomOf="@id/trailer_button" />
 
             <ImageView
                 android:id="@+id/movie_ratingicon"
@@ -113,9 +121,10 @@
                 android:id="@+id/movie_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:maxWidth="170dp"
                 android:layout_margin="16dp"
                 android:text="@string/genre_placeholder"
-                app:layout_constraintBottom_toTopOf="@id/movie_description"
+                app:layout_constraintBottom_toTopOf="@id/trailer_button"
                 app:layout_constraintStart_toEndOf="@id/movie_image" />
 
             <ImageView
@@ -131,7 +140,7 @@
             <Button
                 android:id="@+id/ratemoviebutton"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="8dp"
                 android:minHeight="0dp"
@@ -202,17 +211,6 @@
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                 app:spanCount="1"
                 app:layout_constraintTop_toBottomOf="@id/add_review_button"/>
-
-            <Button
-                android:id="@+id/trailer_button"
-                android:layout_width="135dp"
-                android:layout_height="47dp"
-                android:text="@string/trailer_label"
-                app:layout_constraintBottom_toTopOf="@+id/movie_releasedate"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.468"
-                app:layout_constraintStart_toEndOf="@+id/movie_image"
-                app:layout_constraintTop_toBottomOf="@+id/ratemoviebutton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

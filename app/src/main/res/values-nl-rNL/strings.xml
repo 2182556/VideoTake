@@ -10,7 +10,7 @@
     <string name="invalid_username">Voer een gebruikersnaam in</string>
     <string name="invalid_password">Voer een geldig wachtwoord in</string>
     <string name="login_failed">Inloggen mislukt</string>
-    <string name="getting_trending_movies_failed">Kan trending films niet ophalen</string>
+    <string name="getting_movies_failed">Kan films niet ophalen</string>
     <string name="nav_header_title">Welkom!</string>
     <string name="overview">Overzicht</string>
     <string name="getting_movie_by_id_failed">Kan film niet ophalen doormiddel van een id</string>

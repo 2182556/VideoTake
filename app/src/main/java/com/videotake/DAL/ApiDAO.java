@@ -7,7 +7,7 @@ public abstract class ApiDAO {
     public static final String SEARCH_MOVIE = "search/movie";
     public static final String TRENDING = "trending/movie/week";
     public static final String MOVIE_GENRES = "genre/movie/list";
-    public static final String QUERY_PARAM = "query";
+    public static final String QUERY_PARAM = "&query=";
     public static final String PAGE = "page";
     public static final String LIST = "list";
     public static final String MOVIE = "movie/";

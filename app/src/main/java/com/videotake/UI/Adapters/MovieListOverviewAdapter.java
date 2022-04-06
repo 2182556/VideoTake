@@ -13,16 +13,12 @@ import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoggedInUserViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 

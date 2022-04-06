@@ -5,18 +5,20 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.SearchView;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.LoggedInUserViewModel;
-import com.videotake.Logic.User.LoginViewModel;
+import com.videotake.Domain.Movie;
+import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.Logic.LoginViewModel;
 import com.videotake.UI.Adapters.MovieListAdapter;
 import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentSearchBinding;
+
+import java.util.List;
 
 public class SearchFragment extends Fragment {
     private final String TAG_NAME = SearchFragment.class.getSimpleName();
@@ -37,30 +39,56 @@ public class SearchFragment extends Fragment {
         if (loginViewModel.getLoggedInUser()!=null){
             LoggedInUserViewModel loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
             adapter = new MovieListAdapter(
-                    inflater.getContext(), loggedInUserViewModel,movieDetailsViewModel);
+                    inflater.getContext(), loggedInUserViewModel,movieDetailsViewModel, "Search");
         } else {
-            adapter = new MovieListAdapter(inflater.getContext(),movieDetailsViewModel);
+            adapter = new MovieListAdapter(inflater.getContext(),movieDetailsViewModel, "Search");
         }
-
 
         RecyclerView mRecyclerView = binding.recyclerview;
         mRecyclerView.setAdapter(adapter);
 
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        MovieList trendingList = homeViewModel.getTrendingMovieList();
-        if (trendingList!=null) {
-            adapter.setData(trendingList.getMovies());
+        List<Movie> searchResultList = homeViewModel.getSearchResultMovies();
+        if (searchResultList!=null) {
+            adapter.setData(searchResultList);
         } else {
-            homeViewModel.getTrendingMovies();
-            homeViewModel.getTrendingListResult().observe(getViewLifecycleOwner(), result -> {
+            homeViewModel.getDiscoverMovies();
+            homeViewModel.getDiscoverMovieResult().observe(getViewLifecycleOwner(), result -> {
                 if (result == null) { return; }
                 if (result.getError() == null) {
-                    adapter.setData(homeViewModel.getTrendingMovieList().getMovies());
+                    adapter.setData(homeViewModel.getDiscoverMovieList());
                 } else {
-                    Log.d(TAG_NAME, "An error occurred when trying to load trending movies");
+                    Log.d(TAG_NAME, "An error occurred when trying to load movies");
                 }
             });
         }
+
+        SearchView search = binding.searchbar;
+
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+//                String queryText = search.getQuery().toString();
+                query = query.replace(" ", "+");
+                homeViewModel.getSearchResult(query);
+                homeViewModel.getSearchResultResult().observe(getViewLifecycleOwner(), result -> {
+                    if (result == null) { return; }
+                    if (result.getError() == null) {
+                        adapter.setData(homeViewModel.getSearchResultMovies());
+                    } else {
+                        Log.d(TAG_NAME, "An error occurred when trying to get search results");
+                    }
+                });
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
+
+
 
         return root;
     }

@@ -2,35 +2,23 @@ package com.videotake.UI.Adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
 import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoggedInUserViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.DetailPage.MovieDetailsViewModel;
-import com.videotake.UI.Home.HomeFragmentDirections;
 import com.videotake.UI.Lists.MovieListFragmentDirections;
 import com.videotake.VideoTake;
 

@@ -6,11 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import com.videotake.DAL.MovieApiDAO;
 import com.videotake.DAL.MovieRepository;
-import com.videotake.DAL.RepositoryCallback;
 import com.videotake.DAL.Result;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Logic.EmptyResult;
 import com.videotake.R;
 import com.videotake.VideoTake;
 

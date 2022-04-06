@@ -1,17 +1,14 @@
-package com.videotake.Logic.User;
+package com.videotake.Logic;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.videotake.DAL.MovieApiDAO;
-import com.videotake.DAL.MovieRepository;
-import com.videotake.DAL.RepositoryCallback;
 import com.videotake.DAL.Result;
 import com.videotake.DAL.UserApiDAO;
 import com.videotake.DAL.UserRepository;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
+import com.videotake.Logic.EmptyResult;
 import com.videotake.R;
 import com.videotake.VideoTake;
 

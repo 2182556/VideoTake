@@ -2,40 +2,25 @@ package com.videotake.UI.Adapters;
 
 import android.content.Context;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelStoreOwner;
-import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoggedInUserViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.DetailPage.MovieDetailsViewModel;
 import com.videotake.UI.Home.HomeFragmentDirections;
-import com.videotake.UI.Lists.MovieListFragmentDirections;
 import com.videotake.VideoTake;
 
 import java.util.List;
-import java.util.Objects;
 
 public class MovieListAdapter extends
         RecyclerView.Adapter<MovieListAdapter.MovieViewHolder> {
@@ -44,17 +29,20 @@ public class MovieListAdapter extends
     private final LayoutInflater mInflater;
     private LoggedInUserViewModel loggedInUserViewModel = null;
     private MovieDetailsViewModel movieDetailsViewModel = null;
+    private final String parent;
 
-    public MovieListAdapter(Context context, MovieDetailsViewModel movieDetailsViewModel) {
+    public MovieListAdapter(Context context, MovieDetailsViewModel movieDetailsViewModel, String parent) {
         this.mInflater = LayoutInflater.from(context);
         this.movieDetailsViewModel = movieDetailsViewModel;
+        this.parent = parent;
     }
 
     public MovieListAdapter(Context context, LoggedInUserViewModel loggedInUserViewModel,
-                            MovieDetailsViewModel movieDetailsViewModel) {
+                            MovieDetailsViewModel movieDetailsViewModel, String parent) {
         this.mInflater = LayoutInflater.from(context);
         this.loggedInUserViewModel = loggedInUserViewModel;
         this.movieDetailsViewModel = movieDetailsViewModel;
+        this.parent = parent;
     }
 
     @NonNull
@@ -121,7 +109,7 @@ public class MovieListAdapter extends
             itemView.setOnClickListener(v -> {
                 HomeFragmentDirections.ActionNavHomeToMovieDetailPageFragment action =
                         HomeFragmentDirections.actionNavHomeToMovieDetailPageFragment(
-                                getLayoutPosition(),allMovies.get(getLayoutPosition()).getMovieName());
+                                getLayoutPosition(),parent);
                 Navigation.findNavController(v).navigate(action);
             });
         }

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,8 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.User.LoggedInUserViewModel;
-import com.videotake.Logic.User.LoginViewModel;
+import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.Logic.LoginViewModel;
 import com.videotake.R;
 import com.videotake.UI.Adapters.MovieListOverviewAdapter;
 import com.videotake.databinding.FragmentListOverviewBinding;
@@ -42,7 +43,12 @@ public class ListOverviewFragment extends Fragment {
 
         loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         loggedInUserViewModel = new ViewModelProvider(this).get(LoggedInUserViewModel.class);
-
+        if (loginViewModel.getLoggedInUser()==null){
+            TextView notLoggedIn = binding.notLoggedInLabel;
+            FloatingActionButton addList = binding.addList;
+            notLoggedIn.setVisibility(View.VISIBLE);
+            addList.setVisibility(View.GONE);
+        }
         MovieListOverviewAdapter mAdapter = new MovieListOverviewAdapter(inflater.getContext(), loggedInUserViewModel);
         RecyclerView mRecyclerView = binding.recyclerviewList;
         mRecyclerView.setAdapter(mAdapter);
@@ -61,44 +67,41 @@ public class ListOverviewFragment extends Fragment {
         });
 
         FloatingActionButton addListButton = binding.addList;
-        addListButton.setOnClickListener( new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(inflater.getContext().LAYOUT_INFLATER_SERVICE);
-                View popupView = popUpInflater.inflate(R.layout.popup_window_add_list, null);
-                int width = LinearLayout.LayoutParams.MATCH_PARENT;
-                int height = LinearLayout.LayoutParams.WRAP_CONTENT;
-                final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
-                popupWindow.setElevation(20);
-                popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
+        addListButton.setOnClickListener(view -> {
+            LayoutInflater popUpInflater = (LayoutInflater) inflater.getContext().getSystemService(inflater.getContext().LAYOUT_INFLATER_SERVICE);
+            View popupView = popUpInflater.inflate(R.layout.popup_window_add_list, null);
+            int width = LinearLayout.LayoutParams.MATCH_PARENT;
+            int height = LinearLayout.LayoutParams.WRAP_CONTENT;
+            final PopupWindow popupWindow = new PopupWindow(popupView, width, height, true);
+            popupWindow.setElevation(20);
+            popupWindow.showAtLocation(view, Gravity.CENTER, 0, 0);
 
-                final EditText listTitleEditText = popupView.findViewById(R.id.list_title);
-                final EditText listDescriptionEditText = popupView.findViewById(R.id.list_description);
-                final Button addListButton = popupView.findViewById(R.id.add_list_button);
-                addListButton.setOnClickListener(v -> {
-                    loggedInUserViewModel.addList(listTitleEditText.getText().toString(),
-                            listDescriptionEditText.getText().toString());
-                    loggedInUserViewModel.getAddListResult().observe(getViewLifecycleOwner(), result -> {
-                        if (result == null) { return; }
-                        if (result.getError() == null) {
-                            loggedInUserViewModel.lists();
-                            loggedInUserViewModel.getListsResult().
-                                    observe(getViewLifecycleOwner(), result1 -> {
-                                if (result1 == null) { return; }
-                                if (result1.getError() == null) {
-                                    mAdapter.setData(loggedInUserViewModel.getUserLists());
-                                } else {
-                                    Log.d(TAG_NAME, "An error occurred trying to get the user's lists");
-                                }
-                            });
-                            popupWindow.dismiss();
-                            Toast.makeText(getLayoutInflater().getContext(), "List added!", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Log.d(TAG_NAME, "An error occurred trying to add the list");
-                        }
-                    });
+            final EditText listTitleEditText = popupView.findViewById(R.id.list_title);
+            final EditText listDescriptionEditText = popupView.findViewById(R.id.list_description);
+            final Button addListButton1 = popupView.findViewById(R.id.add_list_button);
+            addListButton1.setOnClickListener(v -> {
+                loggedInUserViewModel.addList(listTitleEditText.getText().toString(),
+                        listDescriptionEditText.getText().toString());
+                loggedInUserViewModel.getAddListResult().observe(getViewLifecycleOwner(), result -> {
+                    if (result == null) { return; }
+                    if (result.getError() == null) {
+                        loggedInUserViewModel.lists();
+                        loggedInUserViewModel.getListsResult().
+                                observe(getViewLifecycleOwner(), result1 -> {
+                            if (result1 == null) { return; }
+                            if (result1.getError() == null) {
+                                mAdapter.setData(loggedInUserViewModel.getUserLists());
+                            } else {
+                                Log.d(TAG_NAME, "An error occurred trying to get the user's lists");
+                            }
+                        });
+                        popupWindow.dismiss();
+                        Toast.makeText(getLayoutInflater().getContext(), "List added!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Log.d(TAG_NAME, "An error occurred trying to add the list");
+                    }
                 });
-            }
+            });
         });
         return root;
     }

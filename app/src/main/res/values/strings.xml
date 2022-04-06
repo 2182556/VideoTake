@@ -18,7 +18,7 @@
     <string name="invalid_username">Please enter a username</string>
     <string name="invalid_password">Please enter a valid password</string>
     <string name="login_failed">"Login failed"</string>
-    <string name="getting_trending_movies_failed">"Could not retrieve trending movies"</string>
+    <string name="getting_movies_failed">"Could not retrieve movies"</string>
 
     <string name="navigation_drawer_open" translatable="false">Open navigation drawer</string>
     <string name="navigation_drawer_close" translatable="false">Close navigation drawer</string>
@@ -75,7 +75,7 @@
     <string name="no_reviews_found_label">No reviews have been posted yet for this movie</string>
     <string name="rating">Rating:</string>
     <string name="dash" translatable="false">-</string>
-    <string name="adult">Adult</string>
+    <string name="adult">Include adult</string>
     <string name="what_list_text">What list would you like to add the movie to?</string>
     <string name="cancel_label">Cancel</string>
     <string name="add_new_list_label">Add new list</string>
@@ -87,4 +87,5 @@
     <string name="search_lowercase">Search</string>
     <string name="back_to_login_page">Back to login page</string>
     <string name="go_to">Go to</string>
+    <string name="getting_genres_failed">Could not retrieve genres</string>
 </resources>

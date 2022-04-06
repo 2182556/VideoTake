@@ -22,9 +22,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.Logic.User.EmptyResult;
-import com.videotake.Logic.User.LoginFormState;
-import com.videotake.Logic.User.LoginViewModel;
+import com.videotake.Logic.EmptyResult;
+import com.videotake.Logic.LoginFormState;
+import com.videotake.Logic.LoginViewModel;
 import com.videotake.R;
 import com.videotake.databinding.ActivityLoginBinding;
 
