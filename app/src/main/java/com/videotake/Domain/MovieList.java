@@ -29,12 +29,7 @@ public class MovieList {
 
     //TODO, figure this bitch out
     @Ignore
-    private List<Movie> movies;
-
-    @Ignore
-    public MovieList(String listId, String listName, String listDescription) {
-        this(listId, listName,listDescription,new ArrayList<>());
-    }
+    private List<Movie> movies = new ArrayList<>();
 
     public MovieList(@NonNull String listId, @NonNull String listName, String listDescription, List<Movie> movies){
         this.listId = listId;

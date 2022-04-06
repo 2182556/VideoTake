@@ -29,6 +29,7 @@ public class UserApiDAO extends ApiDAO {
     public final String GUEST_SESSION = "authentication/guest_session/new";
     public final String ACCOUNT = "account";
     public final String RATING = "rating";
+
     public final String SESSION_ID_STRING = "session_id";
     public final String GUEST_SESSION_ID_STRING = "guest_session_id";
 
