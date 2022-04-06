@@ -1,6 +1,7 @@
 package com.videotake.Domain;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.UiContext;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -14,18 +15,37 @@ import java.util.List;
 @Entity(tableName = "movie_table")
 public class Movie {
 
-    // Key values
-    @ColumnInfo(name = "movie")
-    @PrimaryKey private int movieID;
+    @ColumnInfo(name = "movie_ID")
+    @PrimaryKey
+    private int movieID;
+
+    @ColumnInfo(name = "movie_name")
     private String movieName;
+
+    @ColumnInfo(name = "description")
     private String description;
+
+    @ColumnInfo(name = "poster_path")
     private String posterPath;
+
+    @ColumnInfo(name = "original_language")
     private String originalLanguage;
+
+    //TODO, make a stringBuilder for genres to store in database as a single string
     private List<String> genres;
+
+    private String genreString;
+
+    @ColumnInfo(name = "releaseDate")
     private String releaseDate;
+    @ColumnInfo(name = "rating")
     private Double rating;
+    @ColumnInfo(name = "videoPath")
     private String videoPath;
+    @ColumnInfo(name = "shareableLink")
     private String shareableLink;
+
+    //TODO, think about saving reviews or not and how
     private List<Review> reviews;
 
     public Movie(int movieID, String movieName, String description, String posterPath,
@@ -80,5 +100,11 @@ public class Movie {
 
     public void setReviews(List<Review> reviews) {
         this.reviews = reviews;
+    }
+
+    public void createGenresString(List<String> genres) {
+        StringBuilder builder = new StringBuilder();
+        for (String genre : genres) { builder.append(genre).append(","); }
+        this.genreString = builder.toString();
     }
 }
