@@ -53,12 +53,13 @@
                 android:id="@+id/movie_description"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="68dp"
                 android:text="@string/description_placeholder"
                 android:textSize="16sp"
-                app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@id/movie_image"
                 app:layout_constraintTop_toBottomOf="@id/ratemoviebutton" />
 
             <ImageView
@@ -210,12 +211,11 @@
                 android:layout_width="197dp"
                 android:layout_height="42dp"
                 android:text="@string/trailer_label"
-                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/movie_description"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.633"
+                app:layout_constraintHorizontal_bias="0.049"
                 app:layout_constraintStart_toEndOf="@+id/movie_image"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.253" />
+                app:layout_constraintTop_toBottomOf="@+id/ratemoviebutton" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
