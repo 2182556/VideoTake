@@ -2,6 +2,7 @@ package com.videotake.UI;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -145,6 +146,12 @@ public class LoginActivity extends AppCompatActivity {
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.useAsGuest();
             }
+        });
+
+        Button register = binding.RegisterButton;
+        register.setOnClickListener(view -> {
+            Intent registerIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.themoviedb.org/signup"));
+            startActivity(registerIntent);
         });
     }
 

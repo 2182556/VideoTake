@@ -76,7 +76,7 @@ public class LoginViewModel extends ViewModel {
 
     // A placeholder password validation check
     private boolean isPasswordValid(String password) {
-        return password != null && !password.trim().isEmpty();
+        return password != null && password.trim().toCharArray().length>=4;
     }
 
     public void useAsGuest(){

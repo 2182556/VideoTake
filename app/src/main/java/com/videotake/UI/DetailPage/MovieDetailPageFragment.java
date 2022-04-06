@@ -91,7 +91,11 @@ public class MovieDetailPageFragment extends Fragment {
                 if (result.getError() == null) {
                     String videoPath = movie.getVideoPath();
                     Log.d(TAG_NAME, "Amount of reviews: " + movie.getReviews().size());
-
+                    TextView noReview = binding.noReviewsFound;
+                    if (movie.getReviews().size()==0) {
+                        addReview.setVisibility(View.VISIBLE);
+                        noReview.setVisibility(View.VISIBLE);
+                    }
                     ConstraintLayout expandReviews = binding.expandReviewsField;
                     reviewListAdapter.setData(movie.getReviews());
                     expandReviews.setOnClickListener(view -> {

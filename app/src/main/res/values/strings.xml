@@ -28,7 +28,7 @@
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome "</string>
     <string name="invalid_username">Please enter a username</string>
-    <string name="invalid_password">Please enter a password</string>
+    <string name="invalid_password">Please enter a valid password</string>
     <string name="login_failed">"Login failed"</string>
     <string name="getting_trending_movies_failed">"Could not retrieve trending movies"</string>
 
