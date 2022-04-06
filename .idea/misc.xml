@@ -41,6 +41,9 @@
         <entry key="app/src/main/res/layout-land/fragment_detail_page.xml" value="0.12647743292376265" />
         <entry key="app/src/main/res/layout-land/fragment_list_overview.xml" value="0.22156862745098038" />
         <entry key="app/src/main/res/layout/activity_login.xml" value="0.13802083333333334" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/add_movie_to_list_item.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_detail_page.xml" value="0.29295654296875" />
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.4521291097005209" />
         <entry key="app/src/main/res/layout/fragment_list_overview.xml" value="0.15049184163411455" />

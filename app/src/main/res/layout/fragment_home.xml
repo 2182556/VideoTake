@@ -126,7 +126,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Rating:"
+                        android:text="@string/rating"
                         android:textSize="18dp"
                         android:layout_marginEnd="5dp"/>
 
@@ -143,7 +143,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
+                        android:text="@string/dash"
                         android:textSize="18sp"
                         android:layout_marginEnd="5dp"/>
 
@@ -163,7 +163,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="Adult"
+                        android:text="@string/adult"
                         android:textSize="18sp"
                         android:textAlignment="textEnd"/>
 
