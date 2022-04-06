@@ -115,6 +115,7 @@ public class MovieDetailPageFragment extends Fragment {
             description.setText(movie.getMovieDescription());
             rating.setText(String.valueOf(movie.getVoteAverage()));
             date.setText(movie.getReleaseDate());
+            genre.setText(movie.getGenres());
             Picasso.with(inflater.getContext()).load("https://image.tmdb.org/t/p/w500/" + movie.getPosterPath()).into(image);
 
             if (loginViewModel.getLoggedInUser()!=null){
