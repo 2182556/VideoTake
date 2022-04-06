@@ -12,12 +12,14 @@ import java.util.Date;
 import java.util.List;
 
 // Annotations for DataBase
-@Entity(tableName = "movie_table")
+@Entity(tableName = "movie_table", primaryKeys = {"movieID", "movie_name"})
 public class Movie {
 
-    // Key values
+    //Defining Data
     @ColumnInfo(name = "movieID")
-    @PrimaryKey private int movieID;
+    private int movieID;
+
+    @NonNull
     @ColumnInfo(name = "movie_name")
     private String movieName;
 
@@ -50,8 +52,7 @@ public class Movie {
     @Ignore
     private List<Review> reviews;
 
-    public Movie(int movieID, String movieName, String description, String posterPath,
-                 String originalLanguage, List<String> genres, String releaseDate, Double voteAverage, int voteCount) {
+    public Movie(int movieID, String movieName, String description, String posterPath, String originalLanguage, List<String> genres, String releaseDate, Double voteAverage, int voteCount) {
         this.movieID = movieID;
         this.movieName = movieName;
         this.description = description;

@@ -1,11 +1,32 @@
 package com.videotake.Domain;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+
+@Entity(tableName = "reviewID", primaryKeys = {"reviewID"})
 public class Review {
+
+    //Defining Data
+    @NonNull
+    @ColumnInfo(name = "reviewID")
     private String reviewID;
-    private String userName;
-    private String content;
-    private double rating;
+
+    @Ignore
+    @ColumnInfo(name = "movieID")
     private String movieID;
+
+    @ColumnInfo(name = "user_name")
+    private String userName;
+
+    @ColumnInfo(name = "content")
+    private String content;
+
+    @ColumnInfo(name = "rating")
+    private double rating;
+
+
 
     public Review(String reviewID, String userName, String content, double rating) {
         this.reviewID = reviewID;
