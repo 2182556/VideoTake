@@ -80,4 +80,10 @@
     <string name="cancel_label">Cancel</string>
     <string name="add_new_list_label">Add new list</string>
     <string name="rate_movie_text">Rate this movie!</string>
+    <string name="discover">DISCOVER</string>
+    <string name="search">SEARCH</string>
+    <string name="lists">Lists</string>
+    <string name="discover_lowercase">Discover</string>
+    <string name="search_lowercase">Search</string>
+    <string name="back_to_login_page">Back to login page</string>
 </resources>

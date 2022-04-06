@@ -1,8 +1,6 @@
 package com.videotake.UI;
 
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -68,7 +66,6 @@ public class MainActivity extends AppCompatActivity {
             } else {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             }
-            return false;
         }
         return false;
     }
