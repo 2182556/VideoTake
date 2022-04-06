@@ -17,6 +17,6 @@ public interface MovieRoomDBDAO {
     @Query("DELETE FROM movie_table")
     void deleteAll();
 
-    @Query("SELECT * from movie_table ORDER BY movie ASC")
+    @Query("SELECT * from movie_table ORDER BY movie_name ASC")
     LiveData<List<Movie>> getAllMovies();
 }
