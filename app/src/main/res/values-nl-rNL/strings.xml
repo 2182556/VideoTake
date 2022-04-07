@@ -60,5 +60,7 @@
     <string name="back_to_login_page">Terug naar login pagina</string>
     <string name="discover">ONTDEK</string>
     <string name="discover_lowercase">Ontdek</string>
+    <string name="go_to">Ga naar</string>
+    <string name="getting_genres_failed">Kan genres niet ophalen</string>
 
 </resources>
