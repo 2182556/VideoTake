@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(tableName = "movie_list", primaryKeys = {"listID", "list_name"})
+@Entity(tableName = "movie_list_table", primaryKeys = {"listID", "list_name"})
 public class MovieList {
 
     @NonNull
