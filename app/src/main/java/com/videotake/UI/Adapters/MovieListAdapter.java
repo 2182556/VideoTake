@@ -14,9 +14,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
-import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.R;
-import com.videotake.UI.DetailPage.MovieDetailsViewModel;
+import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.UI.Home.HomeFragmentDirections;
 import com.videotake.VideoTake;
 

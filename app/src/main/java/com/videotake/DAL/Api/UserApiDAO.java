@@ -1,7 +1,8 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Api;
 
 import android.util.Log;
 
+import com.videotake.DAL.Repository.Result;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.Movie;
@@ -162,7 +163,7 @@ public class UserApiDAO extends ApiDAO {
         return new Result.Error(new IOException("Error: Could not add movie to list"));
     }
 
-    protected Result<String> removeMovieFromList(String session_Id, String list_id, int movie_id){
+    public Result<String> removeMovieFromList(String session_Id, String list_id, int movie_id){
         if (session_Id!=null) {
             RequestBody requestBody = new MultipartBody.Builder()
                     .addFormDataPart("media_id", String.valueOf(movie_id))
@@ -223,7 +224,7 @@ public class UserApiDAO extends ApiDAO {
         return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 
-    protected Result<String> deleteList(String session_Id, String list_id){
+    public Result<String> deleteList(String session_Id, String list_id){
         if (session_Id!=null) {
             Request request = new Request.Builder()
                     .url(BASE_URL + LIST + "/" + list_id + API_KEY + "&" + SESSION_ID_STRING + "=" + session_Id )
@@ -247,7 +248,7 @@ public class UserApiDAO extends ApiDAO {
         return new Result.Error(new IOException("Error: Session id is not valid"));
     }
 
-    protected Result<List<MovieList>> lists(String session_Id){
+    public Result<List<MovieList>> lists(String session_Id){
         List<MovieList> allLists = new ArrayList<>();
         int page = 1;
         int amountOfPages = 1;

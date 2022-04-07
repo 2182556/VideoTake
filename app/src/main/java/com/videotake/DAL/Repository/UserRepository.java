@@ -1,5 +1,6 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Repository;
 
+import com.videotake.DAL.Api.UserApiDAO;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
@@ -16,14 +17,11 @@ public class UserRepository {
     private final Executor executor;
     private UserApiDAO userDAO;
 
-    // If user credentials will be cached in local storage, it is recommended it be encrypted
-    // @see https://developer.android.com/training/articles/keystore
     private LoggedInUser loggedInUser = null;
     private GuestUser guestUser = null;
 
     private List<MovieList> userLists;
 
-    // private constructor : singleton access
     private UserRepository(UserApiDAO userDAO, Executor executor) {
         this.executor = executor;
         this.userDAO = userDAO;

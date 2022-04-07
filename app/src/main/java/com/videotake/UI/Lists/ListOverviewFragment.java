@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.LoggedInUserViewModel;
-import com.videotake.Logic.LoginViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoginViewModel;
 import com.videotake.R;
 import com.videotake.UI.Adapters.MovieListOverviewAdapter;
 import com.videotake.databinding.FragmentListOverviewBinding;

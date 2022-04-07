@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.VideoTake">
         <activity
-            android:name=".UI.LoginActivity"
+            android:name=".UI.Login.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.VideoTake.NoActionBar">
             <intent-filter>

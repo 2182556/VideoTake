@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.Lists.ListOverviewFragmentDirections;
 

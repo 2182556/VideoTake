@@ -1,7 +1,7 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Repository;
 
+import com.videotake.DAL.Api.MovieApiDAO;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
 
 import java.util.List;
 import java.util.concurrent.Executor;

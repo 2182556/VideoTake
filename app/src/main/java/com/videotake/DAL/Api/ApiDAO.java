@@ -1,4 +1,4 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Api;
 
 public abstract class ApiDAO {
     public static final String TAG_NAME = ApiDAO.class.getSimpleName();

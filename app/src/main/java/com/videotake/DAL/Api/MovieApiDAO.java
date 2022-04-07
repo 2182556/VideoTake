@@ -1,27 +1,23 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Api;
 
 import android.util.Log;
 
+import com.videotake.DAL.Repository.Result;
 import com.videotake.Domain.Movie;
-import com.videotake.Domain.MovieList;
 import com.videotake.Domain.Review;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ExecutionException;
 
-import okhttp3.MultipartBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
@@ -210,7 +206,7 @@ public class MovieApiDAO extends ApiDAO {
             for (int i = 0; i < videos_json.length(); i++) {
                 JSONObject video = videos_json.getJSONObject(i);
                 if (video.getBoolean("official") && video.getString("type").equals("Trailer")) {
-                    if (video.getString("site").equals("Youtube")) {
+                    if (video.getString("site").equals("YouTube")) {
                         movie.setVideoPath(YOUTUBE_PATH + video.getString("key"));
                         break;
                     } else if (video.getString("site").equals("Vimeo")) {
@@ -225,7 +221,7 @@ public class MovieApiDAO extends ApiDAO {
             for (int i = 0; i < reviews_json.length(); i++) {
                 JSONObject review_json = reviews_json.getJSONObject(i);
                 Review review = new Review(review_json.optString("id"), review_json.optString("author"),
-                        review_json.optString("content"), review_json.optDouble("rating"));
+                        review_json.optString("content"));
                 reviews.add(review);
             }
             movie.setReviews(reviews);
@@ -249,7 +245,7 @@ public class MovieApiDAO extends ApiDAO {
             for (int i = 0; i < videos_json.length(); i++) {
                 JSONObject video = videos_json.getJSONObject(i);
                 if (video.getBoolean("official") && video.getString("type").equals("Trailer")) {
-                    if (video.getString("site").equals("Youtube")) {
+                    if (video.getString("site").equals("YouTube")) {
                         movie.setVideoPath(YOUTUBE_PATH + video.getString("key"));
                         break;
                     } else if (video.getString("site").equals("Vimeo")) {
@@ -264,7 +260,7 @@ public class MovieApiDAO extends ApiDAO {
             for (int i = 0; i < reviews_json.length(); i++) {
                 JSONObject review_json = reviews_json.getJSONObject(i);
                 Review review = new Review(review_json.optString("id"), review_json.optString("author"),
-                        review_json.optString("content"), review_json.optDouble("rating"));
+                        review_json.optString("content"));
                 reviews.add(review);
             }
             movie.setReviews(reviews);

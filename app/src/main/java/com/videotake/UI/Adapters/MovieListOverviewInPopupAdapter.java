@@ -13,7 +13,7 @@ import androidx.lifecycle.LifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.R;
 
 import java.util.List;

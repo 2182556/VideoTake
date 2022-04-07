@@ -12,10 +12,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.Movie;
-import com.videotake.Logic.LoggedInUserViewModel;
-import com.videotake.Logic.LoginViewModel;
+import com.videotake.UI.ViewModels.HomeViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoginViewModel;
 import com.videotake.UI.Adapters.MovieListAdapter;
-import com.videotake.UI.DetailPage.MovieDetailsViewModel;
+import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentSearchBinding;
 
 import java.util.List;

@@ -1,18 +1,17 @@
-package com.videotake.Logic;
+package com.videotake.UI.ViewModels;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.videotake.DAL.RepositoryCallback;
-import com.videotake.DAL.UserApiDAO;
+import com.videotake.DAL.Api.UserApiDAO;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.DAL.UserRepository;
-import com.videotake.DAL.Result;
-import com.videotake.Logic.EmptyResult;
-import com.videotake.Logic.LoginFormState;
+import com.videotake.DAL.Repository.UserRepository;
+import com.videotake.DAL.Repository.Result;
+import com.videotake.DAL.Repository.EmptyResult;
 import com.videotake.R;
+import com.videotake.UI.Login.LoginFormState;
 import com.videotake.VideoTake;
 
 public class LoginViewModel extends ViewModel {

@@ -13,9 +13,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
-import com.videotake.Logic.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.UI.Adapters.MovieListUserAdapter;
-import com.videotake.UI.DetailPage.MovieDetailsViewModel;
+import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentMovieListBinding;
 
 public class MovieListFragment extends Fragment {

@@ -4,14 +4,12 @@ public class Review {
     private String reviewID;
     private String userName;
     private String content;
-    private double rating;
-    private String movieID;
+    private int movieID;
 
-    public Review(String reviewID, String userName, String content, double rating) {
+    public Review(String reviewID, String userName, String content) {
         this.reviewID = reviewID;
         this.userName = userName;
         this.content = content;
-        this.rating = rating;
     }
 
     public String getReviewID() {
@@ -26,7 +24,4 @@ public class Review {
         return content;
     }
 
-    public double getRating() {
-        return rating;
-    }
 }

@@ -27,13 +27,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.videotake.Domain.Movie;
-import com.videotake.Logic.EmptyResult;
-import com.videotake.Logic.LoggedInUserViewModel;
-import com.videotake.Logic.LoginViewModel;
-import com.videotake.Logic.UserViewModel;
+import com.videotake.DAL.Repository.EmptyResult;
+import com.videotake.UI.ViewModels.LoggedInUserViewModel;
+import com.videotake.UI.ViewModels.LoginViewModel;
+import com.videotake.UI.ViewModels.MovieDetailsViewModel;
+import com.videotake.UI.ViewModels.UserViewModel;
 import com.videotake.R;
 import com.videotake.UI.Adapters.ReviewListAdapter;
-import com.videotake.UI.Home.HomeViewModel;
+import com.videotake.UI.ViewModels.HomeViewModel;
 import com.videotake.VideoTake;
 import com.videotake.databinding.FragmentDetailPageBinding;
 

@@ -1,4 +1,4 @@
-package com.videotake.UI;
+package com.videotake.UI.Login;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -22,10 +22,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.videotake.Domain.LoggedInUser;
-import com.videotake.Logic.EmptyResult;
-import com.videotake.Logic.LoginFormState;
-import com.videotake.Logic.LoginViewModel;
+import com.videotake.DAL.Repository.EmptyResult;
 import com.videotake.R;
+import com.videotake.UI.MainActivity;
+import com.videotake.UI.ViewModels.LoginViewModel;
 import com.videotake.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {

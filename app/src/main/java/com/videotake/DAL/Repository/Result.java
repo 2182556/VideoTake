@@ -1,4 +1,4 @@
-package com.videotake.DAL;
+package com.videotake.DAL.Repository;
 
 public class Result<T> {
     // hide the private constructor to limit subclass types (Success, Error)

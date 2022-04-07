@@ -68,7 +68,7 @@
     </fragment>
     <activity
         android:id="@+id/nav_login"
-        android:name="com.videotake.UI.LoginActivity"
+        android:name="com.videotake.UI.Login.LoginActivity"
         android:label="activity_login"
         tools:layout="@layout/activity_login" />
 
