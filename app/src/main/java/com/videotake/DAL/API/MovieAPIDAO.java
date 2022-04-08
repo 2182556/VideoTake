@@ -1,4 +1,4 @@
-package com.videotake.DAL.Api;
+package com.videotake.DAL.API;
 
 import android.util.Log;
 
@@ -21,8 +21,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class MovieApiDAO extends ApiDAO {
-    private static final String TAG_NAME = MovieApiDAO.class.getSimpleName();
+public class MovieAPIDAO extends APIDAO {
+    private static final String TAG_NAME = MovieAPIDAO.class.getSimpleName();
     private static final String YOUTUBE_PATH = "https://www.youtube.com/watch?v=";
     private static final String VIMEO_PATH = "https://vimeo.com/";
     private static final String THEMOVIEDB_URL = "https://www.themoviedb.org/";

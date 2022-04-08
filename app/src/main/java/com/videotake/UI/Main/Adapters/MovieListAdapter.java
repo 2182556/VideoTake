@@ -1,4 +1,4 @@
-package com.videotake.UI.Adapters;
+package com.videotake.UI.Main.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -17,7 +17,7 @@ import com.videotake.Domain.Movie;
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.R;
 import com.videotake.UI.ViewModels.MovieDetailsViewModel;
-import com.videotake.UI.Home.HomeFragmentDirections;
+import com.videotake.UI.Main.Home.HomeFragmentDirections;
 import com.videotake.VideoTake;
 
 import java.util.List;

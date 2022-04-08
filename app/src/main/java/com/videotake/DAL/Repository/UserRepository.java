@@ -1,6 +1,6 @@
 package com.videotake.DAL.Repository;
 
-import com.videotake.DAL.Api.UserApiDAO;
+import com.videotake.DAL.API.UserAPIDAO;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.Domain.MovieList;
@@ -15,19 +15,19 @@ public class UserRepository {
     private static volatile UserRepository instance;
 
     private final Executor executor;
-    private UserApiDAO userDAO;
+    private UserAPIDAO userDAO;
 
     private LoggedInUser loggedInUser = null;
     private GuestUser guestUser = null;
 
     private List<MovieList> userLists;
 
-    private UserRepository(UserApiDAO userDAO, Executor executor) {
+    private UserRepository(UserAPIDAO userDAO, Executor executor) {
         this.executor = executor;
         this.userDAO = userDAO;
     }
 
-    public static UserRepository getInstance(UserApiDAO userDAO, Executor executor) {
+    public static UserRepository getInstance(UserAPIDAO userDAO, Executor executor) {
         if (instance == null) {
             instance = new UserRepository(userDAO,executor);
         }

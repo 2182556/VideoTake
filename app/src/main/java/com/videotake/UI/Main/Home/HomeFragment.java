@@ -1,4 +1,4 @@
-package com.videotake.UI.Home;
+package com.videotake.UI.Main.Home;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,7 +13,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.videotake.R;
-import com.videotake.UI.Adapters.HomeFragmentsAdapter;
+import com.videotake.UI.Main.Adapters.HomeFragmentsAdapter;
 
 public class HomeFragment extends Fragment {
     private final String TAG_NAME = HomeFragment.class.getSimpleName();

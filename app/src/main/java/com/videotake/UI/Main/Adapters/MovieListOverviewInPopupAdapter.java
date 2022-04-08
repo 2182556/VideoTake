@@ -1,4 +1,4 @@
-package com.videotake.UI.Adapters;
+package com.videotake.UI.Main.Adapters;
 
 import android.content.Context;
 import android.util.Log;

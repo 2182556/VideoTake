@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.videotake.DAL.Api.MovieApiDAO;
+import com.videotake.DAL.API.MovieAPIDAO;
 import com.videotake.DAL.Repository.MovieRepository;
 import com.videotake.DAL.Repository.Result;
 import com.videotake.Domain.Movie;
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class MovieDetailsViewModel extends ViewModel {
     private final String TAG_NAME = MovieDetailsViewModel.class.getSimpleName();
-    private MovieApiDAO movieDAO;
+    private MovieAPIDAO movieDAO;
     private final MutableLiveData<EmptyResult> movieByIdResult = new MutableLiveData<>();
     private final MutableLiveData<EmptyResult> movieVideoLinkAndReviewsResult = new MutableLiveData<>();
 
@@ -25,7 +25,7 @@ public class MovieDetailsViewModel extends ViewModel {
     private final Movie getMovieById = null;
 
     public MovieDetailsViewModel() {
-        this.movieRepository = MovieRepository.getInstance(new MovieApiDAO(), VideoTake.executorService);
+        this.movieRepository = MovieRepository.getInstance(new MovieAPIDAO(), VideoTake.executorService);
     }
 
     public void setCurrentList(List<Movie> list) { this.movieRepository.setCurrentList(list); }

@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.videotake.DAL.Repository.Result;
-import com.videotake.DAL.Api.UserApiDAO;
+import com.videotake.DAL.API.UserAPIDAO;
 import com.videotake.DAL.Repository.UserRepository;
 import com.videotake.DAL.Repository.EmptyResult;
 import com.videotake.R;
@@ -17,7 +17,7 @@ public class UserViewModel extends ViewModel {
     private MutableLiveData<EmptyResult> postRatingResult = new MutableLiveData<>();
 
     public UserViewModel() {
-        this.userRepository = UserRepository.getInstance(new UserApiDAO(), VideoTake.executorService);
+        this.userRepository = UserRepository.getInstance(new UserAPIDAO(), VideoTake.executorService);
     }
 
     public LiveData<EmptyResult> getPostRatingResult(){ return this.postRatingResult; }

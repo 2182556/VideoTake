@@ -1,6 +1,6 @@
 package com.videotake.DAL.Repository;
 
-import com.videotake.DAL.Api.MovieApiDAO;
+import com.videotake.DAL.API.MovieAPIDAO;
 import com.videotake.Domain.Movie;
 
 import java.util.List;
@@ -10,7 +10,7 @@ public class MovieRepository {
     private static volatile MovieRepository instance;
 
     private final Executor executor;
-    private MovieApiDAO movieDAO;
+    private MovieAPIDAO movieDAO;
 
     private List<Movie> discoverMovies = null;
     private List<Movie> discoverFilterAndSortMovies = null;
@@ -20,12 +20,12 @@ public class MovieRepository {
 
     private Movie movieById = null;
 
-    private MovieRepository(MovieApiDAO movieDAO, Executor executor) {
+    private MovieRepository(MovieAPIDAO movieDAO, Executor executor) {
         this.executor = executor;
         this.movieDAO = movieDAO;
     }
 
-    public static MovieRepository getInstance(MovieApiDAO movieDAO, Executor executor) {
+    public static MovieRepository getInstance(MovieAPIDAO movieDAO, Executor executor) {
         if (instance == null) {
             instance = new MovieRepository(movieDAO,executor);
         }
@@ -47,7 +47,7 @@ public class MovieRepository {
     public void getDiscoverMovies(final RepositoryCallback<List<Movie>> callback) {
         if (discoverMovies==null){
             executor.execute(() -> {
-                Result<List<Movie>> result = MovieApiDAO.getDiscoverMovies();
+                Result<List<Movie>> result = MovieAPIDAO.getDiscoverMovies();
                 if (result instanceof Result.Success) {
                     List<Movie> movies = ((Result.Success<List<Movie>>) result).getData();
                     if (searchResultMovies==null) setSearchResultMovies(movies);
@@ -71,7 +71,7 @@ public class MovieRepository {
                                                String minRating, String maxRating, String genre,
                                                final RepositoryCallback<List<Movie>> callback) {
         executor.execute(() -> {
-            Result<List<Movie>> result = MovieApiDAO.getMoviesWithFilterAndSort(sortingChoice, adult,
+            Result<List<Movie>> result = MovieAPIDAO.getMoviesWithFilterAndSort(sortingChoice, adult,
                     releaseYear, minRating, maxRating, genre);
             if (result instanceof Result.Success) {
                 setDiscoverFilterAndSortMovies(((Result.Success<List<Movie>>) result).getData());
@@ -86,7 +86,7 @@ public class MovieRepository {
 
     public void getSearchResult(String query, final RepositoryCallback<List<Movie>> callback) {
         executor.execute(() -> {
-            Result<List<Movie>> result = MovieApiDAO.getSearchResult(query);
+            Result<List<Movie>> result = MovieAPIDAO.getSearchResult(query);
             if (result instanceof Result.Success) {
                 setSearchResultMovies(((Result.Success<List<Movie>>) result).getData());
             }
@@ -102,7 +102,7 @@ public class MovieRepository {
 
     public void getMovieById(int id, final RepositoryCallback<Movie> callback){
         executor.execute(() -> {
-            Result<Movie> result = MovieApiDAO.getMovieById(id);
+            Result<Movie> result = MovieAPIDAO.getMovieById(id);
             if (result instanceof Result.Success) {
                 setMovieById(((Result.Success<Movie>) result).getData());
             }
@@ -112,7 +112,7 @@ public class MovieRepository {
 
     public void getVideoLinkAndReviews(Movie movie, final RepositoryCallback<Movie> callback){
         executor.execute(() -> {
-            Result<Movie> result = MovieApiDAO.getVideoLinkAndReviews(movie);
+            Result<Movie> result = MovieAPIDAO.getVideoLinkAndReviews(movie);
             callback.onComplete(result);
         });
     }

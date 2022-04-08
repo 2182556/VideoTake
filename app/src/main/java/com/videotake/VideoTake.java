@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewTreeLifecycleOwner;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
-import com.videotake.UI.Adapters.MovieListOverviewInPopupAdapter;
+import com.videotake.UI.Main.Adapters.MovieListOverviewInPopupAdapter;
 
 import java.util.Objects;
 import java.util.concurrent.ExecutorService;

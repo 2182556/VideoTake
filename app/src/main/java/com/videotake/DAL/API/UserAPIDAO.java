@@ -1,4 +1,4 @@
-package com.videotake.DAL.Api;
+package com.videotake.DAL.API;
 
 import android.util.Log;
 
@@ -22,8 +22,8 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 
-public class UserApiDAO extends ApiDAO {
-    private static final String TAG_NAME = UserApiDAO.class.getSimpleName();
+public class UserAPIDAO extends APIDAO {
+    private static final String TAG_NAME = UserAPIDAO.class.getSimpleName();
     public final String TOKEN_REQUEST = "authentication/token/new";
     public final String VALIDATE_TOKEN = "authentication/token/validate_with_login";
     public final String AUTHENTICATE_SESSION = "authentication/session/new";
@@ -273,7 +273,7 @@ public class UserApiDAO extends ApiDAO {
                         JSONObject list_json = new JSONObject(list_body.string());
                         JSONArray movies_in_list_json  = list_json.getJSONArray("items");
                         List<Movie> movies = new ArrayList<>();
-                        movies.addAll(MovieApiDAO.getListOfMoviesFromJSONArray(movies_in_list_json));
+                        movies.addAll(MovieAPIDAO.getListOfMoviesFromJSONArray(movies_in_list_json));
                         allLists.add(new MovieList(list_json.getString("id"),list_json.getString("name"),list_json.getString("description"), movies));
                     }
                 }

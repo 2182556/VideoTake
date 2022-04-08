@@ -1,7 +1,7 @@
-package com.videotake.DAL.Api;
+package com.videotake.DAL.API;
 
-public abstract class ApiDAO {
-    public static final String TAG_NAME = ApiDAO.class.getSimpleName();
+public abstract class APIDAO {
+    public static final String TAG_NAME = APIDAO.class.getSimpleName();
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
     public static final String API_KEY = "?api_key=5144de6e9e1919536a34c7c1e2736453";
     public static final String SEARCH_MOVIE = "search/movie";

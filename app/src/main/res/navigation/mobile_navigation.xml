@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.videotake.UI.Home.HomeFragment"
+        android:name="com.videotake.UI.Main.Home.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" >
         <fragment
             android:id="@+id/nav_search"
-            android:name="com.videotake.UI.Home.SearchFragment"
+            android:name="com.videotake.UI.Main.Home.SearchFragment"
             android:label="Search" />
         <fragment
             android:id="@+id/nav_discover"
-            android:name="com.videotake.UI.Home.DiscoverFragment"
+            android:name="com.videotake.UI.Main.Home.DiscoverFragment"
             android:label="Discover" />
         <action
             android:id="@+id/action_nav_home_to_movieDetailPageFragment"
@@ -30,7 +30,7 @@
     </fragment>
     <fragment
         android:id="@+id/movieDetailPageFragment"
-        android:name="com.videotake.UI.DetailPage.MovieDetailPageFragment"
+        android:name="com.videotake.UI.Main.DetailPage.MovieDetailPageFragment"
         android:label="{detail_page}"
         tools:layout="@layout/fragment_detail_page" >
         <argument
@@ -43,7 +43,7 @@
 
         <fragment
         android:id="@+id/nav_list_overview"
-        android:name="com.videotake.UI.Lists.ListOverviewFragment"
+        android:name="com.videotake.UI.Main.Lists.ListOverviewFragment"
         android:label="List overview"
         tools:layout="@layout/fragment_list_overview" >
             <action
@@ -53,7 +53,7 @@
 
     <fragment
         android:id="@+id/nav_movie_list"
-        android:name="com.videotake.UI.Lists.MovieListFragment"
+        android:name="com.videotake.UI.Main.Lists.MovieListFragment"
         android:label="@string/movie_list_placeholder"
         tools:layout="@layout/fragment_movie_list">
         <argument

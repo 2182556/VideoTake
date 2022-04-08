@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:layout_margin="15dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".UI.Home.HomeFragment">
+    tools:context=".UI.Main.Home.HomeFragment">
 
     <!--Base CardView-->
     <androidx.cardview.widget.CardView

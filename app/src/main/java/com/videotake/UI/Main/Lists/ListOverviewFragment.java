@@ -1,4 +1,4 @@
-package com.videotake.UI.Lists;
+package com.videotake.UI.Main.Lists;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -23,7 +23,7 @@ import com.videotake.Domain.MovieList;
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.UI.ViewModels.LoginViewModel;
 import com.videotake.R;
-import com.videotake.UI.Adapters.MovieListOverviewAdapter;
+import com.videotake.UI.Main.Adapters.MovieListOverviewAdapter;
 import com.videotake.databinding.FragmentListOverviewBinding;
 
 import java.util.List;

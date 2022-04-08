@@ -1,4 +1,4 @@
-package com.videotake.UI.DetailPage;
+package com.videotake.UI.Main.DetailPage;
 
 import android.content.Context;
 import android.content.Intent;
@@ -33,7 +33,7 @@ import com.videotake.UI.ViewModels.LoginViewModel;
 import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.UI.ViewModels.UserViewModel;
 import com.videotake.R;
-import com.videotake.UI.Adapters.ReviewListAdapter;
+import com.videotake.UI.Main.Adapters.ReviewListAdapter;
 import com.videotake.UI.ViewModels.HomeViewModel;
 import com.videotake.VideoTake;
 import com.videotake.databinding.FragmentDetailPageBinding;

@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.videotake.DAL.Api.UserApiDAO;
+import com.videotake.DAL.API.UserAPIDAO;
 import com.videotake.Domain.GuestUser;
 import com.videotake.Domain.LoggedInUser;
 import com.videotake.DAL.Repository.UserRepository;
@@ -22,7 +22,7 @@ public class LoginViewModel extends ViewModel {
     private UserRepository userRepository;
 
     public LoginViewModel() {
-        this.userRepository = UserRepository.getInstance(new UserApiDAO(), VideoTake.executorService);
+        this.userRepository = UserRepository.getInstance(new UserAPIDAO(), VideoTake.executorService);
     }
 
     public LoggedInUser getLoggedInUser(){

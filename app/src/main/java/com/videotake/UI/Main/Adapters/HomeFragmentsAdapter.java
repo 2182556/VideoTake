@@ -1,6 +1,4 @@
-package com.videotake.UI.Adapters;
-
-import android.os.Bundle;
+package com.videotake.UI.Main.Adapters;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

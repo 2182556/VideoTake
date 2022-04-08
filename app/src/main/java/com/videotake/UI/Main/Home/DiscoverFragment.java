@@ -1,4 +1,4 @@
-package com.videotake.UI.Home;
+package com.videotake.UI.Main.Home;
 
 import android.os.Bundle;
 import android.text.InputFilter;
@@ -16,13 +16,13 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.videotake.DAL.Api.MovieApiDAO;
+import com.videotake.DAL.API.MovieAPIDAO;
 import com.videotake.Domain.Movie;
 import com.videotake.Logic.InputFilterMinMax;
 import com.videotake.UI.ViewModels.HomeViewModel;
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.UI.ViewModels.LoginViewModel;
-import com.videotake.UI.Adapters.MovieListAdapter;
+import com.videotake.UI.Main.Adapters.MovieListAdapter;
 import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentDiscoverBinding;
 
@@ -70,7 +70,7 @@ public class DiscoverFragment extends Fragment {
                 if (result == null) { return; }
                 if (result.getError() == null) {
                     adapter.setData(homeViewModel.getDiscoverMovieList());
-                    String[] genreArray = MovieApiDAO.getGenres();
+                    String[] genreArray = MovieAPIDAO.getGenres();
                     Log.d(TAG_NAME, Arrays.toString(genreArray));
                     ArrayAdapter<String> aaGenre = new ArrayAdapter<>(inflater.getContext(),
                             android.R.layout.simple_spinner_item, genreArray);
@@ -84,11 +84,11 @@ public class DiscoverFragment extends Fragment {
 
         Spinner sortSpinner = binding.sortSpinner;
         ArrayAdapter<String> aaSort = new ArrayAdapter<>(inflater.getContext(),
-                android.R.layout.simple_spinner_item, MovieApiDAO.getSortOptions());
+                android.R.layout.simple_spinner_item, MovieAPIDAO.getSortOptions());
         aaSort.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortSpinner.setAdapter(aaSort);
 
-        String[] genreArray = MovieApiDAO.getGenres();
+        String[] genreArray = MovieAPIDAO.getGenres();
         if (genreArray!=null){
             ArrayAdapter<String> aaGenre = new ArrayAdapter<>(inflater.getContext(),
                     android.R.layout.simple_spinner_item, genreArray);

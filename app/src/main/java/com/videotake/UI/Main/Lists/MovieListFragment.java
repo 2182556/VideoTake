@@ -1,4 +1,4 @@
-package com.videotake.UI.Lists;
+package com.videotake.UI.Main.Lists;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.videotake.Domain.MovieList;
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
-import com.videotake.UI.Adapters.MovieListUserAdapter;
+import com.videotake.UI.Main.Adapters.MovieListUserAdapter;
 import com.videotake.UI.ViewModels.MovieDetailsViewModel;
 import com.videotake.databinding.FragmentMovieListBinding;
 

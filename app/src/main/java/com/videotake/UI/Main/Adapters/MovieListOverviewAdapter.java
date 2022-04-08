@@ -1,4 +1,4 @@
-package com.videotake.UI.Adapters;
+package com.videotake.UI.Main.Adapters;
 
 import android.content.Context;
 import android.util.Log;
@@ -20,7 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.videotake.Domain.MovieList;
 import com.videotake.UI.ViewModels.LoggedInUserViewModel;
 import com.videotake.R;
-import com.videotake.UI.Lists.ListOverviewFragmentDirections;
+import com.videotake.UI.Main.Lists.ListOverviewFragmentDirections;
 
 import java.util.List;
 import java.util.Objects;
